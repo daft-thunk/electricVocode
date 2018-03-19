@@ -2,9 +2,9 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import "~font-awesome/css/font-awesome.css";
+/* @import "~font-awesome/css/font-awesome.css";
 
-body {
+ body {
   position: relative;
   color: white;
   height: 100vh;
@@ -36,8 +36,43 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+} */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  padding: 8px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.flex {
+  display: flex;
+}
+
+.react-codemirror2 {
+  text-align: left;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

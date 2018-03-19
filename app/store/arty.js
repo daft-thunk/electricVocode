@@ -1,5 +1,5 @@
 import axios from 'axios'
-import interpreter from '../../utils/interpreter'
+import interpreter from '../utils/interpreter'
 const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});

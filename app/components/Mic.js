@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Recorder from '../../public/recorder.js';
+import Recorder from '../public/recorder.js';
 import axios from 'axios';
-import store, { addOutputThunk } from '../store';
+import store from '../store';
+import {addOutputThunk} from '../store/arty.js'
 
 export default class Mic extends Component {
   constructor(props) {

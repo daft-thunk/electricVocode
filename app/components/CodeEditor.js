@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { connect } from 'react-redux';
 
-require('codemirror/lib/codemirror.css');
-require('codemirror/theme/material.css');
-require('codemirror/theme/neat.css');
+// require('codemirror/lib/codemirror.css');
+// require('codemirror/theme/material.css');
+// require('codemirror/theme/neat.css');
 
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
+// require('codemirror/mode/xml/xml');
+// require('codemirror/mode/javascript/javascript');
 
 export class CodeEditor extends Component {
   constructor(props) {
