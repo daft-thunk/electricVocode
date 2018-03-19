@@ -76,3 +76,9 @@ a {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* .CodeMirror-sizer {
+  position: relative;
+  border-right: 30px solid transparent;
+  margin-left: 35px !important;
+} */
