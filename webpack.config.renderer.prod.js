@@ -30,7 +30,7 @@ export default merge.smart(baseConfig, {
     rules: [
       // Extract all .global.css to style.css as is
       {
-        test: /\.global\.css$/,
+        test: /\.css$/,
         use: ExtractTextPlugin.extract({
           publicPath: './',
           use: {
@@ -44,7 +44,7 @@ export default merge.smart(baseConfig, {
       },
       // Pipe other styles through css modules and append to style.css
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /\*\.css$/,
         use: ExtractTextPlugin.extract({
           use: {
             loader: 'css-loader',

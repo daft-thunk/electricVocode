@@ -70,7 +70,7 @@ export default merge.smart(baseConfig, {
         }
       },
       {
-        test: /.css$/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader'
