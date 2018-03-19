@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 //import Root from './containers/Root';
-import {Main} from './components/'
+import {MainDF} from './components/'
 import './app.global.css';
 // import './src/index.css';
 import App from './components/App';
