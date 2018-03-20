@@ -13,7 +13,7 @@
 import electron, { app, BrowserWindow, globalShortcut, clipboard } from 'electron';
 import MenuBuilder from './menu';
 import interpreter from './utils/interpreter'
-import addOutput from './store/arty'
+import addOutput from './store/decoder'
 import store from './store'
 
 let mainWindow = null;
@@ -84,11 +84,11 @@ app.on('ready', async () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    globalShortcut.unregisterAll()
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
-
-  globalShortcut.register('Alt+x', () => mainWindow.show())
 });
+

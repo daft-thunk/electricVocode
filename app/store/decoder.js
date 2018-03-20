@@ -1,5 +1,7 @@
 import axios from 'axios'
 import interpreter from '../utils/interpreter'
+import { clipboard } from 'electron'
+import { cmdOutput } from './commands'
 const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});
@@ -10,14 +12,23 @@ export const addOutputThunk = (base64data) => {
       config: {
        encoding: 'LINEAR16',
        sampleRateHertz: 44100,
-       languageCode: 'en-US'
+       languageCode: 'en-US',
+       speechContexts: {
+        phrases: []
+      }
      },
      audio: {
        content: base64data
      }
   }).then(res => {
     console.log(res.data)
-    dispatch(addOutput(interpreter(res.data.results[0].alternatives[0].transcript)))
+    const parsed = res.data.results[0].alternatives[0].transcript
+    const interpreted = interpreter(parsed);
+    if (interpreted) {
+      clipboard.writeText(interpreted)
+      dispatch(addOutput(interpreted))
+    }
+    dispatch(cmdOutput(parsed))
   })
   }
 }

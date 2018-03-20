@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { connect } from 'react-redux';
-
-// require('codemirror/lib/codemirror.css');
-// require('codemirror/theme/material.css');
-// require('codemirror/theme/neat.css');
-
-// require('codemirror/mode/xml/xml');
-// require('codemirror/mode/javascript/javascript');
+import FileSystem from './FileSystem';
 
 export class CodeEditor extends Component {
   constructor(props) {
@@ -22,10 +16,11 @@ export class CodeEditor extends Component {
     this.getCursorPosition = this.getCursorPosition.bind(this);
     this.setCursorPosition = this.setCursorPosition.bind(this);
     this.setCursorPositionToState = this.setCursorPositionToState.bind(this);
+    this.loadFile = this.loadFile.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props)
+    console.log(this.props);
     if (this.props.output.length < nextProps.output.length) {
       // this.setState({ newCommand: true });
       const output = nextProps.output;
@@ -39,9 +34,26 @@ export class CodeEditor extends Component {
     }
   }
 
+  loadFile(event) {
+    const loaded = (evt) => {
+      let fileString = evt.target.result;
+      this.setState({value: fileString});
+      console.log(fileString);
+    };
+
+    const file = event.target.files[0];
+    console.log('----Attempt to Load---+=++===+++', file);
+    let reader = new FileReader();
+
+    reader.onload = loaded;
+    reader.readAsText(file, 'UTF-8');
+
+
+  }
+
   getTextAroundCursor(state) {
-    console.log('props', this.props)
-    console.log('state', state)
+    console.log('props', this.props);
+    console.log('state', state);
     const { cursor } = state;
     const arr = state.value.split('\n');
     const targetLine = arr[cursor.line];
@@ -71,10 +83,8 @@ export class CodeEditor extends Component {
   getCurrentValue() {
     const { output } = this.props;
     if (!output || !output.length || !this.state.newCommand) {
-      console.log('VALUE', this.state.value, output);
       return this.state.value;
     }
-    console.log('VALUE / NEW COMMAND', this.state.value, output);
     // this.setState({newCommand: false})
     // const newText = this.state.value + output[output.length - 1]
 
@@ -96,6 +106,7 @@ export class CodeEditor extends Component {
       autofocus: true
     };
     return (
+      <div>
       <CodeMirror
         ref={codemirror => {
           this.codemirror = codemirror;
@@ -104,7 +115,6 @@ export class CodeEditor extends Component {
         options={options}
         onCursorActivity={evt => {
           // console.log('CODEMIRROR',this.codemirror)
-          console.log('CURSOR MOVED:', this.getCursorPosition());
           // console.log(evt)
           Promise.resolve(
             this.setCursorPositionToState(this.getCursorPosition())
@@ -128,12 +138,14 @@ export class CodeEditor extends Component {
           // })
         }}
       />
+      <FileSystem text={this.state.value} loadFile={this.loadFile} />
+      </div>
     );
   }
 }
 
 const mapState = state => ({
-  output: state.arty
+  output: state.decoder
 });
 
 export default connect(mapState)(CodeEditor);
