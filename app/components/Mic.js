@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import Recorder from '../public/recorder.js';
 import axios from 'axios';
 import store from '../store';
-import {addOutputThunk} from '../store/arty.js'
+import {addOutputThunk} from '../store/decoder.js'
 import electron from 'electron'
+import { dictionary } from '../utils/interpreter'
 
-export default class Mic extends Component {
+class Mic extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -37,6 +38,15 @@ export default class Mic extends Component {
     this.state.recorder.clear()
   }
 
+  parseCommand(input){
+    const words = input.split(' ')
+    const parsed = words.map(word =>{
+      if (dictionary[word]) return `▵${word}▵`
+      else return word
+    })
+    return parsed
+  }
+
   startUserMedia(stream) {
     let input = this.state.audio_context.createMediaStreamSource(stream);
 
@@ -44,7 +54,11 @@ export default class Mic extends Component {
       electron.remote.globalShortcut.register('Alt+z', () => {
         console.log('recording')
         this.state.recorder.record()
+        setTimeout(()=>{
+          this.stopRecording()
+        }, 2000)
       });
+      //can force stop
       electron.remote.globalShortcut.register('Alt+a', () =>{
         (console.log('stopping'))
         this.stopRecording()
@@ -72,14 +86,17 @@ export default class Mic extends Component {
   }
 
   render() {
+      const parsedCommands = this.props.commands.map(this.parseCommand)
     return (
       <div>
-        <h1>Hello Mic</h1>
-        <button onClick={() => this.state.recorder.record()}>Start</button>
-        <button onClick={() => this.stopRecording()}>Stop</button>
+        {parsedCommands.map(command => <h3 key={command.join(' ')}> {command.join(' ')} </h3>)}
       </div>
     )
   }
 }
 
+const mapProps = state => ({
+  commands: state.commands
+})
 
+export default connect(mapProps)(Mic);

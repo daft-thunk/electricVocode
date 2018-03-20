@@ -376,7 +376,7 @@ exports.CodeEditor = CodeEditor;
 
 var mapState = function mapState(state) {
   return {
-    output: state.arty
+    output: state.decoder
   };
 };
 
@@ -595,9 +595,9 @@ _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
 
 /***/ }),
 
-/***/ "./client/store/arty.js":
+/***/ "./client/store/decoder.js":
 /*!******************************!*\
-  !*** ./client/store/arty.js ***!
+  !*** ./client/store/decoder.js ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -695,15 +695,15 @@ var _reduxThunk = _interopRequireDefault(__webpack_require__(/*! redux-thunk */ 
 
 var _reduxDevtoolsExtension = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 
-var _arty = _interopRequireDefault(__webpack_require__(/*! ./arty */ "./client/store/arty.js"));
+var _decoder = _interopRequireDefault(__webpack_require__(/*! ./decoder */ "./client/store/decoder.js"));
 
-Object.keys(_arty).forEach(function (key) {
+Object.keys(_decoder).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
-      return _arty[key];
+      return _decoder[key];
     }
   });
 });
@@ -711,7 +711,7 @@ Object.keys(_arty).forEach(function (key) {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducer = (0, _redux.combineReducers)({
-  arty: _arty.default
+  decoder: _decoder.default
 });
 var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk.default, (0, _reduxLogger.createLogger)({
   collapsed: true
@@ -12550,7 +12550,7 @@ function Display(place, doc, input) {
   d.maxLineChanged = false;
 
   // Used for measuring wheel scrolling granularity
-  d.wheelDX = d.wheelDY = d.wheelStartX = d.wheelStartY = null;
+  d.wheelDX = d.wheelDY = d.wheelStartX = d.wheelStdecoder = null;
 
   // True when shift is held down.
   d.shift = false;
@@ -13128,7 +13128,7 @@ var bidiOrdering = (function() {
   var lowTypes = "bbbbbbbbbtstwsbbbbbbbbbbbbbbssstwNN%%%NNNNNN,N,N1111111111NNNNNNNLLLLLLLLLLLLLLLLLLLLLLLLLLNNNNNNLLLLLLLLLLLLLLLLLLLLLLLLLLNNNNbbbbbbsbbbbbbbbbbbbbbbbbbbbbbbbbb,N%%%%NNNNLNNNNN%%11NLNNN1LNNNNNLLLLLLLLLLLLLLLLLLLLLLLNLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLN";
   // Character types for codepoints 0x600 to 0x6f9
   var arabicTypes = "nnnnnnNNr%%r,rNNmmmmmmmmmmmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmmmmmmmmmmmmmmmmmnnnnnnnnnn%nnrrrmrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmmmmmmmnNmmmmmmrrmmNmmmmrr1111111111";
-  function charType(code) {
+  function chdecoderpe(code) {
     if (code <= 0xf7) { return lowTypes.charAt(code) }
     else if (0x590 <= code && code <= 0x5f4) { return "R" }
     else if (0x600 <= code && code <= 0x6f9) { return arabicTypes.charAt(code - 0x600) }
@@ -13152,7 +13152,7 @@ var bidiOrdering = (function() {
     if (str.length == 0 || direction == "ltr" && !bidiRE.test(str)) { return false }
     var len = str.length, types = [];
     for (var i = 0; i < len; ++i)
-      { types.push(charType(str.charCodeAt(i))); }
+      { types.push(chdecoderpe(str.charCodeAt(i))); }
 
     // W1. Examine each non-spacing mark (NSM) in the level run, and
     // change the type of the NSM to the type of the previous
@@ -15995,7 +15995,7 @@ function endOperation_finish(op) {
 
   // Abort mouse wheel delta measurement, when scrolling explicitly
   if (display.wheelStartX != null && (op.scrollTop != null || op.scrollLeft != null || op.scrollToPos))
-    { display.wheelStartX = display.wheelStartY = null; }
+    { display.wheelStartX = display.wheelStdecoder = null; }
 
   // Propagate the scroll position to the actual DOM scroller
   if (op.scrollTop != null) { setScrollTop(cm, op.scrollTop, op.forceScroll); }
@@ -16625,15 +16625,15 @@ function onScrollWheel(cm, e) {
 
   if (wheelSamples < 20) {
     if (display.wheelStartX == null) {
-      display.wheelStartX = scroll.scrollLeft; display.wheelStartY = scroll.scrollTop;
+      display.wheelStartX = scroll.scrollLeft; display.wheelStdecoder = scroll.scrollTop;
       display.wheelDX = dx; display.wheelDY = dy;
       setTimeout(function () {
         if (display.wheelStartX == null) { return }
         var movedX = scroll.scrollLeft - display.wheelStartX;
-        var movedY = scroll.scrollTop - display.wheelStartY;
+        var movedY = scroll.scrollTop - display.wheelStdecoder;
         var sample = (movedY && display.wheelDY && movedY / display.wheelDY) ||
           (movedX && display.wheelDX && movedX / display.wheelDX);
-        display.wheelStartX = display.wheelStartY = null;
+        display.wheelStartX = display.wheelStdecoder = null;
         if (!sample) { return }
         wheelPixelsPerUnit = (wheelPixelsPerUnit * wheelSamples + sample) / (wheelSamples + 1);
         ++wheelSamples;
@@ -23601,7 +23601,7 @@ module.exports = camelizeStyleName;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
 var isTextNode = __webpack_require__(/*! ./isTextNode */ "./node_modules/fbjs/lib/isTextNode.js");
@@ -23649,7 +23649,7 @@ module.exports = containsNode;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
 function makeEmptyFunction(arg) {
@@ -24023,7 +24023,7 @@ module.exports = isTextNode;
  * LICENSE file in the root directory of this source tree.
  *
  * @typechecks
- * 
+ *
  */
 
 /*eslint-disable no-self-compare */
@@ -24173,7 +24173,7 @@ module.exports = warning;
     undefined;
 }(this, (function () {
     'use strict';
-    
+
     var REACT_STATICS = {
         childContextTypes: true,
         contextTypes: true,
@@ -24185,7 +24185,7 @@ module.exports = warning;
         propTypes: true,
         type: true
     };
-    
+
     var KNOWN_STATICS = {
         name: true,
         length: true,
@@ -24195,30 +24195,30 @@ module.exports = warning;
         arguments: true,
         arity: true
     };
-    
+
     var defineProperty = Object.defineProperty;
     var getOwnPropertyNames = Object.getOwnPropertyNames;
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     var getPrototypeOf = Object.getPrototypeOf;
     var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-    
+
     return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
         if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-            
+
             if (objectPrototype) {
                 var inheritedComponent = getPrototypeOf(sourceComponent);
                 if (inheritedComponent && inheritedComponent !== objectPrototype) {
                     hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
                 }
             }
-            
+
             var keys = getOwnPropertyNames(sourceComponent);
-            
+
             if (getOwnPropertySymbols) {
                 keys = keys.concat(getOwnPropertySymbols(sourceComponent));
             }
-            
+
             for (var i = 0; i < keys.length; ++i) {
                 var key = keys[i];
                 if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
@@ -24228,10 +24228,10 @@ module.exports = warning;
                     } catch (e) {}
                 }
             }
-            
+
             return targetComponent;
         }
-        
+
         return targetComponent;
     };
 })));
@@ -25254,7 +25254,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
               'You are manually calling a React.PropTypes validation ' +
               'function for the `%s` prop on `%s`. This is deprecated ' +
               'and will throw in the standalone `prop-types` package. ' +
-              'You may be seeing this warning due to a third-party PropTypes ' +
+              'You may be seeing this warning due to a third-pdecoder PropTypes ' +
               'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
               propFullName,
               componentName
@@ -28571,7 +28571,7 @@ var ReactControlledComponent = Object.freeze({
 });
 
 // Used as a way to call batchedUpdates when we don't have a reference to
-// the renderer. Such as when we're dispatching events or if third party
+// the renderer. Such as when we're dispatching events or if third pdecoder
 // libraries need to call batchedUpdates. Eventually, this API will go away when
 // everything is batched by default. We'll then have a similar API to opt-out of
 // scheduled work and instead do synchronous work.
@@ -31840,7 +31840,7 @@ var AsyncUpdates = 1;
   try {
     var nonExtensibleObject = Object.preventExtensions({});
     /* eslint-disable no-new */
-    
+
     /* eslint-enable no-new */
   } catch (e) {
     // TODO: Consider warning about bad polyfills
@@ -37970,7 +37970,7 @@ function setValueForProperty(node, name, value) {
   }
 
   {
-    
+
   }
 }
 
@@ -37985,7 +37985,7 @@ function setValueForAttribute(node, name, value) {
   }
 
   {
-    
+
   }
 }
 
@@ -41457,7 +41457,7 @@ function renderSubtreeIntoContainer(parentComponent, children, container, forceH
 
     warning(!hasNonRootReactChild || isRootRenderedBySomeReact, 'render(...): Replacing React-rendered children with a new root ' + 'component. If you intended to update the children of this node, ' + 'you should instead have the existing children update their state ' + 'and render the new components instead of calling ReactDOM.render.');
 
-    warning(container.nodeType !== ELEMENT_NODE || !container.tagName || container.tagName.toUpperCase() !== 'BODY', 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-party ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a container element created ' + 'for your app.');
+    warning(container.nodeType !== ELEMENT_NODE || !container.tagName || container.tagName.toUpperCase() !== 'BODY', 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-pdecoder ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a container element created ' + 'for your app.');
   }
 
   var root = container._reactRootContainer;
@@ -42138,7 +42138,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-  
+
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 
@@ -42534,7 +42534,7 @@ function wrapMapToPropsConstant(getConstant) {
 // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
 // to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
 // whether mapToProps needs to be invoked when props have changed.
-// 
+//
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
@@ -42544,16 +42544,16 @@ function getDependsOnOwnProps(mapToProps) {
 
 // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
 // this function wraps mapToProps in a proxy function which does several things:
-// 
+//
 //  * Detects whether the mapToProps function being called depends on props, which
 //    is used by selectorFactory to decide if it should reinvoke on props changes.
-//    
+//
 //  * On first call, handles mapToProps if returns another function, and treats that
 //    new function as the true mapToProps for subsequent calls.
-//    
+//
 //  * On first call, verifies the first result is a plain object, in order to warn
 //    the developer that their mapToProps function is not returning a valid result.
-//    
+//
 function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, _ref) {
     var displayName = _ref.displayName;
@@ -44671,7 +44671,7 @@ var ActionTypes = {
    * an object with the same shape as `combineReducers` keys.
    *
    * @param {Function} [enhancer] The store enhancer. You may optionally specify it
-   * to enhance the store with third-party capabilities such as middleware,
+   * to enhance the store with third-pdecoder capabilities such as middleware,
    * time travel, persistence, etc. The only store enhancer that ships with Redux
    * is `applyMiddleware()`.
    *
