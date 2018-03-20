@@ -16,11 +16,11 @@ require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 
 ReactDOM.render(
-  <AppContainer>
-    <Provider store={store}>
+  <Provider store={store}>
+    <AppContainer>
       <App />
-    </Provider>
-  </AppContainer>,
+    </AppContainer>
+  </Provider>,
   document.getElementById('root')
 );
 

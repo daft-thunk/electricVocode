@@ -4,6 +4,7 @@ import Recorder from '../public/recorder.js';
 import axios from 'axios';
 import store from '../store';
 import {addOutputThunk} from '../store/arty.js'
+import electron from 'electron'
 
 export default class Mic extends Component {
   constructor(props) {
@@ -39,7 +40,11 @@ export default class Mic extends Component {
   startUserMedia(stream) {
     let input = this.state.audio_context.createMediaStreamSource(stream);
 
-    this.setState({recorder: new Recorder(input)});
+    this.setState({recorder: new Recorder(input)}, () => {
+      electron.remote.globalShortcut.register('Alt+z', () => {
+        store.dispatch({type: 'add', snippet: 'hello'})
+      });
+    })
   }
 
   componentDidMount() {
@@ -59,11 +64,9 @@ export default class Mic extends Component {
     } catch (e) {
       alert('No web audio support in this browser!');
     }
-
   }
 
   render() {
-    console.log(this.state.recorder);
     return (
       <div>
         <h1>Hello Mic</h1>
@@ -73,3 +76,5 @@ export default class Mic extends Component {
     )
   }
 }
+
+

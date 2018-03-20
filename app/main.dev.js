@@ -10,8 +10,11 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import electron, { app, BrowserWindow, globalShortcut, clipboard } from 'electron';
 import MenuBuilder from './menu';
+import interpreter from './utils/interpreter'
+import addOutput from './store/arty'
+import store from './store'
 
 let mainWindow = null;
 
@@ -77,10 +80,15 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
+
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+
+  globalShortcut.register('Alt+x', () => mainWindow.show())
 });
