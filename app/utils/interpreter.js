@@ -19,7 +19,6 @@ const commands = {
 }
 
 const interpreter = (speech) => {
-
   let commandWords = speech.split(' ').filter(word => commands[word] !== undefined)
   let currCommand;
   // while (commandWords.length) {
