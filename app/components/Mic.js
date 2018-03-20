@@ -54,9 +54,11 @@ class Mic extends Component {
       electron.remote.globalShortcut.register('Alt+z', () => {
         console.log('recording')
         this.state.recorder.record()
+        electron.ipcRenderer.send('startRecording')
         setTimeout(()=>{
           this.stopRecording()
-        }, 2000)
+          electron.ipcRenderer.send('stopRecording')
+        }, 4000)
       });
       //can force stop
       electron.remote.globalShortcut.register('Alt+a', () =>{

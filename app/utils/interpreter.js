@@ -1,4 +1,5 @@
 import { component, store, reducer, express } from './templates'
+import electron from 'electron'
 
 export const dictionary = {
   'while': () => {
@@ -25,8 +26,14 @@ const interpreter = (speech) => {
   let currCommand;
   // while (commandWords.length) {
     currCommand = commandWords.shift();
-    if (dictionary[currCommand]) return dictionary[currCommand](speech);
-    else console.error(`Command ${speech} not recognized`)
+    if (dictionary[currCommand]){
+      electron.ipcRenderer.send('successCommand', currCommand)
+      return dictionary[currCommand](speech);
+    }
+    else{
+      electron.ipcRenderer.send('failCommand', 'command not found')
+      console.error(`Command ${speech} not recognized`)
+    }
   // }
 }
 
