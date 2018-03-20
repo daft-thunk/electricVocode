@@ -42,8 +42,13 @@ export default class Mic extends Component {
 
     this.setState({recorder: new Recorder(input)}, () => {
       electron.remote.globalShortcut.register('Alt+z', () => {
-        store.dispatch({type: 'add', snippet: 'hello'})
+        console.log('recording')
+        this.state.recorder.record()
       });
+      electron.remote.globalShortcut.register('Alt+a', () =>{
+        (console.log('stopping'))
+        this.stopRecording()
+      })
     })
   }
 
