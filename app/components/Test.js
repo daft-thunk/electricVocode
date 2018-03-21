@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 class Test extends Component {
   render() {
-    // console.log(this.props.output)
+    console.log('hi')
     return (
       <div className="App">
         <h1>You are on Test</h1>

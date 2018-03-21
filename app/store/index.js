@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import decoder from './decoder';
 import commands from './commands'
 import { routerReducer as router, routerMiddleware, routerActions } from 'react-router-redux';
+
 import thunk from 'redux-thunk'
 import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
 
 const reducer = combineReducers({decoder, commands, router});
 const history = createMemoryHistory();
+
 //const routerMiddle = routerMiddleware(history);
 // const middleware = composeWithDevTools(applyMiddleware(
 //   thunkMiddleware,
@@ -18,7 +20,7 @@ const history = createMemoryHistory();
 // ));
 // const store = createStore(reducer, middleware);
 
-const configureStore = () => {
+const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -60,7 +62,7 @@ const configureStore = () => {
   enhancers.push(applyMiddleware(...middleware));
   const enhancer = composeEnhancers(...enhancers);
 
-  const store = createStore(reducer, enhancer);
+  const store = createStore(reducer, initialState, enhancer);
 
   // if (module.hot) {
   //   module.hot.accept('../reducers', () =>
