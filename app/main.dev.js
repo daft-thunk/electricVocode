@@ -15,6 +15,7 @@ import MenuBuilder from './menu';
 import interpreter from './utils/interpreter'
 import addOutput from './store/decoder'
 import store from './store'
+import path from 'path'
 
 let mainWindow = null;
 let tray = null;
@@ -62,12 +63,12 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  tray = new Tray('/Users/josh/Desktop/electricVocode/app/public/images/triangle-blue.png')
+  tray = new Tray(path.join(__dirname,'.', 'public/images/triangle-blue.png'))
   ipcMain.on('startRecording', () => {
-    tray.setImage('/Users/josh/Desktop/electricVocode/app/public/images/triangle-red.png')
+    tray.setImage(path.join(__dirname,'.', 'public/images/triangle-red.png'))
   })
   ipcMain.on('stopRecording', () => {
-    tray.setImage('/Users/josh/Desktop/electricVocode/app/public/images/triangle-blue.png')
+    tray.setImage(path.join(__dirname,'.', 'public/images/triangle-blue.png'))
   })
   ipcMain.on('successCommand', (e, info) => {
     tray.setTitle(info)
@@ -97,8 +98,8 @@ app.on('ready', async () => {
 
 
   mainWindow.on('closed', () => {
-    // mainWindow = null;
-    // globalShortcut.unregisterAll()
+    mainWindow = null;
+    globalShortcut.unregisterAll()
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
