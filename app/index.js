@@ -16,10 +16,10 @@ require('codemirror/mode/javascript/javascript');
 
 const store = configureStore();
 
-ReactDOM.render(
-    <Provider store={store}>
-      <Root history={history} />
-    </Provider>,
+render(
+    <AppContainer>
+      <Root store={store} history={history} />
+    </AppContainer>,
   document.getElementById('root')
 );
 

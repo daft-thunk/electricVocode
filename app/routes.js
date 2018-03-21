@@ -9,8 +9,8 @@ import AppContainer from './containers/App'
 export default () => (
   <AppContainer>
     <Switch>
+      <Route path="/test" component={Test} />
       <Route path="/" component={App} />
-      <Route exact path="/test" component={Test} />
     </Switch>
   </AppContainer>
 );
