@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {CodeEditor, Mic} from '.';
+import { Link, withRouter } from 'react-router-dom';
 
-/*eslint-disable react/prefer-stateless-function*/
 class Test extends Component {
   render() {
     // console.log(this.props.output)
@@ -18,4 +18,4 @@ const mapState = state => ({
 
 });
 
-export default connect(mapState)(Test);
+export default withRouter(connect(mapState)(Test));

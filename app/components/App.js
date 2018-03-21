@@ -32,4 +32,4 @@ const mapState = state => ({
 
 });
 
-export default withRouter(connect(mapState)(App));
+export default connect(mapState)(App);
