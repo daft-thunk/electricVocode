@@ -12,14 +12,6 @@ import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'hi
 const reducer = combineReducers({decoder, commands, router});
 const history = createMemoryHistory();
 
-//const routerMiddle = routerMiddleware(history);
-// const middleware = composeWithDevTools(applyMiddleware(
-//   thunkMiddleware,
-//   routerMiddle,
-//   createLogger({collapsed: true})
-// ));
-// const store = createStore(reducer, middleware);
-
 const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
   const middleware = [];
@@ -63,11 +55,6 @@ const configureStore = (initialState?: counterStateType) => {
   const enhancer = composeEnhancers(...enhancers);
 
   const store = createStore(reducer, initialState, enhancer);
-
-  // if (module.hot) {
-  //   module.hot.accept('../reducers', () =>
-  //     store.replaceReducer(require('../reducers'))); // eslint-disable-line global-require
-  // }
 
   return store;
 }
