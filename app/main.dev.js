@@ -97,8 +97,8 @@ app.on('ready', async () => {
 
 
   mainWindow.on('closed', () => {
-    mainWindow = null;
-    globalShortcut.unregisterAll()
+    // mainWindow = null;
+    // globalShortcut.unregisterAll()
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
