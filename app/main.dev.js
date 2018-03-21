@@ -10,14 +10,14 @@
  *
  * @flow
  */
-import electron, { app, BrowserWindow, globalShortcut, clipboard } from 'electron';
+import electron, { app, BrowserWindow, globalShortcut, clipboard, Tray, ipcMain } from 'electron';
 import MenuBuilder from './menu';
 import interpreter from './utils/interpreter'
 import addOutput from './store/decoder'
 import store from './store'
 
 let mainWindow = null;
-
+let tray = null;
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -62,6 +62,20 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  tray = new Tray('/Users/josh/Desktop/electricVocode/app/public/images/triangle-blue.png')
+  ipcMain.on('startRecording', () => {
+    tray.setImage('/Users/josh/Desktop/electricVocode/app/public/images/triangle-red.png')
+  })
+  ipcMain.on('stopRecording', () => {
+    tray.setImage('/Users/josh/Desktop/electricVocode/app/public/images/triangle-blue.png')
+  })
+  ipcMain.on('successCommand', (e, info) => {
+    tray.setTitle(info)
+  })
+  ipcMain.on('failCommand', (e, info) => {
+    tray.setTitle(info)
+  })
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
@@ -83,12 +97,13 @@ app.on('ready', async () => {
 
 
   mainWindow.on('closed', () => {
-    mainWindow = null;
-    globalShortcut.unregisterAll()
+    // mainWindow = null;
+    // globalShortcut.unregisterAll()
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
 });
+
 
