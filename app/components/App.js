@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {CodeEditor, Mic} from '.';
+import {CodeEditor, Mic, Test} from '.';
+import { Link, withRouter } from 'react-router-dom';
+
 
 /*eslint-disable react/prefer-stateless-function*/
 class App extends Component {
@@ -15,9 +17,10 @@ class App extends Component {
         <div className="flex">
           <div style={{flex: 3}}>
             <CodeEditor />
+            <Link to="/test">Link To Test</Link>
           </div>
           <div style={{flex: 1}}>
-          <Mic />
+            <Mic />
           </div>
         </div>
       </div>
@@ -29,4 +32,4 @@ const mapState = state => ({
 
 });
 
-export default connect(mapState)(App);
+export default withRouter(connect(mapState)(App));

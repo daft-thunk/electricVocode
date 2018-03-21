@@ -1,12 +1,13 @@
-/* eslint flowtype-errors/show-errors: 0 */
+
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import {Main, App} from './components';
+import {Main, Test, App} from './components';
+import HomePage from './containers/HomePage';
+// import App from './containers/App'
 
 export default () => (
-  <App>
     <Switch>
-      <Route path="/" component={Main} />
+      <Route path="/" component={App} />
+      <Route path="/test" component={Test} />
     </Switch>
-  </App>
 );
