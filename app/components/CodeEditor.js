@@ -3,6 +3,15 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import { connect } from 'react-redux';
 import FileSystem from './FileSystem';
 
+// these are now being imported in the global css file:
+// require('codemirror/lib/codemirror.css');
+// require('codemirror/theme/material.css');
+// require('codemirror/theme/neat.css');
+
+// codemirror formatting (js files)
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/javascript/javascript');
+
 export class CodeEditor extends Component {
   constructor(props) {
     super(props);
