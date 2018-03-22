@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 /**
  * SMART COMPONENT
  */
-class SmartComponent extends Component() {
+class SmartComponent extends Component {
   constructor(props){
     super(props)
   }
@@ -30,7 +30,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return { }
 }
 
-export default connect(mapState)(SmartComponent)
+export default connect(mapState, mapDispatch)(SmartComponent)
 `;
 
 export default Component
