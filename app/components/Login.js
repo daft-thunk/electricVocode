@@ -1,42 +1,58 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {auth} from '../store';
-import { Button } from 'antd';
+import { auth } from '../store/user';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
+const FormItem = Form.Item;
 
 /**
  * COMPONENT
  */
-const LoginForm = (props) => {
-  //const {name, displayName, handleSubmit, error} = props;
+class LoginForm extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <div id="formContainer">
-      <div id="authForm">
-        <div id="authImage">
-          <img src="https://www.freelogoservices.com/api/main/images/1j+ojl1FOMkX9WypfBe43D6kivaErxNNmhzEwXs1M3EMoAJtlSIthPdj...P09" />
-        </div>
-        <form /*onSubmit={handleSubmit}*/ name="name">
-          <div id="form-inputs">
-            <div className="inputs">
-              <input name="email" placeholder="Email" type="text" />
-            </div>
-            <div className="inputs">
-              <input name="password" placeholder="Password" type="password" />
-            </div>
-            <div className="inputs">
-              <Button type="submit" fluid color="instagram" > displayName </Button>
-            </div>
-            <div className="inputs">
-              {/*<Button href="/auth/google" fluid color="google plus" >{displayName} with Google</Button>*/}
-            </div>
-            {/*error && error.response && <div> {error.response.data} </div>*/}
-          </div>
-        </form>
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const { handleSubmit, name, displayName } = this.props;
+    console.log(auth)
+    return (
+      <div>
+      <Form onSubmit={handleSubmit} name={name} className="login-form">
+        <FormItem>
+          {getFieldDecorator('userName', {
+            rules: [{ required: true, message: 'Please input your username!' }],
+          })(
+            <Input name="email" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(
+            <Input name="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('remember', {
+            valuePropName: 'checked',
+            initialValue: true,
+          })(
+            <Checkbox>Remember me</Checkbox>
+          )}
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            {displayName}
+      </Button>
+          {displayName === "Login" ? <Link to="/signup">New? Register now!</Link> : <Link to="/">Have an account? Sign in here!</Link>}
+        </FormItem>
+        <Link to="/main"><Button type="primary" className="guest-btn">Continue as Guest</Button></Link>
+      </Form>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 /**
  * CONTAINER
@@ -47,34 +63,34 @@ const LoginForm = (props) => {
  */
 const mapLogin = (state) => {
   return {
-    // name: 'login',
-    // displayName: 'Login',
-    // error: state.user.error
+    name: 'login',
+    displayName: 'Login',
   };
 };
 
 const mapSignup = (state) => {
   return {
-    // name: 'signup',
-    // displayName: 'Sign Up',
-    // error: state.user.error
+    name: 'signup',
+    displayName: 'Sign Up',
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit (evt) {
+    handleSubmit(evt) {
+      console.log('submt')
       evt.preventDefault();
       const formName = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      //dispatch(auth(email, password, formName));
+      dispatch(auth(email, password, formName));
     }
   };
 };
+const WrappedNormalLoginForm = Form.create()(LoginForm);
 
-export const Login = connect(mapLogin, mapDispatch)(LoginForm);
-export const Signup = connect(mapSignup, mapDispatch)(LoginForm);
+export const Login = connect(mapLogin, mapDispatch)(WrappedNormalLoginForm);
+export const Signup = connect(mapSignup, mapDispatch)(WrappedNormalLoginForm);
 
 /**
  * PROP TYPES
