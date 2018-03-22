@@ -4,13 +4,14 @@ import thunkMiddleware from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import decoder from './decoder';
 import commands from './commands';
+import user from './user';
 import snippets from './snippets';
 import { routerReducer as router, routerMiddleware, routerActions } from 'react-router-redux';
 
 import thunk from 'redux-thunk'
 import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
 
-const reducer = combineReducers({decoder, commands, router, snippets});
+const reducer = combineReducers({decoder, commands, user, router, snippets});
 const history = createMemoryHistory();
 
 const configureStore = (initialState?: counterStateType) => {
@@ -63,3 +64,4 @@ const configureStore = (initialState?: counterStateType) => {
 export default {configureStore, history};
 export * from './decoder';
 export * from './commands';
+export * from './user';
