@@ -8,6 +8,7 @@
 @import '~codemirror/theme/neat.css';
 @import '~antd/dist/antd.min.css';
 
+
 .App {
   text-align: center;
 }
@@ -32,6 +33,22 @@
 
 .react-codemirror2 {
   text-align: left;
+}
+
+.login-form {
+  max-width: 500px;
+  margin: auto;
+  padding: 100px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.guest-btn {
+  width: 100%;
 }
 
 .responsive-container {
