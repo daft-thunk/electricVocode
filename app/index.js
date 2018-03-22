@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Root from './containers/Root';
-import './app.global.css';
-import App from './components/App';
-import { Provider } from 'react-redux';
-import { configureStore, history } from './store/configureStore';
 import { ConnectedRouter } from 'react-router-redux';
-require('codemirror/lib/codemirror.css');
-require('codemirror/theme/material.css');
-require('codemirror/theme/neat.css');
+import { Provider } from 'react-redux';
+// import './app.global.css';
+// import App from './components/App';
+// import { configureStore, history } from './store/configureStore';
+// import Root from './containers/Root';
+// require('codemirror/lib/codemirror.css');
+// require('codemirror/theme/material.css');
+// require('codemirror/theme/neat.css');
 
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
+// require('codemirror/mode/xml/xml');
+// require('codemirror/mode/javascript/javascript');
 
-export const store = configureStore();
+// export const store = configureStore();
 
 render(
     <AppContainer>

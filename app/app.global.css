@@ -3,9 +3,9 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 
-@import '~codemirror/lib/codemirror.css';
+/* @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/material.css';
-@import '~codemirror/theme/neat.css';
+@import '~codemirror/theme/neat.css'; */
 
 
 .App {

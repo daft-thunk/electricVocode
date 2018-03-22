@@ -4,7 +4,6 @@ import {CodeEditor, Mic, Test} from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-
 /*eslint-disable react/prefer-stateless-function*/
 class App extends Component {
   constructor(props){
