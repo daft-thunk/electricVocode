@@ -20,4 +20,4 @@ export const fetchUserSnippets = (userId) => dispatch => {
       dispatch(getSnippets(snippets))
     })
     .catch(console.error)
-}
+};

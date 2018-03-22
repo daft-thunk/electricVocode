@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Icon, Divider } from 'antd';
+import { Table, Icon, Divider, Button } from 'antd';
 import { Test } from './Test';
+import { fetchUserSnippets } from
 
 export default class Snippets extends Component {
   constructor() {
     super()
 
     this.state = {
-      nothing: ''
+      snippets: {}
     }
   }
 
