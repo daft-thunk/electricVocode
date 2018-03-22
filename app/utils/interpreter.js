@@ -1,12 +1,12 @@
-import { component, store, reducer, express } from './templates'
+import { component, store, reducer, express, stateless } from './templates'
 import electron from 'electron'
 
 export const dictionary = {
   'while': () => {
-    return 'while (Josh === Salty){\nreturn tear\n}'
+    return `while (Josh === Salty){\nreturn tear\n}`
   },
   'for': () => {
-    return 'for(let i = 0; i < array.length; i++){\n}'
+    return `for(let i = 0; i < array.length; i++){\n}`
   },
   'function': (input) => {
     return `const funcName = (args) => {}`
@@ -17,20 +17,21 @@ export const dictionary = {
   'component': () => component,
   'store': () => store,
   'reducer': () => reducer,
-  'express': () => express
+  'express': () => express,
+  'stateless': () => stateless
 }
 
 const interpreter = (speech) => {
   console.log(speech)
-  let commandWords = speech.split(' ').filter(word => dictionary[word] !== undefined)
+  let commandWords = speech.split(' ').filter(word => dictionary[word.toLowerCase()] !== undefined)
   let currCommand;
   // while (commandWords.length) {
-    currCommand = commandWords.shift();
-    if (dictionary[currCommand]){
+    currCommand = commandWords.shift().toLowerCase();
+    if (currCommand){
       electron.ipcRenderer.send('successCommand', currCommand)
       return dictionary[currCommand](speech);
     }
-    else{
+    else {
       electron.ipcRenderer.send('failCommand', 'command not found')
       console.error(`Command ${speech} not recognized`)
     }
