@@ -10,7 +10,6 @@ export default () => (
   <AppContainer>
     <Switch>
       <Route path="/snippets" component={Snippets} />
-      <Route path="/" component={App} />
       <Route path="/test" component={Test} />
       <Route path="/main" component={App} />
       <Route path="/signup" component={Signup} />

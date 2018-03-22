@@ -21,6 +21,8 @@ class App extends Component {
         <p className="App-intro">Add code snippets with your voice</p>
         </header>
         <Link to="/snippets">Link to Snippets</Link>
+        <Link to="/">Link to Login</Link>
+        <Link to="/signup">Link to Signup</Link>
         <div className="flex">
           <div style={{flex: 3}}>
             <CodeEditor />
