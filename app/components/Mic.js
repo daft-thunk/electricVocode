@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Recorder from '../public/recorder.js';
 import axios from 'axios';
-import store from '../store';
+import { store } from '../index';
 import {addOutputThunk} from '../store/decoder.js'
 import electron from 'electron'
 import { dictionary } from '../utils/interpreter'
+
+
 
 class Mic extends Component {
   constructor(props) {
