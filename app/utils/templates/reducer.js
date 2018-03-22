@@ -19,7 +19,12 @@ const Thunk = (args) =>
 /**
  * REDUCER
  */
-export default function (state = /*default state*/, action) {
+
+const defaultState = {
+  hello: 'hello'
+}
+
+export default function (state = defaultState, action) {
   switch (action.type) {
     case ACTION:
       return action.info
