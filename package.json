@@ -189,6 +189,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "antd": "^3.3.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "codemirror": "^5.35.0",
