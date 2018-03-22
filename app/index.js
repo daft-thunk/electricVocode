@@ -14,7 +14,7 @@ require('codemirror/theme/neat.css');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 
-const store = configureStore();
+export const store = configureStore();
 
 render(
     <AppContainer>
