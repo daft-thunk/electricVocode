@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {history} from './index';
+import serverUrl from '../utils/serverUrl';
 
 
 /**
@@ -24,7 +25,7 @@ const removeUser = () => ({type: REMOVE_USER});
  */
 export const me = () =>
   dispatch => {
-    return axios.get('http://localhost:8080/auth/me')
+    return axios.get(`${serverUrl}/auth/me`)
       .then(res =>
         dispatch(getUser(res.data || defaultUser)))
       .catch(err => console.log(err));
@@ -32,7 +33,7 @@ export const me = () =>
 
 export const auth = (email, password, method) =>
   dispatch =>
-    axios.post(`http://localhost:8080/auth/${method}`, { email, password })
+    axios.post(`${serverUrl}/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data));
         history.push('/main');
@@ -45,7 +46,7 @@ export const logout = () =>
   dispatch => {
     console.log('hiting logout')
     localStorage.clear();
-    return axios.post('http://localhost:8080/auth/logout')
+    return axios.post(`${serverUrl}/auth/logout`)
       .then( () => {
         dispatch(removeUser());
         history.push('/login');
