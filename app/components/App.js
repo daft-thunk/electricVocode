@@ -8,23 +8,23 @@ import { push } from 'react-router-redux';
 /*eslint-disable react/prefer-stateless-function*/
 class App extends Component {
   constructor(props){
-    super(props)
+    super(props);
   }
 
   render() {
-    console.log(this.props.ownProps)
-    console.log(this.props)
+    console.log(this.props.ownProps);
+    console.log(this.props);
     return (
       <div className="App">
         <header className="App-header">
-          <h1>VOCODE</h1>
-          <p className="App-intro">Add code snippets with your voice</p>
+        <h1>VOCODE</h1>
+        <p className="App-intro">Add code snippets with your voice</p>
         </header>
+        <Link to="/snippets">Link to Snippets</Link>
         <div className="flex">
           <div style={{flex: 3}}>
             <CodeEditor />
             {/*
-         <Link to="/test">Link to Test</Link>
          <button>
               <Link to="/test" style={{ display: 'block', height: '100%' }}>
                 test: button
