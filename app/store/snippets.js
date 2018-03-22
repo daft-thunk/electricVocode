@@ -7,14 +7,14 @@ const getSnippets = (snippets) => ({ type: GET_SNIPPETS, snippets });
 export default function (state = [], action) {
   switch (action.type) {
     case GET_SNIPPETS:
-      return snippets;
+      return action.snippets;
     default:
       return state;
   }
 }
 
 export const fetchUserSnippets = (userId) => dispatch => {
-  axios.get(`http://localhost:8080/api/users/${userId}/snippets/`)
+  axios.get(`http://localhost:8080/api/users/${userId}/snippets/all`)
     .then(res => res.data)
     .then(snippets => {
       dispatch(getSnippets(snippets))

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button } from 'antd';
 import { Test } from './Test';
-import { fetchUserSnippets } from
+import { fetchUserSnippets } from '../store/snippets'
 
-export default class Snippets extends Component {
+class Snippets extends Component {
   constructor() {
     super()
 
-    this.state = {
-      snippets: {}
-    }
+  }
+
+  componentDidMount() {
+    this.props.fetchSnippets(3)
   }
 
   render() {
@@ -33,10 +35,25 @@ export default class Snippets extends Component {
     return (
       <div>
         <h2>Manage Snippets</h2>
-        <Table dataSource={this.nothing} columns={columns} />
+        <Table dataSource={this.props.snippets} columns={columns} />
       </div>
     )
   }
 
 }
 
+const mapDispatch = (dispatch) => {
+  return {
+    fetchSnippets(userId) {
+      dispatch(fetchUserSnippets(userId));
+    }
+  }
+}
+
+const mapState = (state) => {
+  return {
+    snippets: state.snippets
+  }
+}
+
+export default connect(mapState, mapDispatch)(Snippets)

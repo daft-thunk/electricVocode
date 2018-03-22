@@ -6,7 +6,7 @@
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/material.css';
 @import '~codemirror/theme/neat.css';
-
+@import '~antd/dist/antd.min.css';
 
 .App {
   text-align: center;
