@@ -9,10 +9,10 @@ import HomePage from './containers/HomePage';
 export default () => (
   <AppContainer>
     <Switch>
+      <Route path="/snippets" component={Snippets} />
       <Route path="/test" component={Test} />
       <Route path="/main" component={App} />
       <Route path="/signup" component={Signup} />
-      <Route path="/test" component={Snippets} />
       <Route path="/" component={Login} />
     </Switch>
   </AppContainer>

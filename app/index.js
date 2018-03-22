@@ -7,12 +7,6 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import { configureStore, history } from './store/configureStore';
 import { ConnectedRouter } from 'react-router-redux';
-require('codemirror/lib/codemirror.css');
-require('codemirror/theme/material.css');
-require('codemirror/theme/neat.css');
-
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
 
 export const store = configureStore();
 
