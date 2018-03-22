@@ -6,7 +6,7 @@
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/material.css';
 @import '~codemirror/theme/neat.css';
-
+@import '~antd/dist/antd.min.css';
 
 .App {
   text-align: center;
@@ -34,8 +34,27 @@
   text-align: left;
 }
 
+.responsive-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.file-input {
+  flex: 1;
+  width: 35%;
+  max-width: 300px;
+}
+
 /* .CodeMirror-sizer {
   position: relative;
   border-right: 30px solid transparent;
   margin-left: 35px !important;
 } */
+
+@media (max-width: 600px) {
+  .file-system-container, .file-input {
+    display: block;
+    width: 100%
+  }
+}
