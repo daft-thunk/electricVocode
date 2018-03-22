@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {CodeEditor, Mic, Test} from '.';
+import {CodeEditor, Mic, Test, SnippetAddEdit} from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
@@ -9,11 +9,6 @@ import { push } from 'react-router-redux';
 class App extends Component {
   constructor(props){
     super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick() {
-    this.props.ownProps.history.push('/test')
   }
 
   render() {
@@ -28,8 +23,14 @@ class App extends Component {
         <div className="flex">
           <div style={{flex: 3}}>
             <CodeEditor />
-        {<button onClick={() => this.handleClick()}>Link To Test</button>}
-         {/*<Link to="/test">Link to Test</Link>*/}
+            {/*
+         <Link to="/test">Link to Test</Link>
+         <button>
+              <Link to="/test" style={{ display: 'block', height: '100%' }}>
+                test: button
+              </Link>
+            </button>
+            */}
           </div>
           <div style={{flex: 1}}>
             <Mic />
