@@ -119,7 +119,7 @@ export class CodeEditor extends Component {
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}
-        <SnippetAddEdit />
+        <SnippetAddEdit text={this.state.value} />
         {/*TEXT EDITOR*/}
         <CodeMirror
           ref={codemirror => {
