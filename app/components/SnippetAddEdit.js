@@ -71,7 +71,7 @@ class SnippetAddEdit extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        postNewSnippet({
+        addSnippet({
           userId: 1,
           command: this.state.fields.command.value,
           code: this.props.text
@@ -105,6 +105,9 @@ const mapState = state => ({
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
+    addSnippet(snippet) {
+      return dispatch(postNewSnippet(snippet));
+    }
   };
 };
 
