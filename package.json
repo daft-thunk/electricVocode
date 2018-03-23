@@ -218,13 +218,11 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
-    "react-scripts": "1.1.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.36.1",
-    "socket.io": "^2.0.4",
     "source-map-support": "^0.5.3",
     "webpack-cli": "^2.0.12"
   },
