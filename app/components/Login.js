@@ -87,7 +87,7 @@ const mapDispatch = (dispatch) => {
     },
     guestSignin(evt) {
       evt.preventDefault();
-      dispatch(auth('guest@guest.guest', '123', 'Login'));
+      dispatch(auth('dave@dave.com', '123', 'Login'));
     }
   };
 };
