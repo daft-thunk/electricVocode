@@ -44,7 +44,14 @@
   max-width: 500px;
   margin: auto;
   padding: 100px;
+
 }
+.login-container {
+  width: 100vw;
+
+  align-content: center;
+}
+
 .login-form-forgot {
   float: right;
 }
@@ -57,6 +64,7 @@
 }
 
 .responsive-container {
+  padding-top: 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -97,4 +105,9 @@
 
 .menu-bar-hidden {
   display: none;
+}
+
+.main-content {
+  width: calc(100vw - 256px);
+  padding: 5px;
 }

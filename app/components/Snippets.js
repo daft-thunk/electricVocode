@@ -58,7 +58,7 @@ class Snippets extends Component {
       )
     }];
     return (
-      <div>
+      <div className="main-content">
         <h2>Manage Snippets</h2>
         <Table dataSource={this.props.snippets} columns={columns} />
       </div>

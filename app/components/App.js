@@ -15,13 +15,10 @@ class App extends Component {
     console.log(this.props.ownProps);
     console.log(this.props);
     return (
-      <div className="App">
+      <div className="App main-content">
         <header className="App-header">
           <h1 id="home-title">VOCODE</h1>
         </header>
-        <Link to="/snippets">Link to Snippets</Link>
-        <Link to="/">Link to Login</Link>
-        <Link to="/signup">Link to Signup</Link>
         <div className="flex">
           <div style={{flex: 3}}>
             <CodeEditor />
