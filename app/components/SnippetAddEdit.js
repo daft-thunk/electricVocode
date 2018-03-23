@@ -112,7 +112,7 @@ class SnippetAddEdit extends Component {
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
-      <div>
+      <div className="snippet-form" >
         <CustomizedForm
           {...fields}
           onChange={this.handleFormChange}

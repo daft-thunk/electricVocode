@@ -14,9 +14,14 @@
 }
 
 .App-header {
-  background-color: #222;
-  padding: 8px;
-  color: white;
+  background-color: #85a5ff;
+  padding: 3px;
+}
+
+#home-title {
+  color: #ffffff;
+  font-size: 40px;
+  margin-bottom: 0px;
 }
 
 .App-title {
@@ -75,3 +80,10 @@
     width: 100%
   }
 }
+
+.snippet-form {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+

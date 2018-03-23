@@ -17,8 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <h1>VOCODE</h1>
-        <p className="App-intro">Add code snippets with your voice</p>
+          <h1 id="home-title">VOCODE</h1>
         </header>
         <Link to="/snippets">Link to Snippets</Link>
         <Link to="/">Link to Login</Link>
