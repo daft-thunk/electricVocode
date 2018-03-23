@@ -1,4 +1,6 @@
-import { component, store, reducer, express, stateless } from './templates';
+'use strict';
+
+import { component, store, reducer, express, stateless, html } from './templates';
 import * as wordMethods from './wordMethods';
 
 export const baseDictionary = {
@@ -18,7 +20,8 @@ export const baseDictionary = {
   stateless: input => stateless(input),
   store: input => store(input),
   reducer: input => reducer(input),
-  express: () => express
+  express: () => express,
+  html: input => html(input)
 };
 
 export const alternatesDictionary = {
