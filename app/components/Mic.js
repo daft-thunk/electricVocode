@@ -10,7 +10,7 @@ import initAudio from '../audio'
 import { ipcRenderer } from 'electron'
 
 
-export class Mic extends Component {
+class Mic extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,7 +21,7 @@ export class Mic extends Component {
     this.blobify = this.blobify.bind(this);
   }
 
-   blobify(blob) {
+  blobify(blob) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = function() {
@@ -31,8 +31,11 @@ export class Mic extends Component {
   }
 
   stopRecording() {
-    console.log('stop recording')
-    this.state.recorder.exportMonoWAV();
+    // console.log(recorder)
+    this.state.recorder.exportMonoWAV((blob) => {
+      console.log(blob)
+      this.blobify(blob);
+    });
     this.state.recorder.stop()
     this.state.recorder.clear()
   }
