@@ -9,6 +9,7 @@ import decoder from './decoder';
 import commands from './commands';
 import user, {history} from './user';
 import snippets from './snippets';
+import mode from './mode';
 
 
 const reducer = combineReducers({decoder, commands, user, router, snippets});
