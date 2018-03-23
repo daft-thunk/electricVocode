@@ -45,7 +45,8 @@ class App extends Component {
 
 const mapState = (state, ownProps) => ({
   router: state.router,
-  ownProps
+  ownProps,
+  user: state.user
 });
 
 // const mapDispatch = dispatch => {
