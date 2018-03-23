@@ -5,12 +5,15 @@ import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
 import { Test } from './Test';
 import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
 import SnippetView from './SnippetView';
+import { setSnippet } from '../store/currSnippet';
+import { setMode } from '../store/mode';
 
 class Snippets extends Component {
   constructor() {
     super();
 
-    this.removeSnippet = this.removeSnippet.bind(this)
+    this.removeSnippet = this.removeSnippet.bind(this);
+    this.editSnippet = this.editSnippet.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +23,16 @@ class Snippets extends Component {
   removeSnippet(snippetId) {
     this.props.disconnectSnippet(this.props.userId, snippetId);
     message.info('Snippet has been removed')
+  }
+
+  forkSnippet(snippetId) {
+
+  }
+
+  editSnippet(snippetId) {
+    const snip = this.props.snippets.find(snippet => snippet.id === snippetId);
+    this.props.editSnippet(snip);
+    this.props.history.push('/main');
   }
 
   render() {
@@ -47,7 +60,7 @@ class Snippets extends Component {
         <span>
           {
             this.props.userId === record.creatorId ?
-            <Button icon="edit" /> :
+            <Button icon="edit" onClick={() => this.editSnippet(record.id)} /> :
             <Button icon="fork" />
           }
           <Divider type="vertical" />
@@ -67,6 +80,14 @@ class Snippets extends Component {
 
 }
 
+const mapState = (state, ownProps) => {
+  return {
+    snippets: state.snippets,
+    userId: 2,
+    history: ownProps.history
+  };
+};
+
 const mapDispatch = (dispatch) => {
   return {
     fetchSnippets(userId) {
@@ -74,14 +95,11 @@ const mapDispatch = (dispatch) => {
     },
     disconnectSnippet(userId, snippetId) {
       dispatch(removeUserSnippetConnection(userId, snippetId))
+    },
+    editSnippet(snippet) {
+      dispatch(setSnippet(snippet));
+      dispatch(setMode('edit'))
     }
-  };
-};
-
-const mapState = (state) => {
-  return {
-    snippets: state.snippets,
-    userId: 2
   };
 };
 

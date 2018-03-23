@@ -72,7 +72,7 @@ class SnippetAddEdit extends Component {
     // validation here
 
     // This vvv doesn't get called!
-    console.log('clicked');
+    console.log('clicked', this.state.fields.name.value);
     //      ^^^
 
     const command = e.target.command.value;
