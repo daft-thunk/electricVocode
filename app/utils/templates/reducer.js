@@ -1,12 +1,17 @@
-const reducer = `/**
+import { upperUnderscoreWords, camelCaseWords } from '../wordMethods';
+
+const reducer = input => {
+  const constant = upperUnderscoreWords(input);
+  const actionCreator = camelCaseWords(input);
+  return `/**
  * ACTION TYPES
  */
-const ACTION = 'ACTION'
+const ${constant} = '${constant}'
 
 /**
  * ACTION CREATORS
  */
-const getAction = info => ({type: ACTION, info})
+const ${actionCreator} = info => ({type: ${constant}, info})
 
 /**
  * THUNK CREATORS
@@ -19,14 +24,20 @@ const Thunk = (args) =>
 /**
  * REDUCER
  */
-export default function (state = /*default state*/, action) {
+
+const defaultState = {
+  hello: 'hello'
+}
+
+export default function (state = defaultState, action) {
   switch (action.type) {
-    case ACTION:
+    case ${constant}:
       return action.info
     default:
       return state
   }
 }
-`
+`;
+};
 
-export default reducer
+export default reducer;

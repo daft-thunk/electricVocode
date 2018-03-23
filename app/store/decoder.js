@@ -1,7 +1,7 @@
-import axios from 'axios'
-import interpreter from '../utils/interpreter'
-import { clipboard } from 'electron'
-import { cmdOutput } from './commands'
+import axios from 'axios';
+import interpreter from '../utils/interpreter';
+import { clipboard } from 'electron';
+import { cmdOutput } from './commands';
 const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});
@@ -21,17 +21,17 @@ export const addOutputThunk = (base64data) => {
        content: base64data
      }
   }).then(res => {
-    console.log(res.data)
-    const parsed = res.data.results[0].alternatives[0].transcript
+    console.log(res.data);
+    const parsed = res.data.results[0].alternatives[0].transcript;
     const interpreted = interpreter(parsed);
     if (interpreted) {
-      clipboard.writeText(interpreted)
-      dispatch(addOutput(interpreted))
+      clipboard.writeText(interpreted);
+      dispatch(addOutput(interpreted));
     }
-    dispatch(cmdOutput(parsed))
-  })
-  }
-}
+    dispatch(cmdOutput(parsed));
+  });
+  };
+};
 
 
 export default function(state = [], action) {

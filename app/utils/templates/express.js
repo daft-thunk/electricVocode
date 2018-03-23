@@ -50,9 +50,7 @@ const startListening = () => {
   const server = app.listen(PORT, () => console.log('Mixing it up on port ' + PORT))
 }
 
-
-
 createApp();
-`
+`;
 
-export default express
+export default express;

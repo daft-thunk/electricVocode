@@ -2,52 +2,15 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-/* @import "~font-awesome/css/font-awesome.css";
 
- body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background-color: #232c39;
-  background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7));
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
-  overflow-y: hidden;
-}
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/theme/material.css';
+@import '~codemirror/theme/neat.css';
+@import '~antd/dist/antd.min.css';
 
-h2 {
-  margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -0.025em;
-  color: #fff;
-}
 
-p {
-  font-size: 24px;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: white;
-  opacity: 0.75;
-  text-decoration: none;
-}
-
- a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
-} */
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
 }
 
 .App-header {
@@ -72,9 +35,32 @@ a {
   text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.login-form {
+  max-width: 500px;
+  margin: auto;
+  padding: 100px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.guest-btn {
+  width: 100%;
+}
+
+.responsive-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.file-input {
+  flex: 1;
+  width: 35%;
+  max-width: 300px;
 }
 
 /* .CodeMirror-sizer {
@@ -82,3 +68,22 @@ a {
   border-right: 30px solid transparent;
   margin-left: 35px !important;
 } */
+
+@media (max-width: 600px) {
+  .file-system-container, .file-input {
+    display: block;
+    width: 100%
+  }
+}
+
+.app-container {
+  display: flex;
+}
+
+.menu-bar {
+  height: 100vh;
+}
+
+.menu-bar-hidden {
+  display: none;
+}

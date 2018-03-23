@@ -1,43 +1,25 @@
-import { component, store, reducer, express } from './templates'
-import electron from 'electron'
+import electron from 'electron';
+import dictionary from './dictionary';
 
-export const dictionary = {
-  'while': () => {
-    return 'while (Josh === Salty){\nreturn tear\n}'
-  },
-  'for': () => {
-    return 'for(let i = 0; i < array.length; i++){\n}'
-  },
-  'function': (input) => {
-    return `const funcName = (args) => {}`
-  },
-  'string': (input) => {
-    return `"${input.slice(7)}"`
-  },
-  'component': () => component,
-  'store': () => store,
-  'reducer': () => reducer,
-  'express': () => express
-}
-
-const interpreter = (speech) => {
-  console.log(speech)
-  let commandWords = speech.split(' ').filter(word => dictionary[word] !== undefined)
-  let currCommand;
+const interpreter = speech => {
+  console.log(speech);
+  const commandWords = speech
+    .split(' ')
+    .filter(word => dictionary[word.toLowerCase()] !== undefined);
   // while (commandWords.length) {
-    currCommand = commandWords.shift();
-    if (dictionary[currCommand]){
-      electron.ipcRenderer.send('successCommand', currCommand)
-      return dictionary[currCommand](speech);
-    }
-    else{
-      electron.ipcRenderer.send('failCommand', 'command not found')
-      console.error(`Command ${speech} not recognized`)
-    }
+  if (commandWords.length) {
+    const currCommand = commandWords[0].toLowerCase(); // get first word
+    electron.ipcRenderer.send('successCommand', currCommand);
+
+    const speechWordsArray = speech.split(' ').map(word => word.toLowerCase());
+    const commandIdx = speechWordsArray.indexOf(currCommand);
+
+    return dictionary[currCommand](speechWordsArray.slice(commandIdx + 1));
+  } else {
+    electron.ipcRenderer.send('failCommand', 'command not found');
+    console.error(`Command ${speech} not recognized`);
+  }
   // }
-}
+};
 
 export default interpreter;
-
-
-

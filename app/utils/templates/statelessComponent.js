@@ -1,27 +1,23 @@
 import { pascalCaseWords } from '../wordMethods';
 
-const Component = input => {
+const statelessComponent = (input) => {
   input = pascalCaseWords(input);
   return `//npm install react react-redux
-import React, { Component } from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 
 /**
- * SMART COMPONENT
+ * STATELESS COMPONENT
  */
-class ${input} extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  render(){
-    return (
+const ${input} = props => {
+  return {
+    (
       <div>
         Add Content
       </div>
     )
   }
-  }
+}
 
 /**
  * CONTAINER
@@ -35,7 +31,6 @@ const mapDispatch = (dispatch, ownProps) => {
 }
 
 export default connect(mapState, mapDispatch)(${input})
-`;
-};
+`;};
 
-export default Component;
+export default statelessComponent;
