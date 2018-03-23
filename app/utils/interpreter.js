@@ -1,3 +1,5 @@
+'use strict';
+
 import electron from 'electron';
 import dictionary from './dictionary';
 
