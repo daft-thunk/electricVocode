@@ -40,12 +40,16 @@ class MenuBar extends Component {
           className={this.state.styleToggle}
         >
           <Menu.Item key="1">
-            <Icon type="pie-chart" />
-            <span>Option 1</span>
+          <Link to="/snippets">
+            <Icon type="desktop" />
+            <span style={{color: 'white'}}>Snippets</span>
+          </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="desktop" />
-            <span>Option 2</span>
+          <Link to="/Main">
+            <Icon type="pie-chart" />
+            <span>Sandbox</span>
+          </Link>
           </Menu.Item>
           <Menu.Item key="3">
             <Icon type="inbox" />
