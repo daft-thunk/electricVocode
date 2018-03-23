@@ -62,13 +62,12 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
-
-  tray = new Tray(path.join(__dirname,'.', 'public/images/triangle-blue.png'))
+  tray = new Tray(path.join(__dirname,'..', 'triangle-blue.png'))
   ipcMain.on('startRecording', () => {
-    tray.setImage(path.join(__dirname,'.', 'public/images/triangle-red.png'))
+    tray.setImage(path.join(__dirname,'..', 'triangle-red.png'))
   })
   ipcMain.on('stopRecording', () => {
-    tray.setImage(path.join(__dirname,'.', 'public/images/triangle-blue.png'))
+    tray.setImage(path.join(__dirname,'..', 'triangle-blue.png'))
   })
   ipcMain.on('successCommand', (e, info) => {
     tray.setTitle(info)
@@ -82,6 +81,7 @@ app.on('ready', async () => {
     width: 1024,
     height: 728
   });
+
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
@@ -106,5 +106,3 @@ app.on('ready', async () => {
   menuBuilder.buildMenu();
 
 });
-
-
