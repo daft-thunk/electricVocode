@@ -5,13 +5,13 @@ import axios from 'axios';
 import { store } from '../index';
 import { addOutputThunk } from '../store/decoder.js';
 import electron from 'electron';
-import { dictionary } from '../utils/interpreter';
+import dictionary from '../utils/dictionary';
 
 class Mic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      audio_context: null,
+      audioContext: null,
       recorder: null
     };
     this.startUserMedia = this.startUserMedia.bind(this);
@@ -48,7 +48,7 @@ class Mic extends Component {
   }
 
   startUserMedia(stream) {
-    let input = this.state.audio_context.createMediaStreamSource(stream);
+    let input = this.state.audioContext.createMediaStreamSource(stream);
 
     this.setState({ recorder: new Recorder(input) }, () => {
       electron.remote.globalShortcut.register('Alt+z', () => {
@@ -76,7 +76,7 @@ class Mic extends Component {
         navigator.getUserMedia || navigator.webkitGetUserMedia;
       window.URL = window.URL || window.webkitURL;
 
-      this.setState({ audio_context: new AudioContext() }, () => {
+      this.setState({ audioContext: new AudioContext() }, () => {
         navigator.getUserMedia({ audio: true }, this.startUserMedia, function(
           e
         ) {
