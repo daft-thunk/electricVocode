@@ -7,14 +7,13 @@ import { routerReducer as router, routerMiddleware, routerActions } from 'react-
 import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
 import decoder from './decoder';
 import commands from './commands';
-import user from './user';
+import user, {history} from './user';
 import snippets from './snippets';
 import mode from './mode';
 
-console.log(user)
 
-const reducer = combineReducers({decoder, commands, user, router, snippets, mode});
-const history = createMemoryHistory();
+const reducer = combineReducers({decoder, commands, user, router, snippets});
+//const history = createMemoryHistory();
 
 const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration

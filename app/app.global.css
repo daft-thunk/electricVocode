@@ -87,3 +87,14 @@
 }
 
 
+.app-container {
+  display: flex;
+}
+
+.menu-bar {
+  height: 100vh;
+}
+
+.menu-bar-hidden {
+  display: none;
+}
