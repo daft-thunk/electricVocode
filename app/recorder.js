@@ -1,7 +1,9 @@
 import path from 'path'
 import {ipcRenderer} from 'electron'
+import {Mic} from './components/Mic'
+import store from './store'
+import { addOutputThunk } from './store/decoder'
 /*License (MIT)
-
 Copyright © 2013 Matt Diamond
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -19,8 +21,6 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 DEALINGS IN THE SOFTWARE.
 */
 (function(window){
-  var WORKER_PATH = './recorderWorker.js'
-
   var Recorder = function(source, cfg){
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
@@ -31,8 +31,7 @@ DEALINGS IN THE SOFTWARE.
        this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
     }
 
-    var worker = new Worker(WORKER_PATH);
-    worker.postMessage({
+    ipcRenderer.send('doWork', {
       command: 'init',
       config: {
         sampleRate: this.context.sampleRate
@@ -43,7 +42,8 @@ DEALINGS IN THE SOFTWARE.
 
     this.node.onaudioprocess = function(e){
       if (!recording) return;
-      worker.postMessage({
+      console.log('in node audio process')
+      ipcRenderer.send('doWork',{
         command: 'record',
         buffer: [
           e.inputBuffer.getChannelData(0),
@@ -69,42 +69,41 @@ DEALINGS IN THE SOFTWARE.
     }
 
     this.clear = function(){
-      worker.postMessage({ command: 'clear' });
+      ipcRenderer.send('doWork',{ command: 'clear' });
     }
 
     this.getBuffers = function(cb) {
       currCallback = cb || config.callback;
-      worker.postMessage({ command: 'getBuffers' })
+      ipcRenderer.send('doWork',{ command: 'getBuffers' })
     }
 
-    this.exportWAV = function(cb, type){
-      currCallback = cb || config.callback;
-      type = type || config.type || 'audio/wav';
-      if (!currCallback) throw new Error('Callback not set');
-      worker.postMessage({
-        command: 'exportWAV',
-        type: type
-      });
+    this.exportMonoWAV = function(type){
+      console.log('at monowave in Recorder')
+      type = 'audio/wav';
+      ipcRenderer.sendSync('exportWAV', type);
     }
 
-    this.exportMonoWAV = function(cb, type){
-      currCallback = cb || config.callback;
-      type = type || config.type || 'audio/wav';
-      if (!currCallback) throw new Error('Callback not set');
-      worker.postMessage({
-        command: 'exportMonoWAV',
-        type: type
-      });
-    }
+    // ipcRenderer.on('wavInfo', (e, wav) => console.log(wav))
 
-    worker.onmessage = function(e){
-      var blob = e.data;
-      currCallback(blob);
-    }
+    ipcRenderer.on('wavInfo',(e, wav)=> {
+      var blob = new Blob([wav.dataview], { type: wav.type })
+      console.log('in render', blob)
+      blobify(blob)
+    })
 
     source.connect(this.node);
     this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
   };
+
+  function blobify(blob) {
+    console.log(blob)
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function() {
+     let base64data = reader.result.split(',')[1];
+    store.dispatch(addOutputThunk(base64data))
+    }
+  }
 
   Recorder.setupDownload = function(blob, filename){
     var url = (window.URL || window.webkitURL).createObjectURL(blob);

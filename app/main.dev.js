@@ -17,6 +17,10 @@ import addOutput from './store/decoder'
 import store from './store'
 import path from 'path'
 
+var recLength = 0;
+var recBuffersL = [];
+var recBuffersR = [];
+var sampleRate;
 let mainWindow = null;
 let worker = null
 let tray = null;
@@ -63,7 +67,6 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
-
   tray = new Tray(path.join(__dirname,'..', 'triangle-blue.png'))
   ipcMain.on('startRecording', () => {
     tray.setImage(path.join(__dirname,'..', 'triangle-red.png'))
@@ -78,15 +81,37 @@ app.on('ready', async () => {
     tray.setTitle(info)
   })
 
+  // Audio **Worker**
+  ipcMain.on('doWork', (e, action) => {
+    switch(action.command){
+      case 'init':
+        console.log('in init')
+        init(action.config);
+        break;
+      case 'record':
+        console.log('in record')
+        record(action.buffer);
+        break;
+      case 'exportMonoWAV':
+        exportMonoWAV(action.type, e);
+        break;
+      case 'getBuffers':
+        getBuffers(e);
+        break;
+      case 'clear':
+        clear();
+        break;
+    }
+  })
+
+  ipcMain.once('exportWAV', (e, arg) => exportMonoWAV(arg, e))
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728
   });
 
-  worker = new BrowserWindow({
-    show: false
-  })
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
@@ -112,33 +137,6 @@ app.on('ready', async () => {
 
 });
 
-
-var recLength = 0,
-  recBuffersL = [],
-  recBuffersR = [],
-  sampleRate;
-
-ipcMain.on('doWork', (e, action) => {
-  switch(action.command){
-    case 'init':
-      init(action.config);
-      break;
-    case 'record':
-      record(action.buffer);
-      break;
-    case 'exportMonoWAV':
-      exportMonoWAV(action.type, e);
-      break;
-    case 'getBuffers':
-      getBuffers(e);
-      break;
-    case 'clear':
-      clear();
-      break;
-  }
-})
-
-
 function init(config){
   sampleRate = config.sampleRate;
 }
@@ -149,19 +147,19 @@ function record(inputBuffer){
   recLength += inputBuffer[0].length;
 }
 
-function exportMonoWAV(type){
+function exportMonoWAV(type, e ){
   var bufferL = mergeBuffers(recBuffersL, recLength);
   var dataview = encodeWAV(bufferL, true);
-  var audioBlob = new Blob([dataview], { type: type });
-
-  e.sender.send(audioBlob);
+  console.log('in dev', dataview)
+  e.sender.send('wavInfo', { dataview, type})
+  // var audioBlob = new Blob([dataview], { type: type });
 }
 
 function getBuffers() {
   var buffers = [];
   buffers.push( mergeBuffers(recBuffersL, recLength) );
   buffers.push( mergeBuffers(recBuffersR, recLength) );
-  e.sender.send(buffers);
+  // e.sender.send(buffers);
 }
 
 function clear(){
@@ -211,7 +209,7 @@ function writeString(view, offset, string){
 function encodeWAV(samples, mono){
   var buffer = new ArrayBuffer(44 + samples.length * 2);
   var view = new DataView(buffer);
-
+  console.log('in wave', samples)
   /* RIFF identifier */
   writeString(view, 0, 'RIFF');
   /* file length */
