@@ -3,17 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
 import { Test } from './Test';
-import { fetchUserSnippets } from '../store/snippets';
+import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
 import SnippetView from './SnippetView';
 
 class Snippets extends Component {
   constructor() {
     super();
 
+    this.removeSnippet = this.removeSnippet.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchSnippets(this.props.userId);
+  }
+
+  removeSnippet(snippetId) {
+    this.props.disconnectSnippet(this.props.userId, snippetId);
+    message.info('Snippet has been removed')
   }
 
   render() {
@@ -45,7 +51,7 @@ class Snippets extends Component {
             <Button icon="fork" />
           }
           <Divider type="vertical" />
-          <Popconfirm title={remText} onConfirm={confirm} okText="Yes" cancelText="No" >
+          <Popconfirm title={remText} onConfirm={() => this.removeSnippet(record.id)} okText="Yes" cancelText="No" >
             <Button type="danger" icon="close" />
           </Popconfirm>
         </span>
@@ -65,6 +71,9 @@ const mapDispatch = (dispatch) => {
   return {
     fetchSnippets(userId) {
       dispatch(fetchUserSnippets(userId));
+    },
+    disconnectSnippet(userId, snippetId) {
+      dispatch(removeUserSnippetConnection(userId, snippetId))
     }
   };
 };
