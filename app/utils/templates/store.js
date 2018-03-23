@@ -1,12 +1,17 @@
-const Store = `//npm install redux redux-logger redux-thunk redux-devtools-extension
-import {createStore, combineReducers, applyMiddleware} from 'redux'
+const Store = (input) => {
+  input = input.join(', ');
+  return `//npm install redux redux-logger redux-thunk redux-devtools-extension
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
 //IMPORT REDUCERS
+//import { ${input} } from '.'
 
-
-const reducer = combineReducers({/*REDUCERS HERE*/})
+const reducer = combineReducers({
+  /*YOUR REDUCERS HERE*/
+  //${input}
+})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -17,6 +22,6 @@ export default store
 
 //EXPORT REDUCER CONST AND FUNCTIONS
 //export * from './reducerFile'
-`
+`;};
 
-export default Store
+export default Store;
