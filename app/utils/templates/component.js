@@ -1,11 +1,15 @@
-const Component = `//npm install react react-redux
+import { pascalCaseWords } from '../wordMethods';
+
+const Component = input => {
+  input = pascalCaseWords(input);
+  return `//npm install react react-redux
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
 /**
  * SMART COMPONENT
  */
-class SmartComponent extends Component {
+class ${input} extends Component {
   constructor(props){
     super(props)
   }
@@ -30,7 +34,8 @@ const mapDispatch = (dispatch, ownProps) => {
   return { }
 }
 
-export default connect(mapState, mapDispatch)(SmartComponent)
+export default connect(mapState, mapDispatch)(${input})
 `;
+};
 
-export default Component
+export default Component;
