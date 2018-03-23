@@ -1,7 +1,8 @@
 import axios from 'axios';
-import {history} from './index';
+//import {history} from './index';
 import serverUrl from '../utils/serverUrl';
-
+import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
+export const history = createMemoryHistory();
 
 /**
  * ACTION TYPES
@@ -54,10 +55,6 @@ export const logout = () =>
       .catch(err => console.log(err));
   };
 
-
-/**
- * REDUCER
- */
 export default function (state = {}, action) {
   switch (action.type) {
     case GET_USER:

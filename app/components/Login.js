@@ -16,10 +16,10 @@ class LoginForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { handleSubmit, name, displayName } = this.props;
-    console.log(auth)
+    const { handleSubmit, name, displayName, guestSignin } = this.props;
+    console.log(this.props.history)
     return (
-      <div>
+      <div className="login-container">
       <Form onSubmit={handleSubmit} name={name} className="login-form">
         <FormItem>
           {getFieldDecorator('userName', {
@@ -47,7 +47,7 @@ class LoginForm extends Component {
       </Button>
           {displayName === "Login" ? <Link to="/signup">New? Register now!</Link> : <Link to="/">Have an account? Sign in here!</Link>}
         </FormItem>
-        <Link to="/main"><Button type="primary" className="guest-btn">Continue as Guest</Button></Link>
+        <Link to="/main"><Button onClick={guestSignin} type="primary" className="guest-btn">Continue as Guest</Button></Link>
       </Form>
       </div>
     );
@@ -84,6 +84,10 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value;
       const password = evt.target.password.value;
       dispatch(auth(email, password, formName));
+    },
+    guestSignin(evt) {
+      evt.preventDefault();
+      dispatch(auth('guest@guest.guest', '123', 'Login'));
     }
   };
 };
