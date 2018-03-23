@@ -1,18 +1,19 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
-import type { counterStateType } from '../reducers/counter';
-import decoder from './decoder';
-import commands from './commands'
 import { routerReducer as router, routerMiddleware } from 'react-router-redux';
+import decoder from './decoder';
+import commands from './commands';
+import user from './user';
+import snippets from './snippets';
 
 const history = createBrowserHistory();
-const router = routerMiddleware(history);
-const enhancer = applyMiddleware(thunk, router);
-const reducer = combineReducers({decoder, commands, router});
+const historyRouter = routerMiddleware(history);
+const reducers = combineReducers({decoder, commands, router, user, snippets});
+const enhancer = applyMiddleware(thunk, historyRouter);
 
 function configureStore() {
-  return createStore(reducer, enhancer);
+  return createStore(reducers, enhancer);
 }
 
 export default { configureStore, history };

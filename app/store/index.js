@@ -1,15 +1,14 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+// @flow
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension';
+// import {composeWithDevTools} from 'redux-devtools-extension';
+import { routerReducer as router, routerMiddleware, routerActions } from 'react-router-redux';
+import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
 import decoder from './decoder';
 import commands from './commands';
 import user from './user';
 import snippets from './snippets';
-import { routerReducer as router, routerMiddleware, routerActions } from 'react-router-redux';
-
-import thunk from 'redux-thunk'
-import { createHashHistory, createBrowserHistory, createMemoryHistory } from 'history';
 
 const reducer = combineReducers({decoder, commands, user, router, snippets});
 const history = createMemoryHistory();
@@ -20,7 +19,7 @@ const configureStore = (initialState?: counterStateType) => {
   const enhancers = [];
 
   // Thunk Middleware
-  middleware.push(thunk);
+  middleware.push(thunkMiddleware);
 
    // Logging Middleware
   const logger = createLogger({
@@ -34,8 +33,8 @@ const configureStore = (initialState?: counterStateType) => {
   }
 
   // Router Middleware
-  const router = routerMiddleware(history);
-  middleware.push(router);
+  const historyRouter = routerMiddleware(history);
+  middleware.push(historyRouter);
 
   // Redux DevTools Configuration
   const actionCreators = {
@@ -59,7 +58,7 @@ const configureStore = (initialState?: counterStateType) => {
   const store = createStore(reducer, initialState, enhancer);
 
   return store;
-}
+};
 
 export default {configureStore, history};
 export * from './decoder';
