@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
-import './app.global.css';
-import App from './components/App';
-import { Provider } from 'react-redux';
 import { configureStore, history } from './store/configureStore';
-import { ConnectedRouter } from 'react-router-redux';
+import './app.global.css';
+// import App from './components/App';
+// import { Provider } from 'react-redux';
+// import { ConnectedRouter } from 'react-router-redux';
 
 export const store = configureStore();
 

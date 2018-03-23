@@ -62,7 +62,11 @@ class SnippetAddEdit extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // validation here
+
+    // This vvv doesn't get called!
     console.log('clicked');
+    //      ^^^
+
     // console.log('text:', this.props.text);
     this.props.form.validateFields((err, values) => {
       if (!err) {
