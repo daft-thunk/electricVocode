@@ -1,7 +1,7 @@
 import { pascalCaseWords } from '../wordMethods';
 
 const Component = input => {
-  input = pascalCaseWords(input);
+  input = input.length ? pascalCaseWords(input) : 'SmartComponent';
   return `//npm install react react-redux
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
