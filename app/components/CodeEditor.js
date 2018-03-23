@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { connect } from 'react-redux';
 import FileSystem from './FileSystem';
+import SnippetAddEdit from './SnippetAddEdit';
 
 // these are now being imported in the global css file:
 // require('codemirror/lib/codemirror.css');
@@ -18,7 +19,7 @@ export class CodeEditor extends Component {
     this.state = {
       value: 'I ♥ VoCode',
       newCommand: false,
-      cursor: {line: 0, ch: 0, sticky: null}
+      cursor: { line: 0, ch: 0, sticky: null }
     };
     this.getTextAroundCursor = this.getTextAroundCursor.bind(this);
     this.getCurrentValue = this.getCurrentValue.bind(this);
@@ -29,7 +30,7 @@ export class CodeEditor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props);
+    console.log('codeEditor: props', this.props);
     if (this.props.output.length < nextProps.output.length) {
       // this.setState({ newCommand: true });
       const output = nextProps.output;
@@ -37,16 +38,19 @@ export class CodeEditor extends Component {
       this.setState(prevState => {
         const prevValue = this.getTextAroundCursor(prevState);
         return {
-          value: prevValue.before.join('\n') + newCommand + prevValue.after.join('\n')
+          value:
+            prevValue.before.join('\n') +
+            newCommand +
+            prevValue.after.join('\n')
         };
       });
     }
   }
 
   loadFile(event) {
-    const loaded = (evt) => {
+    const loaded = evt => {
       let fileString = evt.target.result;
-      this.setState({value: fileString});
+      this.setState({ value: fileString });
       console.log(fileString);
     };
 
@@ -56,13 +60,11 @@ export class CodeEditor extends Component {
 
     reader.onload = loaded;
     reader.readAsText(file, 'UTF-8');
-
-
   }
 
   getTextAroundCursor(state) {
-    console.log('props', this.props);
-    console.log('state', state);
+    // console.log('props', this.props);
+    // console.log('state', state);
     const { cursor } = state;
     const arr = state.value.split('\n');
     const targetLine = arr[cursor.line];
@@ -79,7 +81,7 @@ export class CodeEditor extends Component {
 
   setCursorPositionToState(cursorObject) {
     this.setState({ cursor: cursorObject }, () => {
-      console.log('on state:', this.state);
+      // console.log('on state:', this.state);
     });
   }
 
@@ -116,45 +118,54 @@ export class CodeEditor extends Component {
     };
     return (
       <div>
-      <CodeMirror
-        ref={codemirror => {
-          this.codemirror = codemirror;
-        }}
-        value={this.getCurrentValue()}
-        options={options}
-        onCursorActivity={evt => {
-          // console.log('CODEMIRROR',this.codemirror)
-          // console.log(evt)
-          Promise.resolve(
-            this.setCursorPositionToState(this.getCursorPosition())
-          ).then(() => {
-            // console.log(this.getTextAroundCursor(this.state));
-          });
-        }}
-        onBlur={evt => {
-          console.log('BLUR:', evt);
-              }}
-        onBeforeChange={(editor, data, value) => {
-          this.setState({ value });
-        }}
-        onChange={(editor, data, value) => {
-          [editor, data, value].forEach(item => {
-            // console.log(item)
-          });
-          // console.log(this.state.value, this.props.output)
-          // this.setState(prevState => {
-          //   return {value: prevState.value + this.props.output}
-          // })
-        }}
-      />
-      <FileSystem text={this.state.value} loadFile={this.loadFile} />
+        {/*FORM: Name / Command / Save Button*/}
+        {
+          /*this.props.mode <= 0 ? <h3>Sandbox</h3> :*/
+          <SnippetAddEdit text={this.state.value} mode={this.props.mode} />
+        }
+
+        {/*TEXT EDITOR*/}
+        <CodeMirror
+          ref={codemirror => {
+            this.codemirror = codemirror;
+          }}
+          value={this.getCurrentValue()}
+          options={options}
+          onCursorActivity={evt => {
+            // console.log('CODEMIRROR',this.codemirror)
+            // console.log(evt)
+            Promise.resolve(
+              this.setCursorPositionToState(this.getCursorPosition())
+            ).then(() => {
+              // console.log(this.getTextAroundCursor(this.state));
+            });
+          }}
+          onBlur={evt => {
+            console.log('BLUR:', evt);
+          }}
+          onBeforeChange={(editor, data, value) => {
+            this.setState({ value });
+          }}
+          onChange={(editor, data, value) => {
+            [editor, data, value].forEach(item => {
+              // console.log(item)
+            });
+            // console.log(this.state.value, this.props.output)
+            // this.setState(prevState => {
+            //   return {value: prevState.value + this.props.output}
+            // })
+          }}
+        />
+        {/*FILE SYSTEM: filename / upload file*/}
+        <FileSystem text={this.state.value} loadFile={this.loadFile} />
       </div>
     );
   }
 }
 
 const mapState = state => ({
-  output: state.decoder
+  output: state.decoder,
+  mode: state.mode
 });
 
 export default connect(mapState)(CodeEditor);

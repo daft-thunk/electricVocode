@@ -1,16 +1,19 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import {Main, App, Snippets} from './components';
-import Test from './components/Test'
+import { Login, App, Snippets, Signup } from './components';
+import Test from './components/Test';
+import AppContainer from './containers/App';
 import HomePage from './containers/HomePage';
-import AppContainer from './containers/App'
 
 export default () => (
   <AppContainer>
     <Switch>
-      <Route path="/test" component={Snippets} />
-      <Route path="/" component={App} />
+      <Route path="/snippets" component={Snippets} />
+      <Route path="/test" component={Test} />
+      <Route path="/main" component={App} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/" component={Login} />
     </Switch>
   </AppContainer>
 );
