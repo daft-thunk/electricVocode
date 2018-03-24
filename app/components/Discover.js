@@ -6,7 +6,7 @@ import { Test } from './Test';
 import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
 import SnippetView from './SnippetView';
 
-class Snippets extends Component {
+class Discover extends Component {
   constructor() {
     super();
 
@@ -23,7 +23,6 @@ class Snippets extends Component {
   }
 
   render() {
-    console.log(this.props.snippets);
     const remText = 'Remove this snippet?';
     const confirm = () => {message.info('Snippet has been removed')}
     const columns = [{
@@ -32,34 +31,23 @@ class Snippets extends Component {
       key: 'command',
     },
     {
-      title: 'Code',
-      key: 'id',
-      render: (text, record) => (
-        <span>
-          <SnippetView code={record.code} command={record.command} />
-        </span>
-      )
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: 'Code',
+      key: 'code',
       render: (text, record) => (
-        <span>
-          {
-            this.props.userId === record.creatorId ?
-            <Button icon="edit" /> :
-            <Button icon="fork" />
-          }
-          <Divider type="vertical" />
-          <Popconfirm title={remText} onConfirm={() => this.removeSnippet(record.id)} okText="Yes" cancelText="No" >
-            <Button type="danger" icon="close" />
-          </Popconfirm>
+        <span className="discover-btn-row">
+          <SnippetView code={record.code} command={record.command} />
+          <span className="discover-add-btn" ><Button icon="plus-circle-o" /></span>
         </span>
       )
     }];
     return (
       <div className="main-content">
-        <h2>Manage Snippets</h2>
+        <h2>Discover New Snippets</h2>
         <Table dataSource={this.props.snippets} columns={columns} />
       </div>
     );
@@ -85,4 +73,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Snippets);
+export default connect(mapState, mapDispatch)(Discover);

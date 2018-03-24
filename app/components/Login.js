@@ -11,44 +11,71 @@ const FormItem = Form.Item;
  */
 class LoginForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
     const { handleSubmit, name, displayName, guestSignin } = this.props;
-    console.log(this.props.history)
+    console.log(this.props.history);
     return (
       <div className="login-container">
-      <Form onSubmit={handleSubmit} name={name} className="login-form">
-        <FormItem>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input name="email" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input name="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )}
-          <Button type="primary" htmlType="submit" className="login-form-button">
-            {displayName}
-      </Button>
-          {displayName === "Login" ? <Link to="/signup">New? Register now!</Link> : <Link to="/">Have an account? Sign in here!</Link>}
-        </FormItem>
-        <Link to="/main"><Button onClick={guestSignin} type="primary" className="guest-btn">Continue as Guest</Button></Link>
-      </Form>
+        <Form onSubmit={handleSubmit} name={name} className="login-form">
+          <FormItem>
+            {getFieldDecorator('userName', {
+              rules: [
+                { required: true, message: 'Please input your username!' }
+              ]
+            })(
+              <Input
+                name="email"
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Username"
+              />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('password', {
+              rules: [
+                { required: true, message: 'Please input your Password!' }
+              ]
+            })(
+              <Input
+                name="password"
+                prefix={
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="password"
+                placeholder="Password"
+              />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('remember', {
+              valuePropName: 'checked',
+              initialValue: true
+            })(<Checkbox>Remember me</Checkbox>)}
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              {displayName}
+            </Button>
+            {displayName === 'Login' ? (
+              <Link to="/signup">New? Register now!</Link>
+            ) : (
+              <Link to="/">Have an account? Sign in here!</Link>
+            )}
+          </FormItem>
+          <Link to="/main">
+            <Button onClick={guestSignin} type="primary" className="guest-btn">
+              Continue as Guest
+            </Button>
+          </Link>
+        </Form>
       </div>
     );
   }
@@ -61,24 +88,24 @@ class LoginForm extends Component {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapLogin = (state) => {
+const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'Login'
   };
 };
 
-const mapSignup = (state) => {
+const mapSignup = state => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'Sign Up'
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
-      console.log('submt')
+      console.log('submit');
       evt.preventDefault();
       const formName = evt.target.name;
       const email = evt.target.email.value;
@@ -87,7 +114,7 @@ const mapDispatch = (dispatch) => {
     },
     guestSignin(evt) {
       evt.preventDefault();
-      dispatch(auth('dave@dave.com', '123', 'Login'));
+      dispatch(auth('guest@guest.com', '123', 'Login'));
     }
   };
 };
