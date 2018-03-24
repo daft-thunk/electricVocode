@@ -22,8 +22,8 @@ class App extends Component {
         <header className="App-header">
           <h1 id="home-title">VOCODE</h1>
         </header>
-        <div className="flex">
-          <div style={{flex: 3}}>
+        <div>
+          <div style={{margin: '0 auto'}} >
             <CodeEditor />
             {/*
          <button>
@@ -33,7 +33,7 @@ class App extends Component {
             </button>
             */}
           </div>
-          <div style={{flex: 1}}>
+          <div style={{width: 0}}>
             <Mic />
           </div>
         </div>
