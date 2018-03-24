@@ -6,7 +6,7 @@ const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});
 
-export const addOutputThunk = (base64data) => {
+export const addOutputThunk = (base64data, userSnippets, dictionary) => {
   return dispatch => {
     axios.post('https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyBxs-oE9FfcxdCeLOgxP6Ia_ufy8QzijN0', {
       config: {
@@ -23,7 +23,7 @@ export const addOutputThunk = (base64data) => {
   }).then(res => {
     console.log(res.data);
     const parsed = res.data.results[0].alternatives[0].transcript;
-    const interpreted = interpreter(parsed);
+    const interpreted = interpreter(parsed, userSnippets, dictionary);
     if (interpreted) {
       clipboard.writeText(interpreted);
       dispatch(addOutput(interpreted));
