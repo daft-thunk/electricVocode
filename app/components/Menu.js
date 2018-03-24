@@ -52,12 +52,12 @@ class MenuBar extends Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
-          <Link to="">
+          <Link to="/discover">
             <Icon type="rocket" />
             <span>Discover</span>
           </Link>
           </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
+          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Favorites</span></span>}>
             <Menu.Item key="5">Option 5</Menu.Item>
             <Menu.Item key="6">Option 6</Menu.Item>
             <Menu.Item key="7">Option 7</Menu.Item>
