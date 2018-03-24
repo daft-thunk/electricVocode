@@ -25,7 +25,7 @@ class Mic extends Component {
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       let base64data = reader.result.split(',')[1];
-      store.dispatch(addOutputThunk(base64data, this.props.snippets));
+      store.dispatch(addOutputThunk(base64data, this.props.snippets, dictionary));
     };
   }
 
@@ -53,10 +53,10 @@ class Mic extends Component {
       this.setState({ recorder: _recorder }, () =>
         electron.remote.globalShortcut.register('Alt+z', () => {
           this.state.recorder.record();
-          electron.ipcRenderer.send('startRecording');
+          ipcRenderer.send('startRecording');
           setTimeout(() => {
             this.stopRecording();
-            electron.ipcRenderer.send('stopRecording');
+            ipcRenderer.send('stopRecording');
           }, 4000);
         })
       );
