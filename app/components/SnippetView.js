@@ -37,7 +37,7 @@ export default class SnippetView extends Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>{this.props.code}</p>
+          <pre>{this.props.code}</pre>
         </Modal>
       </div>
     );

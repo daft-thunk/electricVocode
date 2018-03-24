@@ -47,7 +47,8 @@ export const alternatesDictionary = {
     },
     {
       reducer: ['producer']
-    }
+    },
+    {github: ['it hub']}
   ]
 };
 
