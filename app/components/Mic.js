@@ -8,6 +8,7 @@ import { store } from '../index';
 import { addOutputThunk } from '../store/decoder.js';
 import dictionary from '../utils/dictionary';
 
+/*eslint-disable class-methods-use-this*/
 class Mic extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ class Mic extends Component {
 
   stopRecording() {
     // console.log(recorder)
-    this.state.recorder.exportMonoWAV((blob) => {
+    this.state.recorder.exportMonoWAV(blob => {
       console.log(blob);
       this.blobify(blob);
     });
@@ -46,22 +47,23 @@ class Mic extends Component {
     });
     return parsed;
   }
+
   componentDidMount() {
-    initAudio()
-    .then( recorder => {
-      this.setState({ recorder }, () => electron.remote.globalShortcut.register('Alt+z', () => {
-              this.state.recorder.record();
-              electron.ipcRenderer.send('startRecording');
-              setTimeout(() => {
-                this.stopRecording();
-                electron.ipcRenderer.send('stopRecording');
-              }, 4000);
-            }));
+    initAudio().then(_recorder => {
+      this.setState({ recorder: _recorder }, () =>
+        electron.remote.globalShortcut.register('Alt+z', () => {
+          this.state.recorder.record();
+          electron.ipcRenderer.send('startRecording');
+          setTimeout(() => {
+            this.stopRecording();
+            electron.ipcRenderer.send('stopRecording');
+          }, 4000);
+        })
+      );
     });
   }
 
   render() {
-    console.table('DICTIONARY:', dictionary);
     const parsedCommands = this.props.commands.map(this.parseCommand);
     return (
       <div>
