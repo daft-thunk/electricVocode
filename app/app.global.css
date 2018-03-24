@@ -97,6 +97,9 @@
 
 .app-container {
   display: flex;
+  background: #02111D;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #02111D, #037BB5, #02111D);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #02111D, #037BB5, #02111D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .menu-bar {
@@ -110,4 +113,12 @@
 .main-content {
   width: calc(100vw - 256px);
   padding: 5px;
+}
+
+.discover-btn-row {
+ display: flex;
+}
+
+.discover-add-btn {
+  padding-left: 5px;
 }
