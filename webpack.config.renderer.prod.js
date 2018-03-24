@@ -165,6 +165,22 @@ export default merge.smart(baseConfig, {
       NODE_ENV: 'production'
     }),
 
+    new copyWebpack([
+      {
+        from: './app/recorderWorker.js',
+        to: './'
+      },
+      {
+        from: './app/triangle-blue.png',
+        to: './'
+      },
+      {
+        from: './app/triangle-red.png',
+        to: './'
+      }
+    ]),
+
+
     new UglifyJSPlugin({
       parallel: true,
       sourceMap: true

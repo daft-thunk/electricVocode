@@ -1,8 +1,8 @@
-import path from 'path'
-import {ipcRenderer} from 'electron'
-import {Mic} from './components/Mic'
-import store from './store'
-import { addOutputThunk } from './store/decoder'
+import path from 'path';
+import {ipcRenderer} from 'electron';
+import {Mic} from './components/Mic';
+import store from './store';
+import { addOutputThunk } from './store/decoder';
 /*License (MIT)
 
 Copyright © 2013 Matt Diamond
@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = path.join('../recorderWorker.js');
+  var WORKER_PATH = path.join('./dist/recorderWorker.js');
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
     this.context = source.context;
-    if(!this.context.createScriptProcessor){
+    if (!this.context.createScriptProcessor){
        this.node = this.context.createJavaScriptNode(bufferLen, 2, 2);
     } else {
        this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
@@ -55,7 +55,7 @@ DEALINGS IN THE SOFTWARE.
           e.inputBuffer.getChannelData(1)
         ]
       });
-    }
+    };
 
     this.configure = function(cfg){
       for (var prop in cfg){
@@ -63,24 +63,24 @@ DEALINGS IN THE SOFTWARE.
           config[prop] = cfg[prop];
         }
       }
-    }
+    };
 
     this.record = function(){
       recording = true;
-    }
+    };
 
     this.stop = function(){
       recording = false;
-    }
+    };
 
     this.clear = function(){
       worker.postMessage({ command: 'clear' });
-    }
+    };
 
     this.getBuffers = function(cb) {
       currCallback = cb || config.callback;
-      worker.postMessage({ command: 'getBuffers' })
-    }
+      worker.postMessage({ command: 'getBuffers' });
+    };
 
     this.exportWAV = function(cb, type){
       currCallback = cb || config.callback;
@@ -90,7 +90,7 @@ DEALINGS IN THE SOFTWARE.
         command: 'exportWAV',
         type: type
       });
-    }
+    };
 
     this.exportMonoWAV = function(cb, type){
       currCallback = cb || config.callback;
@@ -100,12 +100,12 @@ DEALINGS IN THE SOFTWARE.
         command: 'exportMonoWAV',
         type: type
       });
-    }
+    };
 
     worker.onmessage = function(e){
       var blob = e.data;
       currCallback(blob);
-    }
+    };
 
     source.connect(this.node);
     this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
@@ -113,10 +113,10 @@ DEALINGS IN THE SOFTWARE.
 
   Recorder.setupDownload = function(blob, filename){
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    var link = document.getElementById("save");
+    var link = document.getElementById('save');
     link.href = url;
     link.download = filename || 'output.wav';
-  }
+  };
 
   window.Recorder = Recorder;
 

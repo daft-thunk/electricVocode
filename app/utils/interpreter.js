@@ -1,5 +1,14 @@
 import electron from 'electron';
 import dictionary from './dictionary';
+import path from 'path';
+
+const onSuccess = (phrase) => {
+  return new Notification('Hurd ya fam', { body: phrase });
+};
+
+const onFail = (phrase) => {
+  return new Notification(`Sorry I don't know that one, this is Josh's fault`, { body: phrase });
+};
 
 const interpreter = speech => {
   console.log(speech);
@@ -9,14 +18,12 @@ const interpreter = speech => {
   // while (commandWords.length) {
   if (commandWords.length) {
     const currCommand = commandWords[0].toLowerCase(); // get first word
-    electron.ipcRenderer.send('successCommand', currCommand);
-
     const speechWordsArray = speech.split(' ').map(word => word.toLowerCase());
     const commandIdx = speechWordsArray.indexOf(currCommand);
-
+    onSuccess(currCommand);
     return dictionary[currCommand](speechWordsArray.slice(commandIdx + 1));
   } else {
-    electron.ipcRenderer.send('failCommand', 'command not found');
+    onFail(speech);
     console.error(`Command ${speech} not recognized`);
   }
   // }
