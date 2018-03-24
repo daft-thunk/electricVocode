@@ -29,12 +29,13 @@ const interpreter = (speech, userSnippets, dictionary) => {
   // while (commandWords.length) {
   if (commandIdx > -1) {
     const currCommand = commandWords[0].toLowerCase(); // get first word
+
+    // this triggers menu bar display: (not being used?)
     electron.ipcRenderer.send('successCommand', currCommand);
 
-    // const speechWordsArray = speech.split(' ').map(word => word.toLowerCase());
-
-    onSuccess(currCommand);
-    return dictionary[currCommand](speechWordsArray.slice(commandIdx + 1));
+    const afterCommand = speechWordsArray.slice(commandIdx + 1);
+    onSuccess(`▵${currCommand.toUpperCase()}▵ ${afterCommand.join(' ')}`);
+    return dictionary[currCommand](afterCommand);
   } else {
     onFail(speech);
     console.error(`Command ${speech} not recognized`);
