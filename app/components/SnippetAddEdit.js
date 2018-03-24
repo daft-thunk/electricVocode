@@ -67,6 +67,13 @@ class SnippetAddEdit extends Component {
     this.handleFormChange = this.handleFormChange.bind(this);
   }
 
+  componentDidMount() {
+    const fields = {name: {value: this.props.origCommand}, command: {value: this.props.origCommand}};
+    console.log(fields)
+    this.setState({fields});
+    console.log(this.state);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     // validation here
@@ -123,8 +130,10 @@ class SnippetAddEdit extends Component {
   }
 }
 
-const mapState = state => ({
-
+const mapState = (state, ownProps) => ({
+  mode: state.mode,
+  text: ownProps.text,
+  origCommand: ownProps.command
 });
 
 const mapDispatch = (dispatch, ownProps) => {

@@ -30,9 +30,9 @@ class Snippets extends Component {
   }
 
   editSnippet(snippetId) {
+    this.props.history.push('/main');
     const snip = this.props.snippets.find(snippet => snippet.id === snippetId);
     this.props.editSnippet(snip);
-    this.props.history.push('/main');
   }
 
   render() {

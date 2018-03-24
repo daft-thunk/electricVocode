@@ -97,9 +97,13 @@
 
 .app-container {
   display: flex;
-  background: #02111D;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #02111D, #037BB5, #02111D);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #02111D, #037BB5, #02111D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body {
+  background: #bae7ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #adc6ff, #bae7ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #adc6ff, #bae7ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .menu-bar {
