@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {CodeEditor, Mic, Test, SnippetAddEdit} from '.';
+import { CodeEditor, Mic, Test, SnippetAddEdit } from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Menu, Icon, Button } from 'antd';
@@ -16,7 +16,7 @@ class MenuBar extends Component {
 
   componentWillReceiveProps() {
     if (!this.props.user) {
-      this.setState({styleToggle: 'menu-bar'});
+      this.setState({ styleToggle: 'menu-bar' });
     }
   }
 
@@ -40,22 +40,24 @@ class MenuBar extends Component {
           className={this.state.styleToggle}
         >
           <Menu.Item key="1">
-          <Link to="/snippets">
-            <Icon type="desktop" />
-            <span style={{color: 'white'}}>Snippets</span>
-          </Link>
+            <Link to="/Main">
+              <Icon type="desktop" />
+              <span>Sandbox</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-          <Link to="/Main">
-            <Icon type="pie-chart" />
-            <span>Sandbox</span>
-          </Link>
+            <Link to="/snippets">
+              <Icon type="code" />
+              <span style={{ color: 'white' }}>Snippets</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="inbox" />
-            <span>Option 3</span>
+          <Link to="/discover">
+            <Icon type="rocket" />
+            <span>Discover</span>
+          </Link>
           </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
+          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Favorites</span></span>}>
             <Menu.Item key="5">Option 5</Menu.Item>
             <Menu.Item key="6">Option 6</Menu.Item>
             <Menu.Item key="7">Option 7</Menu.Item>

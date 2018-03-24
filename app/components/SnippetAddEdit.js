@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { postNewSnippet } from '../store/snippets';
 
 const FormItem = Form.Item;
@@ -28,37 +28,45 @@ const CustomizedForm = Form.create({
 })(props => {
   const { getFieldDecorator } = props.form;
   return (
-    <Form layout="inline" className="responsive-container">
+    <Form layout="inline" className="responsive-container" onSubmit={props.onSubmit}>
       <FormItem label="Snippet Name">
         {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Snippet name is required!' }]
-        })(<Input />)}
+        })(<Input name="name" />)}
       </FormItem>
       <FormItem label="Voice Command">
         {getFieldDecorator('command', {
           rules: [{ required: true, message: 'Command is required!' }]
-        })(<Input />)}
+        })(<Input name="command" />)}
       </FormItem>
       <FormItem>
-          <Button type="primary" htmlType="submit">
-            Save Snippet
-          </Button>
-        </FormItem>
+        <Button type="primary" htmlType="submit">
+          Save Snippet
+        </Button>
+      </FormItem>
     </Form>
   );
 });
 
 class SnippetAddEdit extends Component {
-  state = {
-    fields: {
-      name: {
-        value: ''
-      },
-      command: {
-        value: ''
+  constructor() {
+    super();
+
+    this.state = {
+      fields: {
+        name: {
+          value: ''
+        },
+        command: {
+          value: ''
+        }
       }
-    }
-  };
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     // validation here
@@ -67,17 +75,33 @@ class SnippetAddEdit extends Component {
     console.log('clicked');
     //      ^^^
 
-    // console.log('text:', this.props.text);
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-        addSnippet({
-          userId: 1,
-          command: this.state.fields.command.value,
-          code: this.props.text
-        });
-      }
-    });
+    const command = e.target.command.value;
+    const name = e.target.name.value;
+    const code = this.props.text;
+    let save = true;
+    if (command.length < 1) {
+      message.error('Voice Command is required');
+      save = false;
+    }
+    if (name.length < 1) {
+      message.error('Name is required');
+      save = false;
+    }
+    if (code.length < 1) {
+      message.error('Write Code for a Snippet!');
+      save = false;
+    }
+
+    // if there was an error, do not save snippet
+    if (!save) return;
+
+    // this.props.addSnippet()
+    console.log('Command---', command);
+    console.log('Code----', code);
+
+    this.props.addSnippet({command, code})
+
+
   };
   handleFormChange = changedFields => {
     this.setState({
@@ -88,7 +112,7 @@ class SnippetAddEdit extends Component {
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
-      <div>
+      <div className="snippet-form" >
         <CustomizedForm
           {...fields}
           onChange={this.handleFormChange}
@@ -112,5 +136,5 @@ const mapDispatch = (dispatch, ownProps) => {
 };
 
 
-export default withRouter(connect(mapState)(SnippetAddEdit));
+export default withRouter(connect(mapState, mapDispatch)(SnippetAddEdit));
 
