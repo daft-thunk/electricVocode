@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {CodeEditor, Mic, Test, SnippetAddEdit} from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
-
+import electron from 'electron';
 
 /*eslint-disable react/prefer-stateless-function*/
 class App extends Component {
@@ -12,6 +12,9 @@ class App extends Component {
   }
 
   render() {
+    electron.remote.globalShortcut.register('Alt+q', () => {
+       this.props.history.push('httpCodes');
+    });
     console.log(this.props.ownProps);
     console.log(this.props);
     return (

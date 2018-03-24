@@ -12,10 +12,10 @@
  */
 import electron, { app, BrowserWindow, globalShortcut, clipboard, Tray, ipcMain } from 'electron';
 import MenuBuilder from './menu';
-import interpreter from './utils/interpreter'
-import addOutput from './store/decoder'
-import store from './store'
-import path from 'path'
+import interpreter from './utils/interpreter';
+import addOutput from './store/decoder';
+import store from './store';
+import path from 'path';
 
 let mainWindow = null;
 let tray = null;
@@ -62,19 +62,27 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
-  tray = new Tray(path.join(__dirname,'..', 'triangle-blue.png'))
+
+  // TRAY AND TRAY LISTENERS
+  tray = new Tray(path.join(__dirname, '..', 'triangle-blue.png'));
   ipcMain.on('startRecording', () => {
-    tray.setImage(path.join(__dirname,'..', 'triangle-red.png'))
-  })
+    tray.setImage(path.join(__dirname, '..', 'triangle-red.png'));
+  });
   ipcMain.on('stopRecording', () => {
-    tray.setImage(path.join(__dirname,'..', 'triangle-blue.png'))
-  })
+    tray.setImage(path.join(__dirname, '..', 'triangle-blue.png'));
+  });
   ipcMain.on('successCommand', (e, info) => {
-    tray.setTitle(info)
-  })
+    tray.setTitle(info);
+  });
   ipcMain.on('failCommand', (e, info) => {
-    tray.setTitle(info)
-  })
+    tray.setTitle(info);
+  });
+
+  //WINDOW NAV LISTENERS
+
+  ipcMain.on('popUp', () => {
+    mainWindow.show();
+  });
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -96,10 +104,9 @@ app.on('ready', async () => {
   });
 
 
-
   mainWindow.on('closed', () => {
     mainWindow = null;
-    globalShortcut.unregisterAll()
+    globalShortcut.unregisterAll();
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);

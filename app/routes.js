@@ -5,10 +5,12 @@ import { Login, App, Snippets, Signup } from './components';
 import Test from './components/Test';
 import AppContainer from './containers/App';
 import HomePage from './containers/HomePage';
+import webView from './components/webView';
 
 export default () => (
   <AppContainer>
     <Switch>
+      <Route path="/webView/:adress" component={webView} />
       <Route path="/snippets" component={Snippets} />
       <Route path="/test" component={Test} />
       <Route path="/main" component={App} />
