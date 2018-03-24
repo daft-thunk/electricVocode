@@ -1,5 +1,5 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, globalShortcut } from 'electron';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -51,7 +51,11 @@ export default class MenuBuilder {
         { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' },
         { label: 'Show All', selector: 'unhideAllApplications:' },
         { type: 'separator' },
-        { label: 'Quit', accelerator: 'Command+Q', click: () => { app.quit(); } }
+        { label: 'Quit', accelerator: 'Command+Q', click: () => {
+          app.isQuiting = true;
+          globalShortcut.unregisterAll();
+          app.quit();
+        } }
       ]
     };
     const subMenuEdit = {

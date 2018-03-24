@@ -16,6 +16,7 @@ import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import copyWebpack from 'copy-webpack-plugin';
 
 CheckNodeEnv('development');
 
@@ -224,6 +225,21 @@ export default merge.smart(baseConfig, {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
     }),
+
+    new copyWebpack([
+      {
+        from: './app/recorderWorker.js',
+        to: './'
+      },
+      {
+        from: './app/triangle-blue.png',
+        to: './'
+      },
+      {
+        from: './app/triangle-red.png',
+        to: './'
+      }
+    ]),
 
     new webpack.LoaderOptionsPlugin({
       debug: true

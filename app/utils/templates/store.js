@@ -1,5 +1,5 @@
 const Store = (input) => {
-  input = input.join(', ');
+  input = input.length ? input.join(', ') : 'myReducer';
   return `//npm install redux redux-logger redux-thunk redux-devtools-extension
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'

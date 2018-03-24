@@ -7,20 +7,32 @@
 @import '~codemirror/theme/material.css';
 @import '~codemirror/theme/neat.css';
 @import '~antd/dist/antd.min.css';
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
 
+/* CONSTANTS */
+
+/* menu blue */
+/* #1890ff */ 
+
+/* dark blue */
+/* #037BB5 */
+
+/* black-ish */
+/* #02111D */
 
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #85a5ff;
+  background-color: #1890ff;
   padding: 3px;
 }
 
 #home-title {
+  font-family: 'Share Tech Mono', monospace;
   color: #ffffff;
-  font-size: 40px;
+  font-size: 60px;
   margin-bottom: 0px;
 }
 
@@ -95,11 +107,32 @@
 }
 
 
+/* ANT - TABLE HEAD */
+th {
+  background: #1890ff !important;
+}
+
+th > span {
+  color: white;
+}
+
+/* ANT - HOVER TABLE */
+.ant-table-tbody>tr.ant-table-row-hover>td, .ant-table-tbody>tr:hover>td, .ant-table-thead>tr.ant-table-row-hover>td, .ant-table-thead>tr:hover>td {
+  background: #bee2ff;
+}
+
+
 .app-container {
   display: flex;
-  background: #02111D;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #02111D, #037BB5, #02111D);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #02111D, #037BB5, #02111D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #effaff;  /* fallback for old browsers */
+}
+
+/* ALTERNATE - GRADIENT */
+/* to use - rename to .app-container */
+.app-container-gradient {
+  background: #bae7ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #adc6ff, #bae7ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #adc6ff, #bae7ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .menu-bar {

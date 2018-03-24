@@ -47,6 +47,10 @@ export class CodeEditor extends Component {
     }
   }
 
+  componentDidMount() {
+
+  }
+
   loadFile(event) {
     const loaded = evt => {
       let fileString = evt.target.result;
@@ -119,11 +123,12 @@ export class CodeEditor extends Component {
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}
-        {
-          /*this.props.mode <= 0 ? <h3>Sandbox</h3> :*/
-          <SnippetAddEdit text={this.state.value} mode={this.props.mode} />
+        {/*
+          this.props.mode <= 0 ? <h3>Sandbox</h3> :
+          <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
+          */
         }
-
+        <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
         {/*TEXT EDITOR*/}
         <CodeMirror
           ref={codemirror => {
@@ -165,7 +170,8 @@ export class CodeEditor extends Component {
 
 const mapState = state => ({
   output: state.decoder,
-  mode: state.mode
+  mode: state.mode,
+  currSnippet: state.currSnippet
 });
 
 export default connect(mapState)(CodeEditor);

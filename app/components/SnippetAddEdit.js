@@ -28,7 +28,11 @@ const CustomizedForm = Form.create({
 })(props => {
   const { getFieldDecorator } = props.form;
   return (
-    <Form layout="inline" className="responsive-container" onSubmit={props.onSubmit}>
+    <Form
+      layout="inline"
+      className="responsive-container"
+      onSubmit={props.onSubmit}
+    >
       <FormItem label="Snippet Name">
         {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Snippet name is required!' }]
@@ -67,13 +71,21 @@ class SnippetAddEdit extends Component {
     this.handleFormChange = this.handleFormChange.bind(this);
   }
 
+  componentDidMount() {
+    const fields = {
+      name: { value: this.props.origCommand },
+      command: { value: this.props.origCommand }
+    };
+    console.log(fields);
+    this.setState({ fields });
+    console.log(this.state);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     // validation here
 
-    // This vvv doesn't get called!
-    console.log('clicked');
-    //      ^^^
+    console.log('clicked', this.state.fields.name.value);
 
     const command = e.target.command.value;
     const name = e.target.name.value;
@@ -99,9 +111,8 @@ class SnippetAddEdit extends Component {
     console.log('Command---', command);
     console.log('Code----', code);
 
-    this.props.addSnippet({command, code})
-
-
+    const { id } = this.props.user;
+    this.props.addSnippet({ command, code, userId: id });
   };
   handleFormChange = changedFields => {
     this.setState({
@@ -112,7 +123,7 @@ class SnippetAddEdit extends Component {
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
-      <div className="snippet-form" >
+      <div className="snippet-form">
         <CustomizedForm
           {...fields}
           onChange={this.handleFormChange}
@@ -123,8 +134,11 @@ class SnippetAddEdit extends Component {
   }
 }
 
-const mapState = state => ({
-
+const mapState = (state, ownProps) => ({
+  mode: state.mode,
+  text: ownProps.text,
+  origCommand: ownProps.command,
+  user: state.user
 });
 
 const mapDispatch = (dispatch, ownProps) => {
@@ -135,6 +149,4 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-
 export default withRouter(connect(mapState, mapDispatch)(SnippetAddEdit));
-

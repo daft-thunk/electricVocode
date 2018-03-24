@@ -1,4 +1,6 @@
-import { component, store, reducer, express, stateless } from './templates';
+'use strict';
+
+import { component, store, reducer, express, stateless, html, css } from './templates';
 import * as wordMethods from './wordMethods';
 import { history } from '../store/user';
 import { ipcRenderer } from 'electron';
@@ -21,6 +23,8 @@ export const baseDictionary = {
   store: input => store(input),
   reducer: input => reducer(input),
   express: () => express,
+  html: input => html(input),
+  css: () => css,
   //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
   github: () => {
     history.push(`/webView/github.com`);
@@ -43,7 +47,8 @@ export const alternatesDictionary = {
     },
     {
       reducer: ['producer']
-    }
+    },
+    {github: ['it hub']}
   ]
 };
 
@@ -71,3 +76,11 @@ export const addAlternates = (alternates, dictionary) => {
 const dictionary = addAlternates(alternatesDictionary, baseDictionary);
 
 export default dictionary;
+
+export const snippetsToDict = (snippetsArray, dict) => {
+  const newDict = { ...dict };
+  snippetsArray.forEach(snippet => {
+    newDict[snippet.command] = () => snippet.code;
+  });
+  return newDict;
+};
