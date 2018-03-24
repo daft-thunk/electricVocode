@@ -64,14 +64,7 @@ class Mic extends Component {
   }
 
   render() {
-    const parsedCommands = this.props.commands.map(this.parseCommand);
-    return (
-      <div>
-        {parsedCommands.map(command => (
-          <h3 key={command.join(' ')}> {command.join(' ')} </h3>
-        ))}
-      </div>
-    );
+    return <div />;
   }
 }
 
@@ -81,3 +74,14 @@ const mapProps = state => ({
 });
 
 export default connect(mapProps)(Mic);
+
+/*
+    const parsedCommands = this.props.commands.map(this.parseCommand);
+    return (
+      <div>
+        {parsedCommands.map(command => (
+          <h3 key={command.join(' ')}> {command.join(' ')} </h3>
+        ))}
+      </div>
+    );
+*/
