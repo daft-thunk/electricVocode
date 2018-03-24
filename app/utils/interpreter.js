@@ -1,10 +1,15 @@
 'use strict';
 
 import electron from 'electron';
-import dictionary from './dictionary';
 
-const interpreter = speech => {
+// to change:
+import dictionary, { snippetsToDict } from './dictionary';
+
+const interpreter = (speech, userSnippets) => {
   console.log(speech);
+  // add to our default dictionary
+  console.log('>>>', snippetsToDict(userSnippets, dictionary))
+  dictionary = snippetsToDict(userSnippets, dictionary);
   const commandWords = speech
     .split(' ')
     .filter(word => dictionary[word.toLowerCase()] !== undefined);

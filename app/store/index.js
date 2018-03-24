@@ -9,9 +9,10 @@ import decoder from './decoder';
 import commands from './commands';
 import user, {history} from './user';
 import snippets from './snippets';
+import dictionary from './dictionary';
 
 
-const reducer = combineReducers({decoder, commands, user, router, snippets});
+const reducer = combineReducers({decoder, commands, user, router, snippets, dictionary});
 //const history = createMemoryHistory();
 
 const configureStore = (initialState?: counterStateType) => {
@@ -65,3 +66,5 @@ export default {configureStore, history};
 export * from './decoder';
 export * from './commands';
 export * from './user';
+export * from './snippets';
+export * from './dictionary';

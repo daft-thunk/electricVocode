@@ -22,9 +22,9 @@ class Mic extends Component {
   blobify(blob) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
-    reader.onloadend = function() {
+    reader.onloadend = () => {
       let base64data = reader.result.split(',')[1];
-      store.dispatch(addOutputThunk(base64data));
+      store.dispatch(addOutputThunk(base64data, this.props.snippets));
     };
   }
 
@@ -74,7 +74,8 @@ class Mic extends Component {
 }
 
 const mapProps = state => ({
-  commands: state.commands
+  commands: state.commands,
+  snippets: state.snippets
 });
 
 export default connect(mapProps)(Mic);

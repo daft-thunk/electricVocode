@@ -64,3 +64,11 @@ export const addAlternates = (alternates, dictionary) => {
 const dictionary = addAlternates(alternatesDictionary, baseDictionary);
 
 export default dictionary;
+
+export const snippetsToDict = (snippetsArray, dict) => {
+  const newDict = { ...dict };
+  snippetsArray.forEach(snippet => {
+    newDict[snippet.command] = () => snippet.code;
+  });
+  return newDict;
+};
