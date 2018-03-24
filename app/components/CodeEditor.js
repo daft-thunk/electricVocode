@@ -48,8 +48,8 @@ export class CodeEditor extends Component {
   }
 
   componentDidMount() {
-    if(currSnippet.code !== undefined)
-      this.setState({value: this.currSnippet.code})
+    if(this.props.currSnippet.code !== undefined)
+      this.setState({value: this.props.currSnippet.code})
   }
 
   loadFile(event) {
