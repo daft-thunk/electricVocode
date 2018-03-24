@@ -3,7 +3,6 @@ import {ipcRenderer} from 'electron';
 import {Mic} from './components/Mic';
 import store from './store';
 import { addOutputThunk } from './store/decoder';
-
 /*License (MIT)
 
 Copyright © 2013 Matt Diamond
@@ -25,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = path.join('../recorderWorker.js');
+  var WORKER_PATH = path.join('./dist/recorderWorker.js');
 
   var Recorder = function(source, cfg){
     var config = cfg || {};

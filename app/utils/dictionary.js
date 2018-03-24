@@ -2,6 +2,8 @@
 
 import { component, store, reducer, express, stateless, html, css } from './templates';
 import * as wordMethods from './wordMethods';
+import { history } from '../store/user';
+import { ipcRenderer } from 'electron';
 
 export const baseDictionary = {
   while: () => {
@@ -22,7 +24,16 @@ export const baseDictionary = {
   reducer: input => reducer(input),
   express: () => express,
   html: input => html(input),
-  css: () => css
+  css: () => css,
+  //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
+  github: () => {
+    history.push(`/webView/github.com`);
+    ipcRenderer.send('popUp');
+  },
+  stackoverflow: () => {
+    history.push(`/webView/stackoverflow.com`);
+    ipcRenderer.send('popUp');
+  }
 };
 
 export const alternatesDictionary = {

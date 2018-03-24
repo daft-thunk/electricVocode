@@ -1,9 +1,16 @@
 'use strict';
 
 import electron from 'electron';
-
-// to change:
 import { snippetsToDict } from './dictionary';
+// import path from 'path';
+
+const onSuccess = (phrase) => {
+  return new Notification('Hurd ya fam', { body: phrase });
+};
+
+const onFail = (phrase) => {
+  return new Notification(`Sorry I don't know that one, this is Josh's fault`, { body: phrase });
+};
 
 const interpreter = (speech, userSnippets, dictionary) => {
   console.log(speech);
@@ -11,12 +18,12 @@ const interpreter = (speech, userSnippets, dictionary) => {
   console.log('>>>', snippetsToDict(userSnippets, dictionary));
   dictionary = snippetsToDict(userSnippets, dictionary);
   const speechWordsArray = speech.split(' ');
-  let commandIdx = -1
+  let commandIdx = -1;
   const commandWords = speechWordsArray
     .filter((word, i) => {
-      const found = dictionary[word.toLowerCase()] !== undefined
-      if (found && commandIdx === -1) commandIdx = i
-      return found
+      const found = dictionary[word.toLowerCase()] !== undefined;
+      if (found && commandIdx === -1) commandIdx = i;
+      return found;
     }
   );
   // while (commandWords.length) {
@@ -26,9 +33,10 @@ const interpreter = (speech, userSnippets, dictionary) => {
 
     // const speechWordsArray = speech.split(' ').map(word => word.toLowerCase());
 
+    onSuccess(currCommand);
     return dictionary[currCommand](speechWordsArray.slice(commandIdx + 1));
   } else {
-    electron.ipcRenderer.send('failCommand', 'command not found');
+    onFail(speech);
     console.error(`Command ${speech} not recognized`);
   }
   // }

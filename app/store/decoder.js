@@ -14,7 +14,7 @@ export const addOutputThunk = (base64data, userSnippets, dictionary) => {
        sampleRateHertz: 44100,
        languageCode: 'en-US',
        speechContexts: {
-        phrases: []
+        phrases: ['github', 'stackoverflow']
       }
      },
      audio: {
