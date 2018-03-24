@@ -225,6 +225,21 @@ export default merge.smart(baseConfig, {
       NODE_ENV: 'development'
     }),
 
+    new copyWebpack([
+      {
+        from: './app/recorderWorker.js',
+        to: './'
+      },
+      {
+        from: './app/triangle-blue.png',
+        to: './'
+      },
+      {
+        from: './app/triangle-red.png',
+        to: './'
+      }
+    ]),
+
     new webpack.LoaderOptionsPlugin({
       debug: true
     }),
