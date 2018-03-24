@@ -16,6 +16,7 @@ import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import copyWebpack from 'copy-webpack-plugin';
 
 CheckNodeEnv('development');
 
