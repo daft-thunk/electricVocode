@@ -16,10 +16,9 @@ const ${actionCreator} = info => ({type: ${constant}, info})
 /**
  * THUNK CREATORS
  */
-const Thunk = (args) =>
-  dispatch =>
-    /*ASYNC REQUEST*/
-}
+const Thunk = args => dispatch => {
+  /*ASYNC REQUEST*/
+};
 
 /**
  * REDUCER
