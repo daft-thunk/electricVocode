@@ -51,3 +51,4 @@ export const removeUserSnippetConnection = (userId, snippetId) => dispatch => {
     })
     .catch(console.error)
 }
+
