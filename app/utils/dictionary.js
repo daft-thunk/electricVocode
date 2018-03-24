@@ -1,5 +1,7 @@
 import { component, store, reducer, express, stateless } from './templates';
 import * as wordMethods from './wordMethods';
+import { history } from '../store/user';
+import { ipcRenderer } from 'electron';
 
 export const baseDictionary = {
   while: () => {
@@ -18,7 +20,16 @@ export const baseDictionary = {
   stateless: input => stateless(input),
   store: input => store(input),
   reducer: input => reducer(input),
-  express: () => express
+  express: () => express,
+  //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
+  github: () => {
+    history.push(`/webView/github.com`);
+    ipcRenderer.send('popUp');
+  },
+  stackoverflow: () => {
+    history.push(`/webView/stackoverflow.com`);
+    ipcRenderer.send('popUp');
+  }
 };
 
 export const alternatesDictionary = {

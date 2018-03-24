@@ -10,12 +10,12 @@
  *
  * @flow
  */
-import electron, { app, BrowserWindow, globalShortcut, clipboard, Tray, ipcMain } from 'electron';
+import electron, { app, BrowserWindow, globalShortcut, clipboard, Tray, ipcMain, Menu } from 'electron';
 import MenuBuilder from './menu';
-import interpreter from './utils/interpreter'
-import addOutput from './store/decoder'
-import store from './store'
-import path from 'path'
+import interpreter from './utils/interpreter';
+import addOutput from './store/decoder';
+import store from './store';
+import path from 'path';
 
 let mainWindow = null;
 let tray = null;
@@ -62,19 +62,34 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
-  tray = new Tray(path.join(__dirname,'..', 'triangle-blue.png'))
+
+  // TRAY AND TRAY LISTENERS
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Show App', click:  function(){
+        mainWindow.show();
+    } },
+    { label: 'Quit', click:  function(){
+        app.isQuiting = true;
+        globalShortcut.unregisterAll()
+        app.quit();
+    } }
+]);
+  tray = new Tray(path.join(__dirname, '..', 'triangle-blue.png'));
+
+  tray.setContextMenu(contextMenu);
+
   ipcMain.on('startRecording', () => {
-    tray.setImage(path.join(__dirname,'..', 'triangle-red.png'))
-  })
+    tray.setImage(path.join(__dirname, '..', 'triangle-red.png'));
+  });
   ipcMain.on('stopRecording', () => {
-    tray.setImage(path.join(__dirname,'..', 'triangle-blue.png'))
-  })
-  ipcMain.on('successCommand', (e, info) => {
-    tray.setTitle(info)
-  })
-  ipcMain.on('failCommand', (e, info) => {
-    tray.setTitle(info)
-  })
+    tray.setImage(path.join(__dirname, '..', 'triangle-blue.png'));
+  });
+
+  //WINDOW NAV LISTENERS
+  //Event from app/utils/interpreter
+  ipcMain.on('popUp', () => {
+    mainWindow.show();
+  });
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -95,11 +110,18 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
+  mainWindow.on('minimize', function(event){
+    event.preventDefault();
+    mainWindow.hide();
+});
 
+  mainWindow.on('close', (event) => {
+    if (!app.isQuiting){
+      event.preventDefault();
+      mainWindow.hide();
+  }
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-    globalShortcut.unregisterAll()
+  return false;
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
