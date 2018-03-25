@@ -7,10 +7,11 @@ import commands from './commands';
 import user from './user';
 import snippets from './snippets';
 import dictionary from './dictionary';
+import allSnippets from './allSnippets';
 
 const history = createBrowserHistory();
 const historyRouter = routerMiddleware(history);
-const reducers = combineReducers({decoder, commands, router, user, snippets, dictionary});
+const reducers = combineReducers({decoder, commands, router, user, snippets, dictionary, allSnippets});
 const enhancer = applyMiddleware(thunk, historyRouter);
 
 function configureStore() {
