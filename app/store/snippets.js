@@ -57,11 +57,10 @@ export const removeUserSnippetConnection = (userId, snippetId) => dispatch => {
 };
 
 export const addUserSnippetConnection = (userId, snippetId) => dispatch => {
-  axios.delete(`http://localhost:8080/api/users/${userId}/snippet/${snippetId}`)
-    .then(res => res.status)
-    .then(status => {
-      console.log(status);
-      dispatch(addSnippetConnection(snippetId))
+  axios.post(`http://localhost:8080/api/users/${userId}/snippets/${snippetId}`)
+    .then(res => res.data)
+    .then(snippets => {
+      dispatch(getSnippets(snippets));
     })
-    .catch(console.error)
+    .catch(console.error);
 };
