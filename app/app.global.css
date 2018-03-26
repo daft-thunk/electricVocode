@@ -20,6 +20,10 @@
 /* black-ish */
 /* #02111D */
 
+body {
+  background-color: #effaff;
+}
+
 .App {
   text-align: center;
 }
@@ -32,17 +36,20 @@
 #home-title {
   font-family: 'Share Tech Mono', monospace;
   color: #ffffff;
-  font-size: 60px;
+  font-size: 1.7em;
   margin-bottom: 0px;
 }
 
 .App-title {
-  font-size: 1em;
+  font-family: 'Share Tech Mono', monospace;
+  color: #ffffff;
+  font-size: 1.7em;
+  margin-bottom: 0px;
 }
 
-.App-intro {
+/* .App-intro {
   font-size: large;
-}
+} */
 
 .flex {
   display: flex;
@@ -60,7 +67,6 @@
 }
 .login-container {
   width: 100vw;
-
   align-content: center;
 }
 
@@ -154,4 +160,19 @@ th > span {
 
 .discover-add-btn {
   padding-left: 5px;
+}
+
+.profile-info-section {
+  display: flex;
+  padding-bottom: 8px;
+}
+
+.reset-forms {
+  width: 30vw;
+  align-self: center;
+  padding: 10px
+}
+
+.profile-page {
+  margin-left: 5px;
 }

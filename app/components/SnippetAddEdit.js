@@ -14,9 +14,9 @@ const CustomizedForm = Form.create({
   },
   mapPropsToFields(props) {
     return {
-      name: Form.createFormField({
-        ...props.name,
-        value: props.name.value
+      description: Form.createFormField({
+        ...props.description,
+        value: props.description.value
       }),
       command: Form.createFormField({
         ...props.command,
@@ -60,7 +60,7 @@ class SnippetAddEdit extends Component {
 
     this.state = {
       fields: {
-        name: {
+        description: {
           value: ''
         },
         command: {
@@ -75,7 +75,7 @@ class SnippetAddEdit extends Component {
 
   componentDidMount() {
     const fields = {
-      name: { value: this.props.origCommand },
+      description: { value: this.props.origCommand },
       command: { value: this.props.origCommand }
     };
     console.log(fields);
@@ -87,18 +87,18 @@ class SnippetAddEdit extends Component {
     e.preventDefault();
     // validation here
 
-    console.log('clicked', this.state.fields.name.value);
+    console.log('clicked', this.state.fields.description.value);
 
     const command = e.target.command.value;
-    const name = e.target.name.value;
+    const description = e.target.description.value;
     const code = this.props.text;
     let save = true;
     if (command.length < 1) {
       message.error('Voice Command is required');
       save = false;
     }
-    if (name.length < 1) {
-      message.error('Name is required');
+    if (description.length < 1) {
+      message.error('description is required');
       save = false;
     }
     if (code.length < 1) {
@@ -157,7 +157,7 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    addSnippet(snippet) {
+    addSnippet(snippet, userId) {
       ownProps.history.push('/snippets')
       dispatch(postNewSnippet(snippet));
       dispatch(setMode('sandbox'))
