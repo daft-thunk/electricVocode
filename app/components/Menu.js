@@ -4,6 +4,8 @@ import { CodeEditor, Mic, Test, SnippetAddEdit } from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Menu, Icon, Button } from 'antd';
+import electron from 'electron';
+
 const SubMenu = Menu.SubMenu;
 
 class MenuBar extends Component {
@@ -21,7 +23,7 @@ class MenuBar extends Component {
   }
 
   render() {
-    console.log(this.props.user)
+    console.log(this.props.user);
     return (
       <div style={{ width: 256 }}>
         {/*<Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
@@ -48,23 +50,42 @@ class MenuBar extends Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
-          <Link to="/discover">
-            <Icon type="rocket" />
-            <span>Discover</span>
-          </Link>
+            <Link to="/discover">
+              <Icon type="rocket" />
+              <span>Discover</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="4">
-          <Link to="/profile">
-            <Icon type="smile-o" />
-            <span>Profile</span>
-          </Link>
+            <Link to="/profile">
+              <Icon type="smile-o" />
+              <span>Profile</span>
+            </Link>
           </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="info-circle" /><span>About</span></span>}>
+          <SubMenu
+            key="sub1"
+            title={
+              <span>
+                <Icon type="info-circle" />
+                <span>About</span>
+              </span>
+            }
+          >
             <Menu.Item key="5">
-            <Link to="/docs/voice-commands">Voice Commands</Link>
+              <Link to="/docs/voice-commands">Voice Commands</Link>
             </Menu.Item>
-            <Menu.Item key="6">Keyboard Shortcuts</Menu.Item>
-            <Menu.Item key="7">Documentation</Menu.Item>
+            <Menu.Item key="6">
+              <Link to="/docs/keyboard-shortcuts">Keyboard Shortcuts</Link>
+            </Menu.Item>
+            <Menu.Item key="7">
+              <span
+                onClick={(e) => {
+                  e.preventDefault();
+                  electron.shell.openExternal(`http://github.com/daft-thunk/electricVocode#vocode`)
+                }}
+              >
+                Documentation
+              </span>
+            </Menu.Item>
           </SubMenu>
         </Menu>
       </div>
@@ -72,7 +93,7 @@ class MenuBar extends Component {
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     userId: state.user
   };
