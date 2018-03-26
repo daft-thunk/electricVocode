@@ -57,10 +57,10 @@ DEALINGS IN THE SOFTWARE.
       });
     };
 
-    this.configure = function(cfg){
-      for (var prop in cfg){
-        if (cfg.hasOwnProperty(prop)){
-          config[prop] = cfg[prop];
+    this.configure = function(_cfg){
+      for (var prop in _cfg){
+        if (_cfg.hasOwnProperty(prop)){
+          config[prop] = _cfg[prop];
         }
       }
     };

@@ -28,7 +28,11 @@ const CustomizedForm = Form.create({
 })(props => {
   const { getFieldDecorator } = props.form;
   return (
-    <Form layout="inline" className="responsive-container" onSubmit={props.onSubmit}>
+    <Form
+      layout="inline"
+      className="responsive-container"
+      onSubmit={props.onSubmit}
+    >
       <FormItem label="Snippet Name">
         {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Snippet name is required!' }]
@@ -68,9 +72,12 @@ class SnippetAddEdit extends Component {
   }
 
   componentDidMount() {
-    const fields = {name: {value: this.props.origCommand}, command: {value: this.props.origCommand}};
+    const fields = {
+      name: { value: this.props.origCommand },
+      command: { value: this.props.origCommand }
+    };
     console.log(fields);
-    this.setState({fields});
+    this.setState({ fields });
     console.log(this.state);
   }
 
@@ -78,9 +85,7 @@ class SnippetAddEdit extends Component {
     e.preventDefault();
     // validation here
 
-    // This vvv doesn't get called!
     console.log('clicked', this.state.fields.name.value);
-    //      ^^^
 
     const command = e.target.command.value;
     const name = e.target.name.value;
@@ -108,8 +113,10 @@ class SnippetAddEdit extends Component {
     if (this.props.mode === 1) this.props.editSnippet(this.props.currId, code, command);
     else if (this.props.mode === 2) this.props.addSnippet({command, code});
 
-    this.props.history.push('/snippets')
+    //this.props.history.push('/snippets')
 
+    const { id } = this.props.user;
+    this.props.addSnippet({ command, code, userId: id });
   };
   handleFormChange = changedFields => {
     this.setState({
@@ -120,7 +127,7 @@ class SnippetAddEdit extends Component {
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
-      <div className="snippet-form" >
+      <div className="snippet-form">
         <CustomizedForm
           {...fields}
           onChange={this.handleFormChange}
@@ -136,7 +143,8 @@ const mapState = (state, ownProps) => ({
   text: ownProps.text,
   origCommand: ownProps.command,
   currId: state.currSnippet.id,
-  history: ownProps.history
+  history: ownProps.history,
+  user: state.user
 });
 
 const mapDispatch = (dispatch, ownProps) => {
@@ -150,6 +158,4 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-
 export default withRouter(connect(mapState, mapDispatch)(SnippetAddEdit));
-

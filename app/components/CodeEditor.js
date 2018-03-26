@@ -124,11 +124,12 @@ export class CodeEditor extends Component {
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}
-        {
+        {/*
           this.props.mode <= 0 ? <h3>Sandbox</h3> :
           <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
+          */
         }
-
+        <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
         {/*TEXT EDITOR*/}
         <CodeMirror
           ref={codemirror => {
