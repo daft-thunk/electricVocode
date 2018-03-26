@@ -4,6 +4,7 @@ import { CodeEditor, Mic, Test, SnippetAddEdit } from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Menu, Icon, Button } from 'antd';
+import { setMode } from '../store/mode';
 const SubMenu = Menu.SubMenu;
 
 class MenuBar extends Component {
