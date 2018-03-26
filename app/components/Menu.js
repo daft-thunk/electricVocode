@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Menu, Icon, Button } from 'antd';
 import electron from 'electron';
+import { setMode } from '../store/mode';
 
 const SubMenu = Menu.SubMenu;
 

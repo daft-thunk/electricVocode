@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon } from 'antd';
+import { Card } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import ProfileForm from './ProfileForm';
-import { Card } from 'antd';
+import { ProfileForm, ChangeInfoForm } from '.';
 const { Meta } = Card;
 
 class Profile extends Component {
@@ -25,25 +24,34 @@ class Profile extends Component {
   }
 
   render() {
+    const { user } = this.props
     return (
-      <div>
-        <Card
-          hoverable
-          style={{ width: 240 }}
-          cover={<img alt="example" src="https://www.fillmurray.com/200/300" />}
-        >
-          <Meta
-            title="Europe Street beat"
-            description="www.instagram.com"
-          />
-        </Card>
+      <div className="profile-page">
+        <div className="profile-info-section">
+          <Card
+            hoverable
+            style={{ width: 240 }}
+            cover={<img alt="example" src="https://www.fillmurray.com/200/300" />}
+          >
+            <Meta
+              title={`${user.firstName} ${user.lastName}`}
+              description={user.email}
+            />
+          </Card>
+          <ChangeInfoForm info="email" />
+          <ChangeInfoForm info="password" />
+        </div>
         <h1>My Sites: </h1>
         <ProfileForm />
       </div>
-    )
+    );
   }
 }
 
-//const WrappedAdvancedProfile = Form.create()(Profile);
+const mapProps = state => {
+  return {
+    user: state.user,
+  };
+};
 
-export default withRouter(connect()(Profile));
+export default withRouter(connect(mapProps)(Profile));
