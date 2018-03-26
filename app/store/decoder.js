@@ -1,7 +1,8 @@
 import axios from 'axios';
 import interpreter from '../utils/interpreter';
-import { clipboard } from 'electron';
+import electron, { clipboard } from 'electron';
 import { cmdOutput } from './commands';
+
 const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});
@@ -21,8 +22,10 @@ export const addOutputThunk = (base64data, userSnippets, dictionary) => {
        content: base64data
      }
   }).then(res => {
-    console.log(res.data);
-    const parsed = res.data.results[0].alternatives[0].transcript;
+    console.log(res.data);// keep
+    // console.log('decoder: u / d', userSnippets, dictionary)
+    const parsed = res.data.results ? res.data.results[0].alternatives[0].transcript : null;
+    if (!parsed) return new Notification(`No input was registered.`);
     const interpreted = interpreter(parsed, userSnippets, dictionary);
     if (interpreted) {
       clipboard.writeText(interpreted);
