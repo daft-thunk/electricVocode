@@ -35,10 +35,10 @@ const CustomizedForm = Form.create({
       className="responsive-container"
       onSubmit={props.onSubmit}
     >
-      <FormItem label="Snippet Name">
-        {getFieldDecorator('name', {
-          rules: [{ required: true, message: 'Snippet name is required!' }]
-        })(<Input name="name" />)}
+      <FormItem label="Snippet Description">
+        {getFieldDecorator('description', {
+          rules: [{ required: true, message: 'Snippet description is required!' }]
+        })(<Input name="description" />)}
       </FormItem>
       <FormItem label="Voice Command">
         {getFieldDecorator('command', {
