@@ -7,7 +7,7 @@ import { baseDictionary } from '../../utils/dictionary';
 const dictKeys = Object.keys(baseDictionary);
 
 // keys that render pages put in here:
-const badKeys = new Set(['github', 'stackoverflow']);
+const badKeys = new Set(['github', 'stackoverflow', 'learn', 'waffle']);
 
 let data = dictKeys.filter(key => !badKeys.has(key)).map(key => {
   let content = baseDictionary[key]([]);
@@ -31,6 +31,16 @@ data.push(
     {
       title: 'stackoverflow',
       content: 'View stackoverflow.com',
+      noCode: true
+    },
+    {
+      title: 'learn',
+      content: 'View fullstackacademy.com',
+      noCode: true
+    },
+    {
+      title: 'waffle',
+      content: 'View waffle.io',
       noCode: true
     }
   ]
