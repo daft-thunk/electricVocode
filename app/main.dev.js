@@ -75,8 +75,14 @@ app.on('ready', async () => {
   // TRAY AND TRAY LISTENERS
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Show App',
+      label: 'Open Tray',
       accelerator: 'Alt+S',
+      click: () => {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Show App',
       click: () => {
         mainWindow.show();
       }
