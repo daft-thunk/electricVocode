@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
 import { Test } from './Test';
-import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
+import { fetchAllUserSnippets } from '../store/allSnippets';
+import {addUserSnippetConnection} from '../store/snippets';
 import SnippetView from './SnippetView';
 
 class Discover extends Component {
   constructor() {
     super();
 
-    this.removeSnippet = this.removeSnippet.bind(this)
+    this.addCode = this.addCode.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchSnippets(this.props.userId);
+    this.props.fetchAllSnippets();
   }
 
-  removeSnippet(snippetId) {
-    this.props.disconnectSnippet(this.props.userId, snippetId);
-    message.info('Snippet has been removed')
+  addCode(snippetId) {
+    this.props.addSnippetConnection(this.props.userId, snippetId);
   }
 
   render() {
@@ -36,19 +36,19 @@ class Discover extends Component {
       key: 'description',
     },
     {
-      title: 'Code',
+      title: 'View / Add Code',
       key: 'code',
       render: (text, record) => (
         <span className="discover-btn-row">
           <SnippetView code={record.code} command={record.command} />
-          <span className="discover-add-btn" ><Button icon="plus-circle-o" /></span>
+          <span className="discover-add-btn" ><Button onClick={() => this.addCode(record.id)} icon="plus-circle-o" /></span>
         </span>
       )
     }];
     return (
       <div className="main-content">
         <h2>Discover New Snippets</h2>
-        <Table dataSource={this.props.snippets} columns={columns} />
+        <Table dataSource={this.props.allSnippets} columns={columns} />
       </div>
     );
   }
@@ -57,19 +57,19 @@ class Discover extends Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSnippets(userId) {
-      dispatch(fetchUserSnippets(userId));
+    fetchAllSnippets() {
+      dispatch(fetchAllUserSnippets());
     },
-    disconnectSnippet(userId, snippetId) {
-      dispatch(removeUserSnippetConnection(userId, snippetId))
+    addSnippetConnection(userId, snippetId) {
+      dispatch(addUserSnippetConnection(userId, snippetId));
     }
   };
 };
 
 const mapState = (state) => {
   return {
-    snippets: state.snippets,
-    userId: 2
+    allSnippets: state.allSnippets,
+    userId: state.user.id
   };
 };
 

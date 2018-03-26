@@ -5,11 +5,13 @@ const GET_SNIPPETS = 'GET_SNIPPETS';
 const REMOVE_SNIPPET = 'REMOVE_SNIPPET';
 const ADD_SNIPPET = 'ADD_SNIPPET';
 const EDIT_SNIPPET = 'EDIT_SNIPPET';
+const ADD_SNIPPET_CONNECTION = 'ADD_SNIPPET_CONNECTION'
 
 const getSnippets = (snippets) => ({ type: GET_SNIPPETS, snippets });
 const removeSnippet = (snippetId) => ({type: REMOVE_SNIPPET, snippetId});
 const addSnippet = (snippet) => ({ type: ADD_SNIPPET, snippet });
 const editSnippet = (snippet) => ({ type: EDIT_SNIPPET, snippet });
+const addSnippetConnection = (snippet) => ({type: ADD_SNIPPET_CONNECTION, snippet});
 
 export default function (state = [], action) {
   switch (action.type) {
@@ -21,6 +23,8 @@ export default function (state = [], action) {
       return [action.snippet, ...state];
     case EDIT_SNIPPET:
       return [action.snippet, ...state.filter(oldSnippet => oldSnippet.id !== action.snippet.id)]
+    case ADD_SNIPPET_CONNECTION:
+      return []
     default:
       return state;
   }
@@ -35,19 +39,27 @@ export const fetchUserSnippets = (userId) => dispatch => {
     .catch(console.error);
 };
 
-export const postNewSnippet = (snippetObj) => dispatch => {
+export const postNewSnippet = (snippetObj, oldSnippetId) => dispatch => {
   //snippetObj: {userId, command, code}
   //{creatorId: req.body.userId, command: req.body.command, code: req.body.code}
   axios.post(`${serverUrl}/api/snippet/`, snippetObj)
     .then(res => res.data)
     .then(snippet => {
+      dispatch(addUserSnippetConnection(snippetObj.userId, snippet.id))
       dispatch(addSnippet(snippet));
+    })
+    .then(() => {
+      console.log('SOMETING HAPPENING')
+      if (oldSnippetId) {
+        console.log(oldSnippetId, 'old snippet ID')
+        dispatch(removeUserSnippetConnection(snippetObj.userId, oldSnippetId));
+      }
     })
     .catch(console.error);
 };
 
 export const removeUserSnippetConnection = (userId, snippetId) => dispatch => {
-  axios.delete(`${serverUrl}/api/users/${userId}/snippet/${snippetId}`)
+  axios.delete(`${serverUrl}/api/users/${userId}/snippets/${snippetId}`)
     .then(res => res.status)
     .then(status => {
       console.log(status);
@@ -62,3 +74,13 @@ export const changeSnippet = (snippetId, code, command) => dispatch => {
     .then(snippet => dispatch(editSnippet(snippet)))
     .catch(console.error);
 }
+
+export const addUserSnippetConnection = (userId, snippetId) => dispatch => {
+  axios.post(`http://localhost:8080/api/users/${userId}/snippets/${snippetId}`)
+    .then(res => res.data)
+    .then(snippet => {
+      console.log(snippet)
+      dispatch(addSnippet(snippet));
+    })
+    .catch(console.error);
+};

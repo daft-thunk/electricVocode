@@ -86,7 +86,7 @@ class Snippets extends Component {
 const mapState = (state, ownProps) => {
   return {
     snippets: state.snippets,
-    userId: 2,
+    userId: state.user.id,
     history: ownProps.history
   };
 };

@@ -1,11 +1,10 @@
 'use strict';
-
 import electron from 'electron';
 import { snippetsToDict } from './dictionary';
-// import path from 'path';
+
 
 const onSuccess = (phrase) => {
-  return new Notification('Hurd ya fam', { body: phrase });
+  return new Notification('Hurd ya fam', { body: phrase + ' macro copied to clipboard'});
 };
 
 const onFail = (phrase) => {
@@ -29,9 +28,6 @@ const interpreter = (speech, userSnippets, dictionary) => {
   // while (commandWords.length) {
   if (commandIdx > -1) {
     const currCommand = commandWords[0].toLowerCase(); // get first word
-
-    // this triggers menu bar display: (not being used?)
-    electron.ipcRenderer.send('successCommand', currCommand);
 
     const afterCommand = speechWordsArray.slice(commandIdx + 1);
     onSuccess(`▵${currCommand.toUpperCase()}▵ ${afterCommand.join(' ')}`);

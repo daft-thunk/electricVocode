@@ -65,18 +65,23 @@ app.on('ready', async () => {
 
   // TRAY AND TRAY LISTENERS
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Show App', click:  function(){
+    { label: 'Show App', click: () => {
         mainWindow.show();
     } },
-    { label: 'Quit', click:  function(){
+    { label: 'Quit', click: () => {
         app.isQuiting = true;
-        globalShortcut.unregisterAll()
+        globalShortcut.unregisterAll();
         app.quit();
     } }
 ]);
   tray = new Tray(path.join(__dirname, '..', 'triangle-blue.png'));
 
   tray.setContextMenu(contextMenu);
+
+  // global listener to open tray from any app:
+  globalShortcut.register('Alt+s', () => {
+    tray.popUpContextMenu();
+  });
 
   ipcMain.on('startRecording', () => {
     tray.setImage(path.join(__dirname, '..', 'triangle-red.png'));
@@ -86,7 +91,7 @@ app.on('ready', async () => {
   });
 
   //WINDOW NAV LISTENERS
-  //Event from app/utils/interpreter
+  //Event from app/utils/interpreter - show a web page, etc
   ipcMain.on('popUp', () => {
     mainWindow.show();
   });

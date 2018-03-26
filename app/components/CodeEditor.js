@@ -48,8 +48,7 @@ export class CodeEditor extends Component {
   }
 
   componentDidMount() {
-    if(this.props.currSnippet.code !== undefined)
-      this.setState({value: this.props.currSnippet.code})
+    if (this.props.currSnippet.code !== undefined) {this.setState({value: this.props.currSnippet.code})}
   }
 
   loadFile(event) {
@@ -124,12 +123,10 @@ export class CodeEditor extends Component {
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}
-        {/*
+        {
           this.props.mode <= 0 ? <h3>Sandbox</h3> :
           <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
-          */
         }
-        <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
         {/*TEXT EDITOR*/}
         <CodeMirror
           ref={codemirror => {
@@ -156,10 +153,7 @@ export class CodeEditor extends Component {
             [editor, data, value].forEach(item => {
               // console.log(item)
             });
-            // console.log(this.state.value, this.props.output)
-            // this.setState(prevState => {
-            //   return {value: prevState.value + this.props.output}
-            // })
+
           }}
         />
         {/*FILE SYSTEM: filename / upload file*/}

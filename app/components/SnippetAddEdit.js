@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { postNewSnippet, changeSnippet } from '../store/snippets';
+import { setMode } from '../store/mode';
+import { setSnippet } from '../store/currSnippet';
 
 const FormItem = Form.Item;
 
@@ -108,15 +110,21 @@ class SnippetAddEdit extends Component {
     if (!save) return;
 
     // this.props.addSnippet()
-    console.log('Command---', command);
-    console.log('Code----', code);
-    if (this.props.mode === 1) this.props.editSnippet(this.props.currId, code, command);
-    else if (this.props.mode === 2) this.props.addSnippet({command, code});
+    // console.log('Command---', command);
+    // console.log('Code----', code);
+    if (this.props.mode === 1) {
+      this.props.editSnippet(this.props.currId, code, command);
+    }
+    else if (this.props.mode === 2) {
+      const { id } = this.props.user;
+      // is this a fork or regular add?
+      if (this.props.currId) {
+        this.props.forkSnippet({ command, code, userId: id }, this.props.currId);
+      } else {
+        this.props.addSnippet({ command, code, userId: id });
+      }
+    }
 
-    //this.props.history.push('/snippets')
-
-    const { id } = this.props.user;
-    this.props.addSnippet({ command, code, userId: id });
   };
   handleFormChange = changedFields => {
     this.setState({
@@ -150,10 +158,20 @@ const mapState = (state, ownProps) => ({
 const mapDispatch = (dispatch, ownProps) => {
   return {
     addSnippet(snippet) {
-      return dispatch(postNewSnippet(snippet));
+      ownProps.history.push('/snippets')
+      dispatch(postNewSnippet(snippet));
+      dispatch(setMode('sandbox'))
     },
     editSnippet(snippetId, code, command) {
-      return dispatch(changeSnippet(snippetId, code, command));
+      ownProps.history.push('/snippets')
+      dispatch(changeSnippet(snippetId, code, command));
+      dispatch(setMode('sandbox'))
+    },
+    forkSnippet(snippet, oldSnippetId) {
+      console.log(oldSnippetId)
+      ownProps.history.push('/snippets')
+      dispatch(postNewSnippet(snippet, oldSnippetId));
+      dispatch(setMode('sandbox'));
     }
   };
 };
