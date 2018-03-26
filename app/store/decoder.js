@@ -2,26 +2,16 @@ import axios from 'axios';
 import interpreter from '../utils/interpreter';
 import { clipboard } from 'electron';
 import { cmdOutput } from './commands';
+import googleSpeech from '../utils/googleSpeech';
+
 const ADD = 'add';
 
 export const addOutput = (snippet) => ({type: ADD, snippet});
 
 export const addOutputThunk = (base64data, userSnippets, dictionary) => {
   return dispatch => {
-    axios.post('https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyBxs-oE9FfcxdCeLOgxP6Ia_ufy8QzijN0', {
-      config: {
-       encoding: 'LINEAR16',
-       sampleRateHertz: 44100,
-       languageCode: 'en-US',
-       speechContexts: {
-        phrases: ['github', 'stackoverflow']
-      }
-     },
-     audio: {
-       content: base64data
-     }
-  }).then(res => {
-    console.log(res.data);
+    googleSpeech(base64data, userSnippets, dictionary)
+    .then(res => {
     const parsed = res.data.results[0].alternatives[0].transcript;
     const interpreted = interpreter(parsed, userSnippets, dictionary);
     if (interpreted) {

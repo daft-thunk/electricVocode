@@ -1,11 +1,10 @@
 'use strict';
-
 import electron from 'electron';
 import { snippetsToDict } from './dictionary';
-// import path from 'path';
+
 
 const onSuccess = (phrase) => {
-  return new Notification('Hurd ya fam', { body: phrase });
+  return new Notification('Hurd ya fam', { body: phrase + ' macro copied to clipboard'});
 };
 
 const onFail = (phrase) => {
