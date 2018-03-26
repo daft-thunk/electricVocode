@@ -19,7 +19,8 @@ export const addOutputThunk = (base64data, userSnippets, dictionary) => {
       dispatch(addOutput(interpreted));
     }
     dispatch(cmdOutput(parsed));
-  });
+  })
+  .catch( () => new Notification('No input', {body: `I didn't hear anything`}));
   };
 };
 

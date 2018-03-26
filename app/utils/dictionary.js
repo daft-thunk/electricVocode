@@ -1,6 +1,6 @@
 'use strict';
 
-import { component, store, reducer, express, stateless, html, css } from './templates';
+import { component, store, reducer, express, stateless, html, css, webpack } from './templates';
 import * as wordMethods from './wordMethods';
 import { history } from '../store/user';
 import { ipcRenderer } from 'electron';
@@ -25,6 +25,7 @@ export const baseDictionary = {
   express: () => express,
   html: input => html(input),
   css: () => css,
+  webpack: () => webpack,
   //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
   github: () => {
     history.push(`/webView/github.com`);
@@ -33,6 +34,13 @@ export const baseDictionary = {
   stackoverflow: () => {
     history.push(`/webView/stackoverflow.com`);
     ipcRenderer.send('popUp');
+  },
+  waffle: () => {
+    history.push(`/webview/waffle.io`);
+    ipcRenderer.send('popUp');
+  },
+  learn: () => {
+    history.push('/webview/fullstackacademy.com');
   }
 };
 
