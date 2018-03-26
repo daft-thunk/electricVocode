@@ -32,7 +32,7 @@ export const fetchUserSnippets = (userId) => dispatch => {
 };
 
 export const postNewSnippet = (snippetObj) => dispatch => {
-  //snippetObj: {userId, command, code}
+  //snippetObj: {userId, command, code, description}
   //{creatorId: req.body.userId, command: req.body.command, code: req.body.code}
   axios.post(`${serverUrl}/api/snippet/`, snippetObj)
     .then(res => res.data)
