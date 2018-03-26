@@ -10,7 +10,15 @@
  *
  * @flow
  */
-import electron, { app, BrowserWindow, globalShortcut, clipboard, Tray, ipcMain, Menu } from 'electron';
+import electron, {
+  app,
+  BrowserWindow,
+  globalShortcut,
+  clipboard,
+  Tray,
+  ipcMain,
+  Menu
+} from 'electron';
 import MenuBuilder from './menu';
 import interpreter from './utils/interpreter';
 import addOutput from './store/decoder';
@@ -24,7 +32,10 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
-if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.DEBUG_PROD === 'true'
+) {
   require('electron-debug')();
   const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
@@ -34,16 +45,12 @@ if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = [
-    'REACT_DEVELOPER_TOOLS',
-    'REDUX_DEVTOOLS'
-  ];
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
-  return Promise
-    .all(extensions.map(name => installer.default(installer[name], forceDownload)))
-    .catch(console.log);
+  return Promise.all(
+    extensions.map(name => installer.default(installer[name], forceDownload))
+  ).catch(console.log);
 };
-
 
 /**
  * Add event listeners...
@@ -57,23 +64,39 @@ app.on('window-all-closed', () => {
   }
 });
 
-
 app.on('ready', async () => {
-  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.DEBUG_PROD === 'true'
+  ) {
     await installExtensions();
   }
 
   // TRAY AND TRAY LISTENERS
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Show App', click: () => {
+    {
+      label: 'Open Tray',
+      accelerator: 'Alt+S',
+      click: () => {
         mainWindow.show();
-    } },
-    { label: 'Quit', click: () => {
+      }
+    },
+    {
+      label: 'Show App',
+      click: () => {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Quit',
+      accelerator: 'Command+Q',
+      click: () => {
         app.isQuiting = true;
         globalShortcut.unregisterAll();
         app.quit();
-    } }
-]);
+      }
+    }
+  ]);
   tray = new Tray(path.join(__dirname, '..', 'triangle-blue.png'));
 
   tray.setContextMenu(contextMenu);
@@ -102,7 +125,6 @@ app.on('ready', async () => {
     height: 728
   });
 
-
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
@@ -115,21 +137,20 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
-  mainWindow.on('minimize', function(event){
+  mainWindow.on('minimize', function(event) {
     event.preventDefault();
     mainWindow.hide();
-});
+  });
 
-  mainWindow.on('close', (event) => {
-    if (!app.isQuiting){
+  mainWindow.on('close', event => {
+    if (!app.isQuiting) {
       event.preventDefault();
       mainWindow.hide();
-  }
+    }
 
-  return false;
+    return false;
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
-
 });

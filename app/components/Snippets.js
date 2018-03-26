@@ -14,6 +14,7 @@ class Snippets extends Component {
 
     this.removeSnippet = this.removeSnippet.bind(this);
     this.editSnippet = this.editSnippet.bind(this);
+    this.forkSnippet = this.forkSnippet.bind(this);
   }
 
   componentDidMount() {
@@ -22,11 +23,13 @@ class Snippets extends Component {
 
   removeSnippet(snippetId) {
     this.props.disconnectSnippet(this.props.userId, snippetId);
-    message.info('Snippet has been removed')
+    message.info('Snippet has been removed');
   }
 
   forkSnippet(snippetId) {
-
+    this.props.history.push('/main');
+    const snip = this.props.snippets.find(snippet => snippet.id === snippetId);
+    this.props.forkSnippet(snip);
   }
 
   editSnippet(snippetId) {
@@ -38,7 +41,7 @@ class Snippets extends Component {
   render() {
     console.log(this.props.snippets);
     const remText = 'Remove this snippet?';
-    const confirm = () => {message.info('Snippet has been removed')}
+    const confirm = () => {message.info('Snippet has been removed');};
     const columns = [{
       title: 'Command',
       dataIndex: 'command',
@@ -61,7 +64,7 @@ class Snippets extends Component {
           {
             this.props.userId === record.creatorId ?
             <Button icon="edit" onClick={() => this.editSnippet(record.id)} /> :
-            <Button icon="fork" />
+            <Button icon="fork" onClick={() => this.forkSnippet(record.id)} />
           }
           <Divider type="vertical" />
           <Popconfirm title={remText} onConfirm={() => this.removeSnippet(record.id)} okText="Yes" cancelText="No" >
@@ -94,11 +97,15 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchUserSnippets(userId));
     },
     disconnectSnippet(userId, snippetId) {
-      dispatch(removeUserSnippetConnection(userId, snippetId))
+      dispatch(removeUserSnippetConnection(userId, snippetId));
     },
     editSnippet(snippet) {
       dispatch(setSnippet(snippet));
-      dispatch(setMode('edit'))
+      dispatch(setMode('edit'));
+    },
+    forkSnippet(snippet) {
+      dispatch(setSnippet(snippet));
+      dispatch(setMode('add'));
     }
   };
 };

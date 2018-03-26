@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
-import { postNewSnippet } from '../store/snippets';
+import { postNewSnippet, changeSnippet } from '../store/snippets';
+import { setMode } from '../store/mode';
+import { setSnippet } from '../store/currSnippet';
 
 const FormItem = Form.Item;
 
@@ -12,9 +14,9 @@ const CustomizedForm = Form.create({
   },
   mapPropsToFields(props) {
     return {
-      name: Form.createFormField({
-        ...props.name,
-        value: props.name.value
+      description: Form.createFormField({
+        ...props.description,
+        value: props.description.value
       }),
       command: Form.createFormField({
         ...props.command,
@@ -33,10 +35,10 @@ const CustomizedForm = Form.create({
       className="responsive-container"
       onSubmit={props.onSubmit}
     >
-      <FormItem label="Snippet Name">
-        {getFieldDecorator('name', {
-          rules: [{ required: true, message: 'Snippet name is required!' }]
-        })(<Input name="name" />)}
+      <FormItem label="Snippet Description">
+        {getFieldDecorator('description', {
+          rules: [{ required: true, message: 'Snippet description is required!' }]
+        })(<Input name="description" />)}
       </FormItem>
       <FormItem label="Voice Command">
         {getFieldDecorator('command', {
@@ -58,7 +60,7 @@ class SnippetAddEdit extends Component {
 
     this.state = {
       fields: {
-        name: {
+        description: {
           value: ''
         },
         command: {
@@ -73,7 +75,7 @@ class SnippetAddEdit extends Component {
 
   componentDidMount() {
     const fields = {
-      name: { value: this.props.origCommand },
+      description: { value: this.props.origCommand },
       command: { value: this.props.origCommand }
     };
     console.log(fields);
@@ -85,18 +87,18 @@ class SnippetAddEdit extends Component {
     e.preventDefault();
     // validation here
 
-    console.log('clicked', this.state.fields.name.value);
+    console.log('clicked', this.state.fields.description.value);
 
     const command = e.target.command.value;
-    const name = e.target.name.value;
+    const description = e.target.description.value;
     const code = this.props.text;
     let save = true;
     if (command.length < 1) {
       message.error('Voice Command is required');
       save = false;
     }
-    if (name.length < 1) {
-      message.error('Name is required');
+    if (description.length < 1) {
+      message.error('description is required');
       save = false;
     }
     if (code.length < 1) {
@@ -108,11 +110,21 @@ class SnippetAddEdit extends Component {
     if (!save) return;
 
     // this.props.addSnippet()
-    console.log('Command---', command);
-    console.log('Code----', code);
+    // console.log('Command---', command);
+    // console.log('Code----', code);
+    if (this.props.mode === 1) {
+      this.props.editSnippet(this.props.currId, code, command);
+    }
+    else if (this.props.mode === 2) {
+      const { id } = this.props.user;
+      // is this a fork or regular add?
+      if (this.props.currId) {
+        this.props.forkSnippet({ command, code, userId: id }, this.props.currId);
+      } else {
+        this.props.addSnippet({ command, code, userId: id });
+      }
+    }
 
-    const { id } = this.props.user;
-    this.props.addSnippet({ command, code, userId: id });
   };
   handleFormChange = changedFields => {
     this.setState({
@@ -138,13 +150,28 @@ const mapState = (state, ownProps) => ({
   mode: state.mode,
   text: ownProps.text,
   origCommand: ownProps.command,
+  currId: state.currSnippet.id,
+  history: ownProps.history,
   user: state.user
 });
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    addSnippet(snippet) {
-      return dispatch(postNewSnippet(snippet));
+    addSnippet(snippet, userId) {
+      ownProps.history.push('/snippets')
+      dispatch(postNewSnippet(snippet));
+      dispatch(setMode('sandbox'))
+    },
+    editSnippet(snippetId, code, command) {
+      ownProps.history.push('/snippets')
+      dispatch(changeSnippet(snippetId, code, command));
+      dispatch(setMode('sandbox'))
+    },
+    forkSnippet(snippet, oldSnippetId) {
+      console.log(oldSnippetId)
+      ownProps.history.push('/snippets')
+      dispatch(postNewSnippet(snippet, oldSnippetId));
+      dispatch(setMode('sandbox'));
     }
   };
 };

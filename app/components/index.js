@@ -7,3 +7,8 @@ export {Login, Signup} from './Login';
 export {default as Snippets} from './Snippets';
 export {default as Menu} from './Menu';
 export {default as Discover} from './Discover';
+export {default as ProfileForm} from './ProfileForm';
+export {default as Profile} from './Profile';
+export {default as VoiceCommands} from './docs/VoiceCommands';
+export {default as KeyboardShortcuts} from './docs/KeyboardShortcuts';
+export {default as ChangeInfoForm} from './ChangeInfoForm';
