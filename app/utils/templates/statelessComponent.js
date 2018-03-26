@@ -10,13 +10,9 @@ import {connect} from 'react-redux'
  * STATELESS COMPONENT
  */
 const ${input} = props => {
-  return {
-    (
-      <div>
-        Add Content
-      </div>
-    )
-  }
+  return (
+    <div>Add Content</div>
+  )
 }
 
 /**
