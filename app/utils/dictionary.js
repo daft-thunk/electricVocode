@@ -13,9 +13,17 @@ export const baseDictionary = {
     return `for(let i = 0; i < array.length; i++){\n}`;
   },
   function: input => {
-    return `const ${wordMethods.camelCaseWords(input)} = (args) => {}`;
+    if (input.length) {
+      input = wordMethods.camelCaseWords(input);
+    } else {
+      input = 'myFunc';
+    }
+    return `const ${input} = (args) => {}`;
   },
   string: input => {
+    if (!input.length) {
+      input = ['my', 'string'];
+    }
     return `"${input.join(' ')}"`;
   },
   component: input => component(input),
