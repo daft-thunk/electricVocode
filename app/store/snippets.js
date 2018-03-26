@@ -4,12 +4,10 @@ import serverUrl from '../utils/serverUrl';
 const GET_SNIPPETS = 'GET_SNIPPETS';
 const REMOVE_SNIPPET = 'REMOVE_SNIPPET';
 const ADD_SNIPPET = 'ADD_SNIPPET';
-const ADD_SNIPPET_CONNECTION = 'ADD_SNIPPET_CONNECTION'
 
 const getSnippets = (snippets) => ({ type: GET_SNIPPETS, snippets });
 const removeSnippet = (snippetId) => ({type: REMOVE_SNIPPET, snippetId});
 const addSnippet = (snippet) => ({ type: ADD_SNIPPET, snippet });
-const addSnippetConnection = (snippet) => ({type: ADD_SNIPPET_CONNECTION, snippet});
 
 export default function (state = [], action) {
   switch (action.type) {
@@ -19,8 +17,6 @@ export default function (state = [], action) {
       return state.filter(snippet => snippet.id !== action.snippetId);
     case ADD_SNIPPET:
       return [action.snippet, ...state];
-    case ADD_SNIPPET_CONNECTION:
-      return []
     default:
       return state;
   }
