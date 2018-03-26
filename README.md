@@ -17,3 +17,6 @@ Users can call up a number of boilerplate snippets including:
 After login, a user can:
   - Add other user snippets with (+). These snippets can be forked and edited.
   - Create new snippets which can be called up by voice.
+
+Websites (github, stackoverflow, waffle) can be called up by voice. Homepages are shown by default. A user can add their screenname(s) via a Profile page.
+
