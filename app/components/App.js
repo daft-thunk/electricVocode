@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div className="App main-content">
         <header className="App-header">
-          <h1 id="home-title">VOCODE</h1>
+          <h1 className="App-title">VOCODE</h1>
         </header>
         <div>
           <div style={{margin: '0 auto'}} >
