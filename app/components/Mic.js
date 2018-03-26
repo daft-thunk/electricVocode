@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import electron, { ipcRenderer } from 'electron';
 import recorder from '../recorder';
 import initAudio from '../audio';
@@ -33,7 +33,7 @@ class Mic extends Component {
     // console.log(recorder)
     this.state.recorder.exportMonoWAV(blob => {
       console.log(blob);
-      this.blobify(blob);
+      this.blobify(blob, this.props);
     });
     this.state.recorder.stop();
     this.state.recorder.clear();
@@ -69,8 +69,8 @@ class Mic extends Component {
 }
 
 const mapProps = state => ({
-  commands: state.commands,
-  snippets: state.snippets
+  snippets: state.snippets,
+  commands: state.commands
 });
 
 export default connect(mapProps)(Mic);
