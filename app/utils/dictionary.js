@@ -41,6 +41,7 @@ export const baseDictionary = {
   },
   learn: () => {
     history.push('/webview/fullstackacademy.com');
+    ipcRenderer.send('popUp');
   }
 };
 
