@@ -22,7 +22,7 @@ After login, a user can:
 Websites (github, stackoverflow, waffle) can be called up by voice. Homepages are shown by default. A user can add their screenname(s) via a Profile page.
 
 ## Speech Keywords (not limited to the following)
-> \* = Wildcard available
+*\* = Wildcard available*
 
 #### "Component*," "Stateless*," "Reducer*," "Store*," "Express," "Webpack," "HTML*," "CSS," "Github," "StackOverflow," "Waffle"
 
