@@ -59,11 +59,12 @@ class MenuBar extends Component {
             <span>Profile</span>
           </Link>
           </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Favorites</span></span>}>
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+          <SubMenu key="sub1" title={<span><Icon type="info-circle" /><span>About</span></span>}>
+            <Menu.Item key="5">
+            <Link to="/docs/voice-commands">Voice Commands</Link>
+            </Menu.Item>
+            <Menu.Item key="6">Keyboard Shortcuts</Menu.Item>
+            <Menu.Item key="7">Documentation</Menu.Item>
           </SubMenu>
         </Menu>
       </div>
