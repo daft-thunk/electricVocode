@@ -12,7 +12,7 @@
 /* CONSTANTS */
 
 /* menu blue */
-/* #1890ff */ 
+/* #1890ff */
 
 /* dark blue */
 /* #037BB5 */
@@ -160,4 +160,19 @@ th > span {
 
 .discover-add-btn {
   padding-left: 5px;
+}
+
+.profile-info-section {
+  display: flex;
+  padding-bottom: 8px;
+}
+
+.reset-forms {
+  width: 30vw;
+  align-self: center;
+  padding: 10px
+}
+
+.profile-page {
+  margin-left: 5px;
 }
