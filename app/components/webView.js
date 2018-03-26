@@ -8,7 +8,7 @@ export default class SnippetView extends Component {
   render() {
     return (
       <div>
-        <webview src={`http://` + this.props.match.params.adress} style={{width: "80vw", height: "100vh"}}></webview>
+        <webview src={`http://` + this.props.match.params.address} style={{width: "80vw", height: "100vh"}}></webview>
       </div>
     );
   }
