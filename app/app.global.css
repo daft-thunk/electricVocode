@@ -176,3 +176,19 @@ th > span {
 .profile-page {
   margin-left: 5px;
 }
+
+#snippets-title {
+  font-size: 40px;
+  font-family: 'Share Tech Mono', monospace;
+  color: #323232;
+  margin-bottom: 2px;
+  padding-left: 10px;
+}
+
+.center {
+  width: calc(100vw - 256px);
+}
+
+.center button {
+  margin: auto;
+}

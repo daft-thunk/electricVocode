@@ -15,6 +15,7 @@ class Snippets extends Component {
     this.removeSnippet = this.removeSnippet.bind(this);
     this.editSnippet = this.editSnippet.bind(this);
     this.forkSnippet = this.forkSnippet.bind(this);
+    this.newSnippet = this.newSnippet.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +37,11 @@ class Snippets extends Component {
     this.props.history.push('/main');
     const snip = this.props.snippets.find(snippet => snippet.id === snippetId);
     this.props.editSnippet(snip);
+  }
+
+  newSnippet(event) {
+    event.preventDefault();
+    this.props.history.push('/main');
   }
 
   render() {
@@ -75,8 +81,11 @@ class Snippets extends Component {
     }];
     return (
       <div className="main-content">
-        <h2>Manage Snippets</h2>
+        <h2 id="snippets-title">Your Snippets</h2>
         <Table dataSource={this.props.snippets} columns={columns} />
+        <div className="center flex">
+        <Button type="primary" icon="plus" onClick={this.newSnippet} size={'large'}>Add Snippet</Button>
+        </div>
       </div>
     );
   }
