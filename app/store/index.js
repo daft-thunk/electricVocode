@@ -11,9 +11,10 @@ import user, {history} from './user';
 import snippets from './snippets';
 import mode from './mode';
 import currSnippet from './currSnippet';
+import allSnippets from './allSnippets';
 
 
-const reducer = combineReducers({decoder, commands, user, router, snippets, mode, currSnippet});
+const reducer = combineReducers({decoder, commands, user, router, snippets, mode, currSnippet, allSnippets});
 //const history = createMemoryHistory();
 
 const configureStore = (initialState = {}) => {
@@ -69,3 +70,4 @@ export * from './commands';
 export * from './user';
 export * from './snippets';
 export * from './dictionary';
+export * from './allSnippets';
