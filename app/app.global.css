@@ -20,6 +20,10 @@
 /* black-ish */
 /* #02111D */
 
+body {
+  background-color: #effaff;
+}
+
 .App {
   text-align: center;
 }
