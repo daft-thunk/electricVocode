@@ -21,12 +21,13 @@ After login, a user can:
 
 Websites (github, stackoverflow, waffle) can be called up by voice. Homepages are shown by default. A user can add their screenname(s) via a Profile page.
 
-### Speech Keywords (not limited to the following) * = Wildcard available
+## Speech Keywords (not limited to the following)
+> \* = Wildcard available
 
-"Component*," "Stateless*," "Reducer*," "Store*," "Express," "Webpack," "HTML*," "CSS," "Github," "StackOverflow," "Waffle"
+#### "Component*," "Stateless*," "Reducer*," "Store*," "Express," "Webpack," "HTML*," "CSS," "Github," "StackOverflow," "Waffle"
 
 - \* A wildcard is the set of words following the keyword. Example: Say "component user profile" and the component will be named according to the wildcard "user profile."
-- Speech is activated with the *global* shortcut 'Alt+Z' that can be used while *any* application is in focus.
+- The speech-listener is activated with the *global* shortcut 'Alt+Z' that can be used while *any* application is in focus. It listens for 2.5 seconds. Notifications are used to alert if speech was recognized.
 - Commands are copied to your clipboard after being recognized for easy pasting in your current text file.
 
 
