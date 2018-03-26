@@ -17,7 +17,7 @@ import allSnippets from './allSnippets';
 const reducer = combineReducers({decoder, commands, user, router, snippets, mode, currSnippet, allSnippets});
 //const history = createMemoryHistory();
 
-const configureStore = (initialState?: counterStateType) => {
+const configureStore = (initialState = {}) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];

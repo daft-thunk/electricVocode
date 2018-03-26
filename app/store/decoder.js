@@ -1,6 +1,6 @@
 import axios from 'axios';
 import interpreter from '../utils/interpreter';
-import { clipboard } from 'electron';
+import electron, { clipboard } from 'electron';
 import { cmdOutput } from './commands';
 import googleSpeech from '../utils/googleSpeech';
 
