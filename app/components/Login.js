@@ -21,10 +21,43 @@ class LoginForm extends Component {
     return (
       <div className="login-container">
         <Form onSubmit={handleSubmit} name={name} className="login-form">
+          {name === 'signup' ?
+          <div>
+          <FormItem>
+            {getFieldDecorator('firstName', {
+              rules: [
+                { required: true, message: 'Please enter your name!' }
+              ]
+            })(
+              <Input
+                name="firstName"
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="First"
+              />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('lastName', {
+              rules: [
+                { required: true, message: 'Please enter your name!' }
+              ]
+            })(
+              <Input
+                name="lastName"
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Last"
+              />
+            )}
+          </FormItem>
+          </div> : "" }
           <FormItem>
             {getFieldDecorator('userName', {
               rules: [
-                { required: true, message: 'Please input your username!' }
+                { required: true, message: 'Please input your email!' }
               ]
             })(
               <Input
@@ -32,7 +65,7 @@ class LoginForm extends Component {
                 prefix={
                   <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder="Username"
+                placeholder="Email"
               />
             )}
           </FormItem>
@@ -67,8 +100,8 @@ class LoginForm extends Component {
             {displayName === 'Login' ? (
               <Link to="/signup">New? Register now!</Link>
             ) : (
-              <Link to="/">Have an account? Sign in here!</Link>
-            )}
+                <Link to="/">Have an account? Sign in here!</Link>
+              )}
           </FormItem>
           <Link to="/main">
             <Button onClick={guestSignin} type="primary" className="guest-btn">
@@ -91,7 +124,8 @@ class LoginForm extends Component {
 const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login'
+    displayName: 'Login',
+
   };
 };
 
@@ -107,10 +141,16 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       console.log('submit');
       evt.preventDefault();
+      let firstName = null;
+      let lastName = null;
       const formName = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      dispatch(auth(email, password, formName));
+      if (formName === 'signup') {
+        firstName = evt.target.firstName.value;
+        lastName = evt.target.firstName.value;
+      }
+      dispatch(auth(email, password, formName, firstName, lastName));
     },
     guestSignin(evt) {
       evt.preventDefault();

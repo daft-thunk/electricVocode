@@ -20,10 +20,6 @@ class MenuBar extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.props.user ? this.styleToggle = 'menu-bar-hidden' : this.styleToggle = 'menu-bar-hidden';
-  // }
-
   render() {
     console.log(this.props.user)
     return (
@@ -55,6 +51,12 @@ class MenuBar extends Component {
           <Link to="/discover">
             <Icon type="rocket" />
             <span>Discover</span>
+          </Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+          <Link to="/profile">
+            <Icon type="smile-o" />
+            <span>Profile</span>
           </Link>
           </Menu.Item>
           <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Favorites</span></span>}>
