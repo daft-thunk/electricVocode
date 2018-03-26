@@ -11,35 +11,80 @@ const FormItem = Form.Item;
 class ChangeUserInfoForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: {
+
+      }
+    };
+    this.checkSubmit = this.checkSubmit.bind(this);
+    this.validateInfo = this.validateInfo.bind(this);
+  }
+  checkSubmit(e, email, password) {
+    e.preventDefault()
+    this.setState({
+      data: {
+        ...this.validateInfo(e, email, password)
+      }
+    }, () => {
+      if (this.state.data.validateStatus === 'success') {
+        this.props.handleSubmit(e, email, password);
+      }
+    });
+  }
+
+  validateInfo(e, email, password) {
+    if (this.props.info === 'email') {
+      if (email === e.target.old.value) {
+        return {
+          validateStatus: 'success'
+        }
+      }
+      return {
+        validateStatus: 'error',
+        errorMsg: 'Incorrect email!',
+      }
+    }
+    if (e.target.new.value === e.target.old.value) {
+      return {
+        validateStatus: 'success'
+      }
+    }
+    return {
+      validateStatus: 'error',
+      errorMsg: 'Incorrect password!',
+    }
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { handleSubmit, name, displayName, guestSignin } = this.props;
+    const { handleSubmit, name, guestSignin, user } = this.props;
     console.log(this.props)
     return (
       <div className="reset-forms">
-        <Form onSubmit={handleSubmit} name={name} className="">
+        <Form onSubmit={(e) => this.checkSubmit(e, user.email, user.password)} name={this.props.info} className="">
           <h3>{`Reset ${this.props.info}:`}</h3>
-          <FormItem>
+          <FormItem
+            validateStatus={this.state.data.validateStatus}
+            help={this.state.data.errorMsg}
+          >
               <Input
                 name="old"
                 prefix={
-                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
-                }
-                type={this.props.info === 'email' ? "" : "password"}
-                placeholder={this.props.info === 'email' ? "Current Email" : "Current Password"}
-              />
+              <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+            }
+            type={this.props.info === 'email' ? '' : 'password'}
+            placeholder={this.props.info === 'email' ? 'Current Email' : 'Current Password'}
+            />
           </FormItem>
           <FormItem>
-              <Input
-                name="new"
-                prefix={
-                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-                }
-                type={this.props.info === 'email' ? "" : "password"}
-                placeholder={this.props.info === 'email' ? "New Email" : "New Password"}
-              />
+            <Input
+              name="new"
+              prefix={
+                <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+              }
+              type={this.props.info === 'email' ? "" : "password"}
+              placeholder={this.props.info === 'email' ? "New Email" : "New Password"}
+            />
           </FormItem>
           <FormItem>
             <Button
@@ -60,30 +105,24 @@ class ChangeUserInfoForm extends Component {
 const mapProps = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    user: state.user
   };
 };
 
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      console.log('submit');
+    handleSubmit(evt, userEmail, userPassword) {
+      console.log('hit')
       evt.preventDefault();
-      let firstName = null;
-      let lastName = null;
-      const formName = evt.target.name;
-      const email = evt.target.email.value;
-      const password = evt.target.password.value;
-      if (formName === 'signup') {
-        firstName = evt.target.firstName.value;
-        lastName = evt.target.firstName.value;
+      const type = evt.target.name;
+      const oldData = evt.target.old.value;
+      const newData = evt.target.new.value;
+      if (type === 'email' && oldData === userEmail) {
+        dispatch(auth(newData));
+      } else if (type === 'password' && oldData === userPassword) {
+        dispatch(auth(newData));
       }
-      dispatch(auth(email, password, formName, firstName, lastName));
-    },
-    guestSignin(evt) {
-      evt.preventDefault();
-      dispatch(auth('guest@guest.com', '123', 'Login'));
     }
   };
 };
