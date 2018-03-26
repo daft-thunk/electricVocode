@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { auth } from '../store/user';
+import { updateUser } from '../store/user';
 import { Form, Icon, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
@@ -21,22 +21,25 @@ class ChangeUserInfoForm extends Component {
   }
   checkSubmit(e, email, password) {
     e.preventDefault()
+    console.log(e)
     this.setState({
       data: {
         ...this.validateInfo(e, email, password)
       }
     }, () => {
       if (this.state.data.validateStatus === 'success') {
-        this.props.handleSubmit(e, email, password);
+        console.log(this.state.data.value)
+        this.props.handleSubmit(this.props.user.id, this.state.data.value, this.props.info);
       }
     });
   }
 
-  validateInfo(e, email, password) {
+  validateInfo(e, email) {
     if (this.props.info === 'email') {
       if (email === e.target.old.value) {
         return {
-          validateStatus: 'success'
+          validateStatus: 'success',
+          value: e.target.new.value
         }
       }
       return {
@@ -46,7 +49,8 @@ class ChangeUserInfoForm extends Component {
     }
     if (e.target.new.value === e.target.old.value) {
       return {
-        validateStatus: 'success'
+        validateStatus: 'success',
+        value: e.target.new.value
       }
     }
     return {
@@ -57,8 +61,7 @@ class ChangeUserInfoForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { handleSubmit, name, guestSignin, user } = this.props;
-    console.log(this.props)
+    const { user } = this.props;
     return (
       <div className="reset-forms">
         <Form onSubmit={(e) => this.checkSubmit(e, user.email, user.password)} name={this.props.info} className="">
@@ -112,17 +115,8 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt, userEmail, userPassword) {
-      console.log('hit')
-      evt.preventDefault();
-      const type = evt.target.name;
-      const oldData = evt.target.old.value;
-      const newData = evt.target.new.value;
-      if (type === 'email' && oldData === userEmail) {
-        dispatch(auth(newData));
-      } else if (type === 'password' && oldData === userPassword) {
-        dispatch(auth(newData));
-      }
+    handleSubmit(userId, newData, type) {
+    dispatch(updateUser(userId, newData, type));
     }
   };
 };

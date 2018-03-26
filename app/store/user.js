@@ -55,6 +55,17 @@ export const logout = () =>
       .catch(err => console.log(err));
   };
 
+export const updateUser = (userId, data, type) => {
+  return dispatch => {
+    axios.put(`${serverUrl}/api/users/${userId}`, { [`${type}`]: data })
+    .then(res => {
+      console.log(res.data)
+      dispatch(getUser(res.data));
+    })
+    .catch(err => console.log(err));
+  }
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
     case GET_USER:
