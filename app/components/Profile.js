@@ -28,6 +28,7 @@ class Profile extends Component {
     return (
       <div className="profile-page">
         <div className="profile-info-section">
+          <div className="profile-card">
           <Card
             hoverable
             style={{ width: 240 }}
@@ -38,8 +39,11 @@ class Profile extends Component {
               description={user.email}
             />
           </Card>
+          </div>
+          <div className="reset-section">
           <ChangeInfoForm info="email" />
           <ChangeInfoForm info="password" />
+          </div>
         </div>
         <h1>My Sites: </h1>
         <ProfileForm />

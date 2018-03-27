@@ -50,12 +50,11 @@ class ProfileForm extends Component {
           </Col>
         </Row>
         <Row>
+        <div className="save-btn">
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button type="primary" htmlType="submit">Save</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
-              Clear
-            </Button>
+          <Button type="primary" htmlType="submit">Save</Button>
           </Col>
+          </div>
         </Row>
       </Form>
     );
