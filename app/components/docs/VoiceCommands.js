@@ -63,7 +63,7 @@ const VoiceCommands = props => {
           {baseData.map((item, i) => {
             return (
               <Col md={6} style={colStyle} key={i}>
-                <a href={`#keyCommand-${i}`}>{item.title.toUpperCase()}</a>
+                <a href={`#com-${i}`}>{item.title.toUpperCase()}</a>
               </Col>
             );
           })}
@@ -82,7 +82,7 @@ const VoiceCommands = props => {
       </div>
       <Row style={{ marginTop: 15 }}>
         {baseData.map((card, i) => (
-          <div key={i} id={`keyCommand-${i}`}>
+          <div key={i} id={`com-${i}`}>
             <Col md={18} style={cardStyle}>
               <h2>{'Command: ' + card.title.toUpperCase()}</h2>
               <pre style={preStyle}>{card.content}</pre>
