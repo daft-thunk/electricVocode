@@ -94,14 +94,21 @@ export const addAlternates = (alternates, dictionary) => {
   return newDictionary;
 };
 
-const dictionary = addAlternates(alternatesDictionary, baseDictionary);
+const dictionary = addAlternates(alternatesDictionary, {...baseDictionary, ...urlDictionary});
 
 export default dictionary;
 
-export const snippetsToDict = (snippetsArray, dict) => {
+export const snippetsToDict = (snippetsArray, dict, urlDict) => {
   const newDict = { ...dict };
   snippetsArray.forEach(snippet => {
-    newDict[snippet.command] = () => `${snippet.code}`;
+    if (urlDict[snippet.command]) {
+      newDict[snippet.command] = () => {
+        history.push(`/webView/${snippet.code}`);
+        ipcRenderer.send('popUp');
+      };
+    } else {
+      newDict[snippet.command] = () => `${snippet.code}`;
+    }
   });
   return newDict;
 };
