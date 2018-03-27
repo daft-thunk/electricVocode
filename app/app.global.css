@@ -172,7 +172,7 @@ th > span {
 }
 
 .reset-forms {
-  width: 30vw;
+  width: 23vw;
   align-self: center;
   padding: 10px
 }
@@ -196,4 +196,30 @@ th > span {
 
 .center button {
   margin: auto;
+}
+.reset-section {
+  display: flex;
+  margin: auto;
+  border: solid rgb(137, 138, 138) 1px;
+  border-radius: 2%;
+}
+
+.ant-card-cover img {
+  height: 45vh;
+
+}
+.ant-card {
+  border: black solid 1px;
+  border-radius: 2%;
+}
+.ant-card-body {
+ padding: 10px;
+ padding-left: 15px;
+}
+.profile-card {
+  margin-top: 5px;
+}
+
+.save-btn {
+
 }
