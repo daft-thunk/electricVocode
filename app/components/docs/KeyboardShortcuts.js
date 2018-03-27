@@ -39,7 +39,11 @@ const data = [
  * STATELESS COMPONENT
  */
 const KeyboardShortcuts = props => {
-  return <Table columns={columns} dataSource={data} pagination={false}/>;
+  return (
+    <div className="main-content">
+      <Table columns={columns} dataSource={data} pagination={false}/>
+    </div>
+  );
 };
 
 /**

@@ -19,7 +19,7 @@ export const defaultUser = {};
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user});
-const removeUser = () => ({type: REMOVE_USER});
+export const removeUser = () => ({type: REMOVE_USER});
 
 /**
  * THUNK CREATORS
@@ -67,6 +67,7 @@ export const updateUser = (userId, data, type) => {
 }
 
 export default function (state = {}, action) {
+  console.log(action);
   switch (action.type) {
     case GET_USER:
       return action.user;
