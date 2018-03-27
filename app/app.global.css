@@ -191,6 +191,7 @@ th > span {
 
 .center {
   width: calc(100vw - 256px);
+  padding-top: 10px
 }
 
 .center button {
