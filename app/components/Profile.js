@@ -26,7 +26,7 @@ class Profile extends Component {
   render() {
     const { user } = this.props
     return (
-      <div className="profile-page">
+      <div className="profile-page main-content">
         <div className="profile-info-section">
           <div className="profile-card">
           <Card
@@ -45,7 +45,7 @@ class Profile extends Component {
           <ChangeInfoForm info="password" />
           </div>
         </div>
-        <h1>My Sites: </h1>
+        <h1 id="my-sites">My Sites: </h1>
         <ProfileForm />
       </div>
     );

@@ -25,7 +25,7 @@ class ProfileForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form className="ant-advanced-search-form main-content" onSubmit={this.handleSearch}>
+      <Form className="ant-advanced-search-form profile-form" onSubmit={this.handleSearch}>
         <Row gutter={24}>
           <Col span={8} key={0} style={{ display: 'block' }}>
             <FormItem label={`GitHub URL`}>
