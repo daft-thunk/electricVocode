@@ -38,7 +38,7 @@ const CustomizedForm = Form.create({
         })(<Input name="command" />)}
       </FormItem>
       <FormItem>
-        <AddDescription text="Save Snippet" handleSubmit={props.handleSubmit} />
+        <AddDescription text="Save Snippet" handleSubmit={props.handleSubmit} origDescription={props.origDescription} />
       </FormItem>
     </Form>
   );
@@ -62,7 +62,7 @@ class SnippetAddEdit extends Component {
 
   componentDidMount() {
     const fields = {
-      description: { value: this.props.origCommand },
+      description: { value: this.props.description },
       command: { value: this.props.origCommand }
     };
     this.setState({ fields });
@@ -75,7 +75,7 @@ class SnippetAddEdit extends Component {
 
     const command = this.state.fields.command.value;
     const code = this.props.text;
-    const description = values.description ? values.description : null;
+    const description = values.description;
     let save = true;
     if (command.length < 1) {
       message.error('Voice Command is required');
@@ -109,6 +109,7 @@ class SnippetAddEdit extends Component {
     });
   };
   render() {
+    console.log(this.props.origDescription)
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
@@ -117,6 +118,7 @@ class SnippetAddEdit extends Component {
           {...fields}
           onChange={this.handleFormChange}
           handleSubmit={this.handleSubmit}
+          origDescription={this.props.origDescription}
         />
       </div>
     );
@@ -127,6 +129,7 @@ const mapState = (state, ownProps) => ({
   mode: state.mode,
   text: ownProps.text,
   origCommand: ownProps.command,
+  origDescription: ownProps.description,
   currId: state.currSnippet.id,
   history: ownProps.history,
   user: state.user

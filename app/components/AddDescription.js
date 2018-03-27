@@ -5,6 +5,7 @@ const { TextArea } = Input;
 
 const DescriptionForm = Form.create()(
   class extends React.Component {
+
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -55,6 +56,8 @@ export default class addDescription extends React.Component {
     this.formRef = formRef;
   }
   render() {
+    console.log(this.props.origDescription)
+    const origDescription = this.props.origDescription;
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>{this.props.text}</Button>
@@ -63,6 +66,7 @@ export default class addDescription extends React.Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
+          description={origDescription ? origDescription : ''}
         />
       </div>
     );

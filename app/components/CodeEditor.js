@@ -126,7 +126,7 @@ export class CodeEditor extends Component {
         {/*FORM: Name / Command / Save Button*/}
         {
           this.props.user.id === 5 ? <Link to="/">Sign In</Link> :
-          <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
+          <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} description={this.props.currSnippet.description} name="nameee" />
         }
         {/*TEXT EDITOR*/}
         <CodeMirror
