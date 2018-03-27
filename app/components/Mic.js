@@ -28,6 +28,15 @@ class Mic extends Component {
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       let base64data = reader.result.split(',')[1];
+      let userUrls = [
+        {command: 'github',
+          code: this.props.user.githubURL},
+        {command: 'waffle',
+          code: this.props.user.waffleURL},
+        {command: 'stackoverflow',
+        code: this.props.user.stackoverflowURL}
+      ];
+      snippets.concat(userUrls);
       store.dispatch(addOutputThunk(base64data, snippets, dictionary));
     };
   }
