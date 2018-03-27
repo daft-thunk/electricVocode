@@ -33,6 +33,10 @@ body {
   padding: 3px;
 }
 
+.main-content {
+  width: calc(100% - 256px);
+}
+
 #home-title {
   font-family: 'Share Tech Mono', monospace;
   color: #ffffff;
