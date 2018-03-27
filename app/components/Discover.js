@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
 import { Test } from './Test';
-import { fetchAllUserSnippets } from '../store/allSnippets';
+import { fetchAllSnippets } from '../store/allSnippets';
 import {addUserSnippetConnection} from '../store/snippets';
 import SnippetView from './SnippetView';
 
@@ -15,7 +15,7 @@ class Discover extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAllSnippets();
+    this.props.fetchSnippets();
   }
 
   addCode(snippetId) {
@@ -47,8 +47,8 @@ class Discover extends Component {
     }];
     return (
       <div className="main-content">
-        <h2>Discover New Snippets</h2>
-        <Table dataSource={this.props.allSnippets} columns={columns} />
+        <h2 className="title">Discover</h2>
+        <Table dataSource={this.props.allSnippets} columns={columns} pagination={{pageSize: 8}}/>
       </div>
     );
   }
@@ -57,8 +57,8 @@ class Discover extends Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchAllSnippets() {
-      dispatch(fetchAllUserSnippets());
+    fetchSnippets() {
+      dispatch(fetchAllSnippets());
     },
     addSnippetConnection(userId, snippetId) {
       dispatch(addUserSnippetConnection(userId, snippetId));

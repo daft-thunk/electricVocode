@@ -16,7 +16,7 @@ export default function (state = [], action) {
   }
 }
 
-export const fetchAllUserSnippets = () => dispatch => {
+export const fetchAllSnippets = () => dispatch => {
   axios.get(`${serverUrl}/api/snippet/`)
     .then(res => res.data)
     .then(snippets => {
