@@ -4,7 +4,7 @@ import { snippetsToDict } from './dictionary';
 
 
 const onSuccess = (phrase) => {
-  return new Notification('Hurd ya fam', { body: phrase + ' macro copied to clipboard'});
+  return new Notification('Hurd ya fam', { body: phrase });
 };
 
 const onFail = (phrase) => {

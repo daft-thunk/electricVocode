@@ -76,7 +76,6 @@ app.on('ready', async () => {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show App',
-      accelerator: 'Alt+S',
       click: () => {
         mainWindow.show();
       }
@@ -96,7 +95,7 @@ app.on('ready', async () => {
   tray.setContextMenu(contextMenu);
 
   // global listener to open tray from any app:
-  globalShortcut.register('Alt+s', () => {
+  globalShortcut.register('Alt+S', () => {
     tray.popUpContextMenu();
   });
 
