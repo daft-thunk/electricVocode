@@ -34,6 +34,10 @@ export const baseDictionary = {
   html: input => html(input),
   css: () => css,
   webpack: () => webpack,
+  /* Pretty please put webviews into the urlDictionary below */
+};
+
+export const urlDictionary = {
   //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
   github: () => {
     history.push(`/webView/github.com`);

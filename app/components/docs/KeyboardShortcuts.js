@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Icon, Divider } from 'antd';
+import { Table } from 'antd';
 import { connect } from 'react-redux';
 
 const columns = [
@@ -12,6 +12,11 @@ const columns = [
     title: 'Function',
     dataIndex: 'func',
     key: 'func'
+  },
+  {
+    title: 'Global',
+    dataIndex: 'global',
+    key: 'global'
   }
 ];
 
@@ -19,12 +24,14 @@ const data = [
   {
     key: '1',
     keyCombo: 'Alt + Z',
-    func: 'Start Listening (2.5 seconds)'
+    func: 'Start Listening (2.5 seconds)',
+    global: 'Yes'
   },
   {
     key: '2',
     keyCombo: 'Alt + S',
-    func: 'Open Tray Menu'
+    func: 'Open Tray Menu',
+    global: 'Yes'
   }
 ];
 
