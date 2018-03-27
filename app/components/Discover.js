@@ -47,8 +47,8 @@ class Discover extends Component {
     }];
     return (
       <div className="main-content">
-        <h2>Discover New Snippets</h2>
-        <Table dataSource={this.props.allSnippets} columns={columns} />
+        <h2 className="title">Discover</h2>
+        <Table dataSource={this.props.allSnippets} columns={columns} pagination={{pageSize: 8}}/>
       </div>
     );
   }

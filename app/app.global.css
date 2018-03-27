@@ -177,7 +177,7 @@ th > span {
   margin-left: 5px;
 }
 
-#snippets-title {
+.title {
   font-size: 40px;
   font-family: 'Share Tech Mono', monospace;
   color: #323232;
