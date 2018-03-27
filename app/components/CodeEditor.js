@@ -121,6 +121,7 @@ export class CodeEditor extends Component {
       lineWrapping: true,
       autofocus: true
     };
+
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}

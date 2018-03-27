@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { Card } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { ProfileForm, ChangeInfoForm } from '.';
+import ProfileForm from './ProfileForm';
+import ChangeInfoForm from './ChangeInfoForm';
 const { Meta } = Card;
 
 class Profile extends Component {
   state = {
     expand: false,
   };
-
-  handleSearch = (e) => {
-
-  }
 
   handleReset = () => {
     this.props.form.resetFields();
