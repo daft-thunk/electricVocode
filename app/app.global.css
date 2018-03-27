@@ -220,6 +220,8 @@ th > span {
   margin-top: 5px;
 }
 
-.save-btn {
-
+.flex-form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
 }
