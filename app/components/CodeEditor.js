@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FileSystem from './FileSystem';
 import SnippetAddEdit from './SnippetAddEdit';
 
@@ -124,8 +125,8 @@ export class CodeEditor extends Component {
       <div>
         {/*FORM: Name / Command / Save Button*/}
         {
-          this.props.mode <= 0 ? <h3>Sandbox</h3> :
-          <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} name="nameee" />
+          this.props.user.id === 5 ? <Link to="/">Sign In</Link> :
+          <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} description={this.props.currSnippet.description} name="nameee" />
         }
         {/*TEXT EDITOR*/}
         <CodeMirror
@@ -166,7 +167,8 @@ export class CodeEditor extends Component {
 const mapState = state => ({
   output: state.decoder,
   mode: state.mode,
-  currSnippet: state.currSnippet
+  currSnippet: state.currSnippet,
+  user: state.user
 });
 
 export default connect(mapState)(CodeEditor);

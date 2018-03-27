@@ -94,15 +94,15 @@ const VoiceCommands = props => {
   );
 };
 
-/**
- * CONTAINER
- */
-const mapState = (state, ownProps) => {
-  return {};
-};
+// /**
+//  * CONTAINER
+//  */
+// const mapState = (state, ownProps) => {
+//   return {};
+// };
 
-const mapDispatch = (dispatch, ownProps) => {
-  return {};
-};
+// const mapDispatch = (dispatch, ownProps) => {
+//   return {};
+// };
 
-export default connect(mapState, mapDispatch)(VoiceCommands);
+// export default connect(mapState, mapDispatch)(VoiceCommands);
