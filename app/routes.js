@@ -17,7 +17,7 @@ export default () => (
       <Route path="/signup" component={Signup} />
       <Route path="/discover" component={Discover} />
       <Route path="/profile" component={Profile} />
-      <Route path="/docs/voice-commands" component={VoiceCommands} />
+      {/*<Route path="/docs/voice-commands" component={VoiceCommands} />*/}
       <Route path="/docs/keyboard-shortcuts" component={KeyboardShortcuts} />
       <Route path="/" component={Login} />
     </Switch>
