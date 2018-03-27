@@ -27,6 +27,8 @@ import path from 'path';
 
 let mainWindow = null;
 let tray = null;
+const iconPath1 = path.join(__dirname, 'dist', 'resources', 'triangle-blue.png');
+const iconPath2 = path.join(__dirname, 'dist', 'resources', 'triangle-red.png');
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -97,7 +99,7 @@ app.on('ready', async () => {
       }
     }
   ]);
-  tray = new Tray(path.join(__dirname, '..', 'triangle-blue.png'));
+  tray = new Tray(iconPath1);
 
   tray.setContextMenu(contextMenu);
 
@@ -107,10 +109,10 @@ app.on('ready', async () => {
   });
 
   ipcMain.on('startRecording', () => {
-    tray.setImage(path.join(__dirname, '..', 'triangle-red.png'));
+    tray.setImage(iconPath2);
   });
   ipcMain.on('stopRecording', () => {
-    tray.setImage(path.join(__dirname, '..', 'triangle-blue.png'));
+    tray.setImage(iconPath1);
   });
 
   //WINDOW NAV LISTENERS

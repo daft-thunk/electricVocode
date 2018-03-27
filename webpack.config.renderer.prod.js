@@ -172,11 +172,11 @@ export default merge.smart(baseConfig, {
       },
       {
         from: './app/triangle-blue.png',
-        to: './'
+        to: './resources'
       },
       {
         from: './app/triangle-red.png',
-        to: './'
+        to: './resources'
       }
     ]),
 

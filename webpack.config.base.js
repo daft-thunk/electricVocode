@@ -17,9 +17,14 @@ export default {
         loader: 'babel-loader',
         options: {
           cacheDirectory: true
-        }
+        },
       }
-    }]
+    },
+    {
+      test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
+      use: 'url-loader'
+  }
+  ]
   },
 
   output: {
@@ -46,4 +51,5 @@ export default {
 
     new webpack.NamedModulesPlugin(),
   ],
+
 };
