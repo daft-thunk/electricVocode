@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input} from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
 const DescriptionForm = Form.create()(
-  class extends React.Component {
+  class extends Component {
 
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
@@ -30,7 +30,7 @@ const DescriptionForm = Form.create()(
   }
 );
 
-export default class addDescription extends React.Component {
+export default class addDescription extends Component {
   state = {
     visible: false,
   };
@@ -56,7 +56,6 @@ export default class addDescription extends React.Component {
     this.formRef = formRef;
   }
   render() {
-    console.log(this.props.origDescription)
     const origDescription = this.props.origDescription;
     return (
       <div>
@@ -66,7 +65,6 @@ export default class addDescription extends React.Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
-          description={origDescription ? origDescription : ''}
         />
       </div>
     );

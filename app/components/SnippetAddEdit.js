@@ -38,7 +38,7 @@ const CustomizedForm = Form.create({
         })(<Input name="command" />)}
       </FormItem>
       <FormItem>
-        <AddDescription text="Save Snippet" handleSubmit={props.handleSubmit} origDescription={props.origDescription} />
+        <AddDescription text="Save Snippet" handleSubmit={props.handleSubmit} />
       </FormItem>
     </Form>
   );
@@ -109,7 +109,6 @@ class SnippetAddEdit extends Component {
     });
   };
   render() {
-    console.log(this.props.origDescription)
     // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
@@ -118,7 +117,6 @@ class SnippetAddEdit extends Component {
           {...fields}
           onChange={this.handleFormChange}
           handleSubmit={this.handleSubmit}
-          origDescription={this.props.origDescription}
         />
       </div>
     );
@@ -129,7 +127,6 @@ const mapState = (state, ownProps) => ({
   mode: state.mode,
   text: ownProps.text,
   origCommand: ownProps.command,
-  origDescription: ownProps.description,
   currId: state.currSnippet.id,
   history: ownProps.history,
   user: state.user
