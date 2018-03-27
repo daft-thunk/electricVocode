@@ -45,8 +45,10 @@ class Profile extends Component {
           <ChangeInfoForm info="password" />
           </div>
         </div>
+        <div className="flex-form">
         <h1>My Sites: </h1>
         <ProfileForm />
+        </div>
       </div>
     );
   }
