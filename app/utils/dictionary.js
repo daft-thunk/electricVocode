@@ -101,7 +101,14 @@ export default dictionary;
 export const snippetsToDict = (snippetsArray, dict) => {
   const newDict = { ...dict };
   snippetsArray.forEach(snippet => {
-    newDict[snippet.command] = () => `${snippet.code}`;
+    if (urlDictionary[snippet.command]) {
+      newDict[snippet.command] = () => {
+        history.push(`/webView/${snippet.code}`);
+        ipcRenderer.send('popUp');
+      };
+    } else {
+      newDict[snippet.command] = () => `${snippet.code}`;
+    }
   });
   return newDict;
 };
