@@ -23,48 +23,48 @@ class Mic extends Component {
     this.registerRecordShortcut = this.registerRecordShortcut.bind(this);
   }
 
-  blobify(blob, snippets) {
+  blobify(blob, snippets, user) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       let base64data = reader.result.split(',')[1];
       let userUrls = [
         {command: 'github',
-          code: this.props.user.githubURL},
+          code: user.githubURL},
         {command: 'waffle',
-          code: this.props.user.waffleURL},
+          code: user.waffleURL},
         {command: 'stackoverflow',
-        code: this.props.user.stackoverflowURL}
+        code: user.stackoverflowURL}
       ];
-      snippets.concat(userUrls);
+      snippets = snippets.concat(userUrls);
       store.dispatch(addOutputThunk(base64data, snippets, dictionary));
     };
   }
 
-  stopRecording(snippets) {
+  stopRecording(snippets, user) {
     // console.log(recorder)
     this.state.recorder.exportMonoWAV(blob => {
       console.log(blob);
-      this.blobify(blob, snippets);
+      this.blobify(blob, snippets, user);
     });
     this.state.recorder.stop();
     this.state.recorder.clear();
   }
 
-  parseCommand(input) {
-    const words = input.split(' ');
-    const parsed = words.map(word => {
-      if (dictionary[word]) return `▵${word}▵`;
-      else return word;
-    });
-    return parsed;
-  }
+  // parseCommand(input) {
+  //   const words = input.split(' ');
+  //   const parsed = words.map(word => {
+  //     if (dictionary[word]) return `▵${word}▵`;
+  //     else return word;
+  //   });
+  //   return parsed;
+  // }
 
   registerRecordShortcut(props) {
     this.state.recorder.record();
     ipcRenderer.send('startRecording');
     setTimeout(() => {
-      this.stopRecording(props.allSnippets);
+      this.stopRecording(props.allSnippets, props.user);
       ipcRenderer.send('stopRecording');
     }, RECORD_TIME);
   }
@@ -83,13 +83,15 @@ class Mic extends Component {
   }
 
   render() {
+    // console.log('DICTIONARY / MIC', dictionary, this.props.user)
     return <div />;
   }
 }
 
 const mapProps = state => ({
   allSnippets: state.allSnippets,
-  commands: state.commands
+  commands: state.commands,
+  user: state.user
 });
 
 export default connect(mapProps)(Mic);
