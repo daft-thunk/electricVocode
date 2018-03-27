@@ -29,11 +29,13 @@ class Discover extends Component {
       title: 'Command',
       dataIndex: 'command',
       key: 'command',
+      width: 200,
     },
     {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      width: 500,
     },
     {
       title: 'View / Add Code',
@@ -48,7 +50,7 @@ class Discover extends Component {
     return (
       <div className="main-content">
         <h2 className="title">Discover</h2>
-        <Table dataSource={this.props.allSnippets} columns={columns} pagination={{pageSize: 8}}/>
+        <Table dataSource={this.props.allSnippets} columns={columns} pagination={{pageSize: 18}}/>
       </div>
     );
   }
