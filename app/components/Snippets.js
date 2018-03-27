@@ -46,7 +46,6 @@ class Snippets extends Component {
   }
 
   render() {
-    console.log(this.props.snippets);
     const remText = 'Remove this snippet?';
     const confirm = () => {message.info('Snippet has been removed');};
     const columns = [{
@@ -83,7 +82,7 @@ class Snippets extends Component {
     return (
       <div className="main-content">
         <h2 className="title">Your Snippets</h2>
-        <Table dataSource={this.props.snippets} columns={columns} scroll={false} />
+        <Table dataSource={this.props.snippets} columns={columns} />
         <div className="center flex">
         <Button type="primary" icon="plus" onClick={this.newSnippet} pagination={{pageSize: 8}}>Add Snippet</Button>
         </div>
