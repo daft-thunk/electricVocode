@@ -15,6 +15,7 @@ class Snippets extends Component {
     this.removeSnippet = this.removeSnippet.bind(this);
     this.editSnippet = this.editSnippet.bind(this);
     this.forkSnippet = this.forkSnippet.bind(this);
+    this.newSnippet = this.newSnippet.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +39,13 @@ class Snippets extends Component {
     this.props.editSnippet(snip);
   }
 
+  newSnippet(event) {
+    event.preventDefault();
+    this.props.history.push('/main');
+    this.props.addSnippet()
+  }
+
   render() {
-    console.log(this.props.snippets);
     const remText = 'Remove this snippet?';
     const confirm = () => {message.info('Snippet has been removed');};
     const columns = [{
@@ -75,8 +81,11 @@ class Snippets extends Component {
     }];
     return (
       <div className="main-content">
-        <h2>Manage Snippets</h2>
+        <h2 className="title">Your Snippets</h2>
         <Table dataSource={this.props.snippets} columns={columns} />
+        <div className="center flex">
+        <Button type="primary" icon="plus" onClick={this.newSnippet} pagination={{pageSize: 8}}>Add Snippet</Button>
+        </div>
       </div>
     );
   }
@@ -105,6 +114,9 @@ const mapDispatch = (dispatch) => {
     },
     forkSnippet(snippet) {
       dispatch(setSnippet(snippet));
+      dispatch(setMode('add'));
+    },
+    addSnippet() {
       dispatch(setMode('add'));
     }
   };
