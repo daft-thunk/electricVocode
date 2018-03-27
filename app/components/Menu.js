@@ -12,31 +12,19 @@ const SubMenu = Menu.SubMenu;
 class MenuBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      styleToggle: 'menu-bar-hidden'
-    };
   }
 
-  componentWillReceiveProps() {
-    if (!this.props.user) {
-      this.setState({ styleToggle: 'menu-bar' });
-    }
-  }
+
 
   render() {
-    console.log(this.props.user);
     return (
       <div style={{ width: 256 }}>
-        {/*<Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-          <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-    </Button>*/}
         <Menu
+        className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
-          inlineCollapsed={this.state.collapsed}
-          className={this.state.styleToggle}
         >
           <Menu.Item key="1">
             <Link to="/Main">
@@ -96,7 +84,7 @@ class MenuBar extends Component {
 
 const mapState = state => {
   return {
-    userId: state.user
+    user: state.user
   };
 };
 
