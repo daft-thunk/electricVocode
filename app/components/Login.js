@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store/user';
+import { setMode } from '../store/mode';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 const FormItem = Form.Item;
@@ -148,7 +149,7 @@ const mapDispatch = dispatch => {
       const password = evt.target.password.value;
       if (formName === 'signup') {
         firstName = evt.target.firstName.value;
-        lastName = evt.target.firstName.value;
+        lastName = evt.target.lastName.value;
       }
       dispatch(auth(email, password, formName, firstName, lastName));
     },

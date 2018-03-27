@@ -121,7 +121,6 @@ export class CodeEditor extends Component {
       lineWrapping: true,
       autofocus: true
     };
-    console.log(this.props.user.id);
     return (
       <div>
         {/*FORM: Name / Command / Save Button*/}

@@ -41,7 +41,7 @@ class Snippets extends Component {
   newSnippet(event) {
     event.preventDefault();
     this.props.history.push('/main');
-    this.props.addSnippet()
+    this.props.addSnippet();
   }
 
   render() {
@@ -81,7 +81,7 @@ class Snippets extends Component {
     return (
       <div className="main-content">
         <h2 className="title">Your Snippets</h2>
-        <Table dataSource={this.props.snippets} columns={columns} />
+        <Table dataSource={this.props.snippets} columns={columns} rowKey="id" />
         <div className="center flex">
         <Button type="primary" icon="plus" onClick={this.newSnippet} pagination={{pageSize: 8}}>Add Snippet</Button>
         </div>
