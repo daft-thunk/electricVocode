@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
 import { Test } from './Test';
 import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
