@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon } from 'antd';
+import { Form, Row, Col, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { updateURLS } from '../store/user';
@@ -59,15 +59,6 @@ class ProfileForm extends Component {
 const mapProps = state => {
   return {
     user: state.user
-  };
-};
-
-
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    user: state.user,
   };
 };
 
