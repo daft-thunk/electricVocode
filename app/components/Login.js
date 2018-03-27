@@ -125,14 +125,15 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-
+    user: state.user
   };
 };
 
 const mapSignup = state => {
   return {
     name: 'signup',
-    displayName: 'Sign Up'
+    displayName: 'Sign Up',
+    user: state.user,
   };
 };
 
