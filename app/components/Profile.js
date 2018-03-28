@@ -29,7 +29,7 @@ class Profile extends Component {
           <Card
             hoverable
             style={{ width: 240 }}
-            cover={<img alt="example" src="https://www.fillmurray.com/200/300" />}
+            cover={<img alt="example" src="http://1.bp.blogspot.com/-rQ1JQzDTXTU/UjZ4NQCOSXI/AAAAAAAAApg/CQQAWFN9d4w/s1600/Music_Daft_Punk-cdb13d892a544d3a8697b6ab6621b103.JPEG" />}
           >
             <Meta
               title={`${user.firstName} ${user.lastName}`}

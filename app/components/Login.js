@@ -156,7 +156,7 @@ const mapDispatch = dispatch => {
     },
     guestSignin(evt) {
       evt.preventDefault();
-      dispatch(auth('guest@guest.com', '123', 'Login'));
+      dispatch(auth('guest@daft-thunk.com', '123', 'Login'));
     }
   };
 };
