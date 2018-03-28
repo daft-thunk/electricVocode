@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {CodeEditor, Mic, Test, SnippetAddEdit} from '.';
+import {CodeEditor, Mic, SnippetAddEdit} from '.';
 import { Link, withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
+import { fetchUserSnippets } from '../store/snippets';
 import electron from 'electron';
 
 /*eslint-disable react/prefer-stateless-function*/
@@ -11,12 +12,16 @@ class App extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.fetchSnippets(this.props.user.id);
+  }
+
   render() {
     electron.remote.globalShortcut.register('Alt+q', () => {
        this.props.history.push('httpCodes');
     });
     console.log(this.props.ownProps);
-    console.log(this.props);
+    console.log('>>>App props',this.props);
     return (
       <div className="App main-content">
         <header className="App-header">
@@ -33,10 +38,8 @@ class App extends Component {
             </button>
             */}
           </div>
-          <div style={{width: 0}}>
-            <Mic />
-          </div>
         </div>
+        <Mic appProps={this.props.snippets} />
       </div>
     );
   }
@@ -45,8 +48,17 @@ class App extends Component {
 const mapState = (state, ownProps) => ({
   router: state.router,
   ownProps,
-  user: state.user
+  user: state.user,
+  snippets: state.snippets
 });
+
+const mapDispatch = (dispatch) => {
+  return {
+    fetchSnippets(userId) {
+      dispatch(fetchUserSnippets(userId));
+    }
+  };
+};
 
 // const mapDispatch = dispatch => {
 //   return {
@@ -56,4 +68,4 @@ const mapState = (state, ownProps) => ({
 //   }
 // }
 
-export default withRouter(connect(mapState)(App));
+export default withRouter(connect(mapState, mapDispatch)(App));
