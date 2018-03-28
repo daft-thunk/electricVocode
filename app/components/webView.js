@@ -11,8 +11,8 @@ export default class SnippetView extends Component {
     const webViewLen = '/webView'.length
     const location = this.props.location.pathname.slice(webViewLen + 1)
     return (
-      <div>
-        <webview src={`http://` + location} style={{width: '80vw', height: '100vh'}} />
+      <div className="main-content" style={{height:"100vh"}}>
+        <webview src={`http://` + location} style={{width: '100%', height: '100%'}} />
       </div>
     );
   }

@@ -20,7 +20,7 @@ export default function (state = [], action) {
     case ADD_SNIPPET:
       return [action.snippet, ...state];
     case EDIT_SNIPPET:
-      return [action.snippet, ...state.filter(oldSnippet => oldSnippet.id !== action.snippet.id)]
+      return [action.snippet, ...state.filter(oldSnippet => oldSnippet.id !== action.snippet.id)];
     default:
       return state;
   }
@@ -41,11 +41,12 @@ export const postNewSnippet = (snippetObj, oldSnippetId) => dispatch => {
   axios.post(`${serverUrl}/api/snippet/`, snippetObj)
     .then(res => res.data)
     .then(snippet => {
-      dispatch(addUserSnippetConnection(snippetObj.userId, snippet.id))
+      dispatch(addUserSnippetConnection(snippetObj.userId, snippet.id));
     })
     .then(() => {
+      dispatch(fetchUserSnippets(snippetObj.userId));
       if (oldSnippetId) {
-        console.log(oldSnippetId, 'old snippet ID')
+        console.log(oldSnippetId, 'old snippet ID');
         dispatch(removeUserSnippetConnection(snippetObj.userId, oldSnippetId));
       }
     })
@@ -67,14 +68,14 @@ export const changeSnippet = (snippetId, code, command) => dispatch => {
     .then(res => res.data)
     .then(snippet => dispatch(editSnippet(snippet)))
     .catch(console.error);
-}
+};
 
 export const addUserSnippetConnection = (userId, snippetId) => dispatch => {
-  console.log(userId)
+  console.log(userId);
   axios.post(`${serverUrl}/api/users/${userId}/snippets/${snippetId}`)
     .then(res => res.data)
     .then(snippet => {
-      console.log(snippet)
+      console.log(snippet);
       dispatch(addSnippet(snippet));
     })
     .catch(console.error);
