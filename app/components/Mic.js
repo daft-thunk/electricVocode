@@ -64,7 +64,7 @@ class Mic extends Component {
     this.state.recorder.record();
     ipcRenderer.send('startRecording');
     setTimeout(() => {
-      this.stopRecording(props.allSnippets, props.user);
+      this.stopRecording(props.snippets, props.user);
       ipcRenderer.send('stopRecording');
     }, RECORD_TIME);
   }
@@ -89,7 +89,7 @@ class Mic extends Component {
 }
 
 const mapProps = state => ({
-  allSnippets: state.allSnippets,
+  snippets: state.snippets,
   commands: state.commands,
   user: state.user
 });
