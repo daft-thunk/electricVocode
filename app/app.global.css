@@ -154,8 +154,10 @@ th > span {
 }
 
 .main-content {
+  position: relative;
   width: calc(100vw - 256px);
   padding: 5px;
+  left: 256px;
 }
 
 .discover-btn-row {
@@ -178,7 +180,18 @@ th > span {
 }
 
 .profile-page {
-  margin-left: 5px;
+  margin-right: 0px;
+}
+
+.profile-form {
+  width: 100%;
+  padding: 5px 80px;
+}
+
+#my-sites {
+  font-size: 35px;
+  margin-left: 40px;
+  margin-top: 25px;
 }
 
 .title {
@@ -224,4 +237,9 @@ th > span {
   display: flex;
   flex-direction: column;
   padding-top: 25px;
+}
+
+#side-menu {
+  position: fixed;
+  width: 256px;
 }

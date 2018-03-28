@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FileSystem from './FileSystem';
 import SnippetAddEdit from './SnippetAddEdit';
+import {removeUser} from '../store/user';
+import { Button } from 'antd';
 
 // these are now being imported in the global css file:
 // require('codemirror/lib/codemirror.css');
@@ -14,7 +16,7 @@ import SnippetAddEdit from './SnippetAddEdit';
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 
-export class CodeEditor extends Component {
+class CodeEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +30,7 @@ export class CodeEditor extends Component {
     this.setCursorPosition = this.setCursorPosition.bind(this);
     this.setCursorPositionToState = this.setCursorPositionToState.bind(this);
     this.loadFile = this.loadFile.bind(this);
+    this.toSignIn = this.toSignIn.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -111,6 +114,14 @@ export class CodeEditor extends Component {
 
     // return this.state.value
   }
+
+  toSignIn(ev) {
+    ev.preventDefault();
+    console.log('TO SIGN IN', this.props)
+    this.props.history.push('/');
+    this.props.resetUser();
+  }
+
   render() {
     const options = {
       mode: 'javascript',
@@ -126,7 +137,7 @@ export class CodeEditor extends Component {
       <div>
         {/*FORM: Name / Command / Save Button*/}
         {
-          this.props.user.id === 5 ? <Link to="/">Sign In</Link> :
+          this.props.user.id === 5 ? <Button onClick={this.toSignIn} >Sign In</Button> :
           <SnippetAddEdit text={this.state.value} mode={this.props.mode} command={this.props.currSnippet.command} description={this.props.currSnippet.description} name="nameee" />
         }
         {/*TEXT EDITOR*/}
@@ -165,11 +176,21 @@ export class CodeEditor extends Component {
   }
 }
 
-const mapState = state => ({
-  output: state.decoder,
-  mode: state.mode,
-  currSnippet: state.currSnippet,
-  user: state.user
-});
+const mapState = (state, ownProps) => {
+  console.log(ownProps)
+  return ({
+    output: state.decoder,
+    mode: state.mode,
+    currSnippet: state.currSnippet,
+    user: state.user,
+    history: ownProps.history
+  })
+};
 
-export default connect(mapState)(CodeEditor);
+const mapDispatch = dispatch => ({
+  resetUser() {
+    dispatch(removeUser());
+  }
+})
+
+export default connect(mapState, mapDispatch)(CodeEditor);
