@@ -39,7 +39,8 @@ class ChangeUserInfoForm extends Component {
       if (email === e.target.old.value) {
         return {
           validateStatus: 'success',
-          value: e.target.new.value
+          value: e.target.new.value,
+          successMsg: 'good',
         }
       }
       return {
@@ -69,6 +70,7 @@ class ChangeUserInfoForm extends Component {
           <FormItem
             validateStatus={this.state.data.validateStatus}
             help={this.state.data.errorMsg}
+            hasFeedback
           >
               <Input
                 name="old"
@@ -79,7 +81,11 @@ class ChangeUserInfoForm extends Component {
             placeholder={this.props.info === 'email' ? 'Current Email' : 'New Password'}
             />
           </FormItem>
-          <FormItem>
+          <FormItem
+            validateStatus={this.state.data.validateStatus}
+            help={this.state.data.errorMsg}
+            hasFeedback
+          >
             <Input
               name="new"
               prefix={
