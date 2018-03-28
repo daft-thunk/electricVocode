@@ -76,7 +76,7 @@ class ChangeUserInfoForm extends Component {
               <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
             }
             type={this.props.info === 'email' ? '' : 'password'}
-            placeholder={this.props.info === 'email' ? 'Current Email' : 'Current Password'}
+            placeholder={this.props.info === 'email' ? 'Current Email' : 'New Password'}
             />
           </FormItem>
           <FormItem>
@@ -86,7 +86,7 @@ class ChangeUserInfoForm extends Component {
                 <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
               }
               type={this.props.info === 'email' ? "" : "password"}
-              placeholder={this.props.info === 'email' ? "New Email" : "New Password"}
+              placeholder={this.props.info === 'email' ? "New Email" : "Re-Type New Password"}
             />
           </FormItem>
           <FormItem>
