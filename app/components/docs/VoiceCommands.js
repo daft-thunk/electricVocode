@@ -94,9 +94,9 @@ const VoiceCommands = props => {
   );
 };
 
-/**
- * CONTAINER
- */
+// /**
+//  * CONTAINER
+//  */
 const mapState = (state, ownProps) => {
   return {};
 };

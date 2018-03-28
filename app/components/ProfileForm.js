@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon } from 'antd';
+import { Form, Row, Col, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { updateURLS } from '../store/user';
 const FormItem = Form.Item;
 
 class ProfileForm extends Component {
@@ -9,59 +10,72 @@ class ProfileForm extends Component {
     expand: false,
   };
 
-  handleSearch = (e) => {
-
-  }
-
-  handleReset = () => {
-    this.props.form.resetFields();
-  }
-
-  toggle = () => {
-    const { expand } = this.state;
-    this.setState({ expand: !expand });
-  }
-
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { user, handleSubmit } = this.props;
     return (
-      <Form className="ant-advanced-search-form main-content" onSubmit={this.handleSearch}>
+      <Form className="ant-advanced-search-form main-content" onSubmit={(e) => handleSubmit(e, user.id)}>
         <Row gutter={24}>
           <Col span={8} key={0} style={{ display: 'block' }}>
             <FormItem label={`GitHub URL`}>
-              {getFieldDecorator(`field-${0}`)(
-                <Input placeholder="github.com" />
+              {getFieldDecorator(`field-${0}`, {
+                initialValue: user.githubURL
+              })(
+                <Input name="github" placeholder={user.githubURL} />
               )}
             </FormItem>
           </Col>
           <Col span={8} key={1} style={{ display: 'block' }}>
             <FormItem label={`Stack Overflow URL`}>
-              {getFieldDecorator(`field-${1}`)(
-                <Input placeholder="stackoverflow.com" />
+              {getFieldDecorator(`field-${1}`, {
+                initialValue: user.stackoverflowURL
+              })(
+                <Input name="stackoverflow" placeholder={user.stackoverflowURL} />
               )}
             </FormItem>
           </Col>
           <Col span={8} key={2} style={{ display: 'block' }}>
             <FormItem label={`Waffle Board URL`}>
-              {getFieldDecorator(`field-${2}`)(
-                <Input placeholder="waffle.io" />
+              {getFieldDecorator(`field-${2}`, {
+                initialValue: user.waffleURL
+              })(
+                <Input name="waffle" placeholder={user.waffleURL} />
               )}
             </FormItem>
           </Col>
         </Row>
         <Row>
+        <div className="save-btn">
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button type="primary" htmlType="submit">Save</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
-              Clear
-            </Button>
+          <Button type="primary" htmlType="submit">Save</Button>
           </Col>
+          </div>
         </Row>
       </Form>
     );
   }
 }
 
+const mapProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    handleSubmit(evt, userId) {
+      console.log('submit');
+      evt.preventDefault();
+      const github = evt.target.github.value;
+      const stackoverflow = evt.target.stackoverflow.value;
+      const waffle = evt.target.waffle.value;
+
+      dispatch(updateURLS(userId, github, stackoverflow, waffle));
+    }
+  };
+};
+
 const WrappedAdvancedProfileForm = Form.create()(ProfileForm);
 
-export default withRouter(connect()(WrappedAdvancedProfileForm));
+export default withRouter(connect(mapProps, mapDispatch)(WrappedAdvancedProfileForm));
