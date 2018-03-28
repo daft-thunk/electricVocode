@@ -1,6 +1,6 @@
 'use strict';
 import electron from 'electron';
-import { snippetsToDict } from './dictionary';
+import { snippetsToDict, urlDictionary } from './dictionary';
 
 
 const onSuccess = (phrase) => {
@@ -12,12 +12,11 @@ const onFail = (phrase) => {
 };
 
 const interpreter = (speech, userSnippets, dictionary) => {
-  console.log('speech',speech);
-  console.log(', userSnippets', userSnippets)
-  console.log('dictionary', dictionary)
+  // console.log('speech',speech);
+  // console.log(', userSnippets', userSnippets)
+  // console.log('dictionary', dictionary)
   // add to our default dictionary
-  console.log('>>>', snippetsToDict([{command: 'hey', code: 'hey'}], dictionary));
-  dictionary = snippetsToDict(userSnippets, dictionary);
+  dictionary = snippetsToDict(userSnippets, dictionary, urlDictionary);
   // console.log('>>>dict', dictionary)
   const speechWordsArray = speech.split(' ');
   let commandIdx = -1;
