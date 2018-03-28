@@ -29,17 +29,18 @@ class Discover extends Component {
       title: 'Command',
       dataIndex: 'command',
       key: 'command',
-      width: 200,
+      width: 160,
     },
     {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: 500,
+      width: 400,
     },
     {
       title: 'View / Add Code',
       key: 'code',
+      width: 160,
       render: (text, record) => (
         <span className="discover-btn-row">
           <SnippetView code={record.code} command={record.command} />
