@@ -41,23 +41,29 @@ class ChangeUserInfoForm extends Component {
           validateStatus: 'success',
           value: e.target.new.value,
           successMsg: 'good',
-        }
+        };
       }
       return {
         validateStatus: 'error',
-        errorMsg: 'Incorrect email!',
-      }
+        errorMsg: 'Incorrect Email!',
+      };
     }
     if (e.target.new.value === e.target.old.value) {
+      if (!e.taget) {
+        return {
+          validateStatus: 'error',
+          errorMsg: 'Password Can Not Be Blank!'
+        };
+      }
       return {
         validateStatus: 'success',
         value: e.target.new.value
-      }
+      };
     }
     return {
       validateStatus: 'error',
-      errorMsg: 'Incorrect password!',
-    }
+      errorMsg: 'Passwords Do Not Match!',
+    };
   }
 
   render() {
@@ -83,7 +89,6 @@ class ChangeUserInfoForm extends Component {
           </FormItem>
           <FormItem
             validateStatus={this.state.data.validateStatus}
-            help={this.state.data.errorMsg}
             hasFeedback
           >
             <Input
