@@ -18,7 +18,7 @@ class MenuBar extends Component {
 
   render() {
     return (
-      <div style={{ width: 256 }}>
+      <div id="side-menu" style={{ width: 256}}>
         <Menu
         className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
           defaultSelectedKeys={['1']}
@@ -29,7 +29,7 @@ class MenuBar extends Component {
           <Menu.Item key="1">
             <Link to="/Main">
               <Icon type="desktop" />
-              <span>Sandbox</span>
+              <span>New Snippet</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="2">

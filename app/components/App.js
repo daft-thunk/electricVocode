@@ -24,7 +24,7 @@ class App extends Component {
         </header>
         <div>
           <div style={{margin: '0 auto'}} >
-            <CodeEditor />
+            <CodeEditor history={this.props.ownProps.history}/>
             {/*
          <button>
               <Link to="/test" style={{ display: 'block', height: '100%' }}>
