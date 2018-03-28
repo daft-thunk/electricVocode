@@ -22,8 +22,3 @@ export default () => (
     </Switch>
   </AppContainer>
 );
-
-    //   {/*MIC IS MOUNTED HERE!*/}
-    //   <div style={{ width: 0 }}>
-    //   <Mic />
-    // </div>
