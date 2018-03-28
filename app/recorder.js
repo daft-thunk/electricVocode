@@ -1,6 +1,6 @@
 import path from 'path';
 import {ipcRenderer} from 'electron';
-import {Mic} from './components/Mic';
+// import {Mic} from './components/Mic';
 import store from './store';
 import { addOutputThunk } from './store/decoder';
 /*License (MIT)

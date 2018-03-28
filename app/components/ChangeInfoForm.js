@@ -49,7 +49,7 @@ class ChangeUserInfoForm extends Component {
       };
     }
     if (e.target.new.value === e.target.old.value) {
-      if (!e.taget) {
+      if (e.target.new.value === '') {
         return {
           validateStatus: 'error',
           errorMsg: 'Password Can Not Be Blank!'

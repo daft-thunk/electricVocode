@@ -17,9 +17,9 @@ class Snippets extends Component {
     this.newSnippet = this.newSnippet.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchSnippets(this.props.userId);
-  }
+  // componentDidMount() {
+  //   this.props.fetchSnippets(this.props.userId);
+  // }
 
   removeSnippet(snippetId) {
     this.props.disconnectSnippet(this.props.userId, snippetId);
