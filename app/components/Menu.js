@@ -6,15 +6,23 @@ import { push } from 'react-router-redux';
 import { Menu, Icon, Button } from 'antd';
 import electron from 'electron';
 import { setMode } from '../store/mode';
+import { setSnippet } from '../store/currSnippet';
 
 const SubMenu = Menu.SubMenu;
 
 class MenuBar extends Component {
   constructor(props) {
     super(props);
+
+    this.resetCurrDiv = this.resetCurrDiv.bind(this);
   }
 
-
+  resetCurrDiv(ev) {
+    ev.preventDefault();
+    console.log('HITTTINGGG')
+    this.props.history.push('/Main')
+    this.props.resetCurrSnippet();
+  }
 
   render() {
     return (
@@ -26,8 +34,8 @@ class MenuBar extends Component {
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="1">
-            <Link to="/Main">
+          <Menu.Item key="1" >
+            <Link to="/Main" onClick={this.resetCurrDiv}>
               <Icon type="desktop" />
               <span>New Snippet</span>
             </Link>
@@ -82,10 +90,20 @@ class MenuBar extends Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state, ownProps) => {
+  console.log('OWN PROPS',ownProps)
   return {
-    user: state.user
+    user: state.user,
+    history: ownProps.history
   };
 };
 
-export default connect(mapState)(MenuBar);
+const mapDispatch = dispatch => {
+  return {
+    resetCurrSnippet() {
+      dispatch(setSnippet({}));
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(MenuBar);
