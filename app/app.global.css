@@ -230,7 +230,8 @@ th > span {
  padding-left: 15px;
 }
 .profile-card {
-  margin-top: 10px;
+  margin-top: 6px;
+  margin-left: 6px
 }
 
 .flex-form {
@@ -242,4 +243,9 @@ th > span {
 #side-menu {
   position: fixed;
   width: 256px;
+}
+
+.ant-advanced-search-form {
+  margin-left: -220px;
+  width: 70vw;
 }
