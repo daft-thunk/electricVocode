@@ -42,7 +42,6 @@ export const postNewSnippet = (snippetObj, oldSnippetId) => dispatch => {
     .then(res => res.data)
     .then(snippet => {
       dispatch(addUserSnippetConnection(snippetObj.userId, snippet.id))
-      dispatch(addSnippet(snippet));
     })
     .then(() => {
       if (oldSnippetId) {
