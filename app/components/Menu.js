@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CodeEditor, Mic, Test, SnippetAddEdit } from '.';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
-import { Menu, Icon, Button } from 'antd';
+import { Menu, Icon } from 'antd';
 import electron from 'electron';
-import { setMode } from '../store/mode';
+// import { setMode } from '../store/mode';
 
 const SubMenu = Menu.SubMenu;
 
@@ -14,13 +13,11 @@ class MenuBar extends Component {
     super(props);
   }
 
-
-
   render() {
     return (
-      <div id="side-menu" style={{ width: 256}}>
+      <div id="side-menu" style={{ width: 256 }}>
         <Menu
-        className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
+          className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
@@ -67,9 +64,11 @@ class MenuBar extends Component {
             </Menu.Item>
             <Menu.Item key="7">
               <span
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
-                  electron.shell.openExternal(`http://github.com/daft-thunk/electricVocode#vocode`)
+                  electron.shell.openExternal(
+                    `http://github.com/daft-thunk/electricVocode#vocode`
+                  );
                 }}
               >
                 Documentation
@@ -87,5 +86,7 @@ const mapState = state => {
     user: state.user
   };
 };
+
+
 
 export default connect(mapState)(MenuBar);
