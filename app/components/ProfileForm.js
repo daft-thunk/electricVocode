@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Form, Row, Col, Input, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { updateURLS } from '../store/user';
@@ -47,7 +47,7 @@ class ProfileForm extends Component {
         <Row>
         <div className="save-btn">
           <Col span={24} style={{ textAlign: 'right' }}>
-          <Button type="primary" htmlType="submit">Save</Button>
+          <Button type="primary" htmlType="submit" onClick={info}>Save</Button>
           </Col>
           </div>
         </Row>
@@ -75,7 +75,9 @@ const mapDispatch = dispatch => {
     }
   };
 };
-
+const info = () => {
+  message.info('Changes Saved!');
+};
 const WrappedAdvancedProfileForm = Form.create()(ProfileForm);
 
 export default withRouter(connect(mapProps, mapDispatch)(WrappedAdvancedProfileForm));
