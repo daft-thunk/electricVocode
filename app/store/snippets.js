@@ -78,5 +78,6 @@ export const addUserSnippetConnection = (userId, snippetId) => dispatch => {
       console.log(snippet);
       dispatch(addSnippet(snippet));
     })
+    .then( () => dispatch(fetchUserSnippets(userId)))
     .catch(console.error);
 };

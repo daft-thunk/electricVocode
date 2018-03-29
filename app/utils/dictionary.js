@@ -3,7 +3,7 @@
 import { component, store, reducer, express, stateless, html, css, webpack } from './templates';
 import * as wordMethods from './wordMethods';
 import { history } from '../store/user';
-import { ipcRenderer } from 'electron';
+import electron, { ipcRenderer } from 'electron';
 
 export const baseDictionary = {
   while: () => {
@@ -34,26 +34,22 @@ export const baseDictionary = {
   html: input => html(input),
   css: () => css,
   webpack: () => webpack,
-  /* Pretty please put webviews into the urlDictionary below */
+  /* Pretty please put external links into the urlDictionary below */
 };
 
 export const urlDictionary = {
   //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
   github: () => {
-    history.push(`/webView/github.com`);
-    ipcRenderer.send('popUp');
+    electron.shell.openExternal('http://github.com');
   },
   stackoverflow: () => {
-    history.push(`/webView/stackoverflow.com`);
-    ipcRenderer.send('popUp');
+    electron.shell.openExternal('http://stackoverflow.com');
   },
   waffle: () => {
-    history.push(`/webview/waffle.io`);
-    ipcRenderer.send('popUp');
+    electron.shell.openExternal('http://waffle.io');
   },
   learn: () => {
-    history.push('/webview/fullstackacademy.com');
-    ipcRenderer.send('popUp');
+    electron.shell.openExternal('http://fullstackacademy.com');
   }
 };
 
@@ -103,8 +99,8 @@ export const snippetsToDict = (snippetsArray, dict, urlDict) => {
   snippetsArray.forEach(snippet => {
     if (urlDict[snippet.command]) {
       newDict[snippet.command] = () => {
-        history.push(`/webView/${snippet.code}`);
-        ipcRenderer.send('popUp');
+       electron.shell.openExternal(`http://${snippet.code}`);
+        // ipcRenderer.send('popUp');
       };
     } else {
       newDict[snippet.command] = () => `${snippet.code}`;
