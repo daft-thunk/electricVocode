@@ -34,7 +34,7 @@ Websites (github, stackoverflow, waffle) can be called up by voice. Homepages ar
 
 ### Download the App
 
-Visit [http://vocode.herokuapp.com/](http://vocode.herokuapp.com/) and click the 'Download' link. Available for MacOS.
+Visit [http://vocode.tk/](http://vocode.tk/) and click the 'Download' link. Available for MacOS.
 
 ### Development
 
