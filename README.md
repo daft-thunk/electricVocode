@@ -1,6 +1,6 @@
 # VOCODE
 
-[http://vocode.herokuapp.com/](http://vocode.herokuapp.com/)
+[http://vocode.tk/](http://vocode.tk/)
 
 ### Voice-controlled Snippet Management
 
