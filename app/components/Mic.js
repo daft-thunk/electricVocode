@@ -24,12 +24,10 @@ class Mic extends Component {
   }
 
   blobify(blob, snippets, user) {
-    console.log('bloby', snippets, user);
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       let base64data = reader.result.split(',')[1];
-      // console.log('end blob:', snippets, user);
       let userUrls = [
         {command: 'github',
           code: user.githubURL},
@@ -39,52 +37,35 @@ class Mic extends Component {
         code: user.stackoverflowURL}
       ];
       snippets = snippets.concat(userUrls);
-      // console.log('SNIPPETS:', snippets);
       store.dispatch(addOutputThunk(base64data, snippets, dictionary));
     };
   }
 
   stopRecording(snippets, user) {
-    // console.log(recorder)
     this.state.recorder.exportMonoWAV(blob => {
-      console.log(blob);//keep
-      // console.log('stop record', snippets, user);
       this.blobify(blob, snippets, user);
     });
     this.state.recorder.stop();
     this.state.recorder.clear();
   }
 
-  // parseCommand(input) {
-  //   const words = input.split(' ');
-  //   const parsed = words.map(word => {
-  //     if (dictionary[word]) return `▵${word}▵`;
-  //     else return word;
-  //   });
-  //   return parsed;
-  // }
-
   registerRecordShortcut(props) {
     this.state.recorder.record();
     ipcRenderer.send('startRecording');
     setTimeout(() => {
-      // console.log('register record', props);
       this.stopRecording(props.snippets, props.user);
       ipcRenderer.send('stopRecording');
     }, RECORD_TIME);
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('cwrp props', this.props, nextProps)
 
     // this is essential for re-registering the command
     electron.remote.globalShortcut.unregisterAll();
-    // const componProps = this.props;
     const componProps = nextProps;
     initAudio().then(_recorder => {
       this.setState({ recorder: _recorder }, () => {
         return electron.remote.globalShortcut.register('Alt+z', () => {
-          // console.log('COMPON PROPS', componProps);
           this.registerRecordShortcut(componProps);
         });
       });
@@ -92,7 +73,6 @@ class Mic extends Component {
   }
 
   render() {
-    // console.log('Mic props render', this.props);
     return <div style={{ width: 0 }} />;
   }
 }
@@ -106,14 +86,3 @@ const mapProps = state => ({
 const mapDispatch = null;
 
 export default connect(mapProps, mapDispatch)(Mic);
-
-/*
-    const parsedCommands = this.props.commands.map(this.parseCommand);
-    return (
-      <div>
-        {parsedCommands.map(command => (
-          <h3 key={command.join(' ')}> {command.join(' ')} </h3>
-        ))}
-      </div>
-    );
-*/

@@ -20,15 +20,13 @@ class ChangeUserInfoForm extends Component {
     this.validateInfo = this.validateInfo.bind(this);
   }
   checkSubmit(e, email, password) {
-    e.preventDefault()
-    console.log(e)
+    e.preventDefault();
     this.setState({
       data: {
         ...this.validateInfo(e, email, password)
       }
     }, () => {
       if (this.state.data.validateStatus === 'success') {
-        console.log(this.state.data.value)
         this.props.handleSubmit(this.props.user.id, this.state.data.value, this.props.info);
       }
     });
@@ -96,8 +94,8 @@ class ChangeUserInfoForm extends Component {
               prefix={
                 <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
               }
-              type={this.props.info === 'email' ? "" : "password"}
-              placeholder={this.props.info === 'email' ? "New Email" : "Re-Type New Password"}
+              type={this.props.info === 'email' ? '' : 'password'}
+              placeholder={this.props.info === 'email' ? 'New Email' : 'Re-Type New Password'}
             />
           </FormItem>
           <FormItem>

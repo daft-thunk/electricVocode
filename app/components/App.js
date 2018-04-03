@@ -20,8 +20,6 @@ class App extends Component {
     electron.remote.globalShortcut.register('Alt+q', () => {
        this.props.history.push('httpCodes');
     });
-    console.log(this.props.ownProps);
-    console.log('>>>App props',this.props);
     return (
       <div className="App main-content">
         <header className="App-header">

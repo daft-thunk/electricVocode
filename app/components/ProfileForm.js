@@ -65,7 +65,6 @@ const mapProps = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt, userId) {
-      console.log('submit');
       evt.preventDefault();
       const github = evt.target.github.value;
       const stackoverflow = evt.target.stackoverflow.value;

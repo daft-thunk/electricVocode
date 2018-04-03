@@ -34,7 +34,6 @@ class CodeEditor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('codeEditor: props', this.props);
     if (this.props.output.length < nextProps.output.length) {
       // this.setState({ newCommand: true });
       const output = nextProps.output;
@@ -52,18 +51,16 @@ class CodeEditor extends Component {
   }
 
   componentDidMount() {
-    if (this.props.currSnippet.code !== undefined) {this.setState({value: this.props.currSnippet.code})}
+    if (this.props.currSnippet.code !== undefined) {this.setState({value: this.props.currSnippet.code});}
   }
 
   loadFile(event) {
     const loaded = evt => {
       let fileString = evt.target.result;
       this.setState({ value: fileString });
-      console.log(fileString);
     };
 
     const file = event.target.files[0];
-    console.log('----Attempt to Load---+=++===+++', file);
     let reader = new FileReader();
 
     reader.onload = loaded;
@@ -71,8 +68,6 @@ class CodeEditor extends Component {
   }
 
   getTextAroundCursor(state) {
-    // console.log('props', this.props);
-    // console.log('state', state);
     const { cursor } = state;
     const arr = state.value.split('\n');
     const targetLine = arr[cursor.line];
@@ -88,9 +83,7 @@ class CodeEditor extends Component {
   }
 
   setCursorPositionToState(cursorObject) {
-    this.setState({ cursor: cursorObject }, () => {
-      // console.log('on state:', this.state);
-    });
+    this.setState({ cursor: cursorObject });
   }
 
   setCursorPosition() {
@@ -117,7 +110,6 @@ class CodeEditor extends Component {
 
   toSignIn(ev) {
     ev.preventDefault();
-    console.log('TO SIGN IN', this.props)
     this.props.history.push('/');
     this.props.resetUser();
   }
@@ -147,26 +139,12 @@ class CodeEditor extends Component {
           }}
           value={this.getCurrentValue()}
           options={options}
-          onCursorActivity={evt => {
-            // console.log('CODEMIRROR',this.codemirror)
-            // console.log(evt)
-            Promise.resolve(
-              this.setCursorPositionToState(this.getCursorPosition())
-            ).then(() => {
-              // console.log(this.getTextAroundCursor(this.state));
-            });
-          }}
-          onBlur={evt => {
-            console.log('BLUR:', evt);
+          onCursorActivity={() => {
+              this.setCursorPositionToState(this.getCursorPosition());
+
           }}
           onBeforeChange={(editor, data, value) => {
             this.setState({ value });
-          }}
-          onChange={(editor, data, value) => {
-            [editor, data, value].forEach(item => {
-              // console.log(item)
-            });
-
           }}
         />
         {/*FILE SYSTEM: filename / upload file*/}
@@ -177,20 +155,19 @@ class CodeEditor extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log(ownProps)
   return ({
     output: state.decoder,
     mode: state.mode,
     currSnippet: state.currSnippet,
     user: state.user,
     history: ownProps.history
-  })
+  });
 };
 
 const mapDispatch = dispatch => ({
   resetUser() {
     dispatch(removeUser());
   }
-})
+});
 
 export default connect(mapState, mapDispatch)(CodeEditor);

@@ -22,7 +22,6 @@ const CustomizedForm = Form.create({
     };
   },
   onValuesChange(_, values) {
-    // console.log(values);
   }
 })(props => {
   const { getFieldDecorator } = props.form;
@@ -109,7 +108,6 @@ class SnippetAddEdit extends Component {
     });
   };
   render() {
-    // console.log('SNIPPET ADD EDIT STATE:', this.state, this.props);
     const fields = this.state.fields;
     return (
       <div className="snippet-form">

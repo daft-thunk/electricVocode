@@ -29,7 +29,7 @@ export const me = () =>
     return axios.get(`${serverUrl}/auth/me`)
       .then(res =>
         dispatch(getUser(res.data || defaultUser)))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   };
 
 export const auth = (email, password, method, firstName, lastName) =>
@@ -45,21 +45,19 @@ export const auth = (email, password, method, firstName, lastName) =>
 
 export const logout = () =>
   dispatch => {
-    console.log('hiting logout')
     localStorage.clear();
     return axios.post(`${serverUrl}/auth/logout`)
       .then( () => {
         dispatch(removeUser());
         history.push('/login');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   };
 
 export const updateUser = (userId, data, type) => {
   return dispatch => {
     axios.put(`${serverUrl}/api/users/${userId}`, { [`${type}`]: data })
     .then(res => {
-      console.log(res.data)
       dispatch(getUser(res.data));
     })
     .catch(err => console.log(err));

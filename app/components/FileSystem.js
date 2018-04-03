@@ -19,7 +19,6 @@ class FileSystem extends Component {
 
   normFile = e => {
     // ant file upload
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -29,12 +28,10 @@ class FileSystem extends Component {
   editFilename(event) {
     event.preventDefault();
     let filename = event.target.value;
-    console.log(filename);
     this.setState({ filename });
   }
 
   saveFile() {
-    console.log(this.props.text);
     var pom = document.createElement('a');
     pom.setAttribute(
       'href',
