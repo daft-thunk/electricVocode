@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
-import { Test } from './Test';
+import Mic from './Mic';
 import { fetchUserSnippets, removeUserSnippetConnection } from '../store/snippets';
 import SnippetView from './SnippetView';
 import { setSnippet } from '../store/currSnippet';
@@ -17,9 +17,9 @@ class Snippets extends Component {
     this.newSnippet = this.newSnippet.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchSnippets(this.props.userId);
-  }
+  // componentDidMount() {
+  //   this.props.fetchSnippets(this.props.userId);
+  // }
 
   removeSnippet(snippetId) {
     this.props.disconnectSnippet(this.props.userId, snippetId);
@@ -85,6 +85,7 @@ class Snippets extends Component {
         <div className="center flex">
         <Button type="primary" icon="plus" onClick={this.newSnippet} pagination={{pageSize: 8}}>Add Snippet</Button>
         </div>
+        <Mic />
       </div>
     );
   }

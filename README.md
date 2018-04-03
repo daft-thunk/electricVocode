@@ -1,5 +1,7 @@
 # VOCODE
 
+[http://vocode.tk/](http://vocode.tk/)
+
 ### Voice-controlled Snippet Management
 
 *This desktop application built with Electron using the [electron-react-boilerplate.](https://github.com/chentsulin/electron-react-boilerplate)*
@@ -30,8 +32,10 @@ Websites (github, stackoverflow, waffle) can be called up by voice. Homepages ar
 - The speech-listener is activated with the *global* shortcut 'Alt+Z' that can be used while *any* application is in focus. It listens for 2.5 seconds. Notifications are used to alert if speech was recognized.
 - Commands are copied to your clipboard after being recognized for easy pasting in your current text file.
 
-### Running the App
+### Download the App
 
-This app is in beta, under current-development. To run in development mode: `npm run dev`. To run in production mode: `npm start`. Coming soon: packaging the app for installation under Mac, Windows, or Linux. We are currently only testing the Mac build.
+Visit [http://vocode.tk/](http://vocode.tk/) and click the 'Download' link. Available for MacOS.
 
+### Development
 
+To run in development mode: `npm run dev`. To run in production mode: `npm start`.

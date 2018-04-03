@@ -4,11 +4,11 @@ import { snippetsToDict, urlDictionary } from './dictionary';
 
 
 const onSuccess = (phrase) => {
-  return new Notification('Hurd ya fam', { body: phrase });
+  return new Notification('Command recognized!', { body: phrase });
 };
 
 const onFail = (phrase) => {
-  return new Notification(`Sorry I don't know that one, this is Josh's fault`, { body: phrase });
+  return new Notification(`Sorry I don't know that one Kevin.`, { body: phrase });
 };
 
 const interpreter = (speech, userSnippets, dictionary) => {

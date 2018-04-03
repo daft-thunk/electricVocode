@@ -1,35 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CodeEditor, Mic, Test, SnippetAddEdit } from '.';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
-import { Menu, Icon, Button } from 'antd';
+import { Menu, Icon } from 'antd';
 import electron from 'electron';
-import { setMode } from '../store/mode';
+import { setSnippet } from '../store/currSnippet';
 
 const SubMenu = Menu.SubMenu;
 
 class MenuBar extends Component {
   constructor(props) {
     super(props);
+
+    this.resetCurrDiv = this.resetCurrDiv.bind(this);
   }
 
-
+  resetCurrDiv(ev) {
+    ev.preventDefault();
+    console.log('HITTTINGGG')
+    this.props.history.push('/Main')
+    this.props.resetCurrSnippet();
+  }
 
   render() {
     return (
-      <div style={{ width: 256 }}>
+      <div id="side-menu" style={{ width: 256 }}>
         <Menu
-        className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
+          className={this.props.user.id ? 'menu-bar' : 'menu-bar-hidden'}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="1">
-            <Link to="/Main">
+          <Menu.Item key="1" >
+            <Link to="/Main" onClick={this.resetCurrDiv}>
               <Icon type="desktop" />
-              <span>Sandbox</span>
+              <span>New Snippet</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
@@ -67,9 +73,11 @@ class MenuBar extends Component {
             </Menu.Item>
             <Menu.Item key="7">
               <span
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
-                  electron.shell.openExternal(`http://github.com/daft-thunk/electricVocode#vocode`)
+                  electron.shell.openExternal(
+                    `http://github.com/daft-thunk/electricVocode#vocode`
+                  );
                 }}
               >
                 Documentation
@@ -82,10 +90,20 @@ class MenuBar extends Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state, ownProps) => {
+  console.log('OWN PROPS',ownProps)
   return {
-    user: state.user
+    user: state.user,
+    history: ownProps.history
   };
 };
 
-export default connect(mapState)(MenuBar);
+const mapDispatch = dispatch => {
+  return {
+    resetCurrSnippet() {
+      dispatch(setSnippet({}));
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(MenuBar);

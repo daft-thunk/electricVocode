@@ -15,7 +15,7 @@ export default class Root extends Component {
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>
         <div className="app-container">
-          <Menu />
+          <Menu history={this.props.history}/>
           <Routes className="routes"/>
         </div>
         </ConnectedRouter>

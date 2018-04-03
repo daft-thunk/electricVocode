@@ -135,17 +135,17 @@ const mapState = (state, ownProps) => ({
 const mapDispatch = (dispatch, ownProps) => {
   return {
     addSnippet(snippet) {
-      setTimeout(() => ownProps.history.push('/snippets'), 100);
+      ownProps.history.push('/snippets');
       dispatch(postNewSnippet(snippet));
       dispatch(setMode('add'));
     },
     editSnippet(snippetId, code, command) {
-      setTimeout(() => ownProps.history.push('/snippets'), 100);
+      ownProps.history.push('/snippets');
       dispatch(changeSnippet(snippetId, code, command));
       dispatch(setMode('add'));
     },
     forkSnippet(snippet, oldSnippetId) {
-      setTimeout(() => ownProps.history.push('/snippets'), 100);
+      ownProps.history.push('/snippets');
       dispatch(postNewSnippet(snippet, oldSnippetId));
       dispatch(setMode('add'));
     }

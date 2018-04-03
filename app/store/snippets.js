@@ -72,6 +72,7 @@ export const addUserSnippetConnection = (userId, snippetId) => dispatch => {
   axios.post(`${serverUrl}/api/users/${userId}/snippets/${snippetId}`)
     .then(res => res.data)
     .then(snippet => {
+
       dispatch(addSnippet(snippet));
     })
     .then( () => dispatch(fetchUserSnippets(userId)))

@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { Card } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { ProfileForm, ChangeInfoForm } from '.';
+import ProfileForm from './ProfileForm';
+import ChangeInfoForm from './ChangeInfoForm';
 const { Meta } = Card;
 
 class Profile extends Component {
   state = {
     expand: false,
   };
-
-  handleSearch = (e) => {
-
-  }
 
   handleReset = () => {
     this.props.form.resetFields();
@@ -26,13 +23,13 @@ class Profile extends Component {
   render() {
     const { user } = this.props
     return (
-      <div className="profile-page">
+      <div className="profile-page main-content">
         <div className="profile-info-section">
           <div className="profile-card">
           <Card
             hoverable
             style={{ width: 240 }}
-            cover={<img alt="example" src="https://www.fillmurray.com/200/300" />}
+            cover={<img alt="example" src="http://1.bp.blogspot.com/-rQ1JQzDTXTU/UjZ4NQCOSXI/AAAAAAAAApg/CQQAWFN9d4w/s1600/Music_Daft_Punk-cdb13d892a544d3a8697b6ab6621b103.JPEG" />}
           >
             <Meta
               title={`${user.firstName} ${user.lastName}`}
@@ -45,7 +42,7 @@ class Profile extends Component {
           <ChangeInfoForm info="password" />
           </div>
         </div>
-        <h1>My Sites: </h1>
+        <h1 id="my-sites">My Sites: </h1>
         <ProfileForm />
       </div>
     );
