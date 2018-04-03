@@ -28,13 +28,6 @@ class App extends Component {
         <div>
           <div style={{margin: '0 auto'}} >
             <CodeEditor history={this.props.ownProps.history}/>
-            {/*
-         <button>
-              <Link to="/test" style={{ display: 'block', height: '100%' }}>
-                test: button
-              </Link>
-            </button>
-            */}
           </div>
         </div>
         <Mic appProps={this.props.snippets} />

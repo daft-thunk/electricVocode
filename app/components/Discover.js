@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Divider, Button, Modal, Popconfirm, message } from 'antd';
-import { Test } from './Test';
 import { fetchAllSnippets } from '../store/allSnippets';
 import {addUserSnippetConnection} from '../store/snippets';
 import SnippetView from './SnippetView';

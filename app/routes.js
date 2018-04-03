@@ -2,9 +2,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import { Login, App, Snippets, Signup, Discover, Profile, VoiceCommands, KeyboardShortcuts } from './components';
-// import Test from './components/Test';
 import AppContainer from './containers/App';
-// import HomePage from './containers/HomePage';
 
 export default () => (
   <AppContainer>

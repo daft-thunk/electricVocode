@@ -8,16 +8,12 @@ const onSuccess = (phrase) => {
 };
 
 const onFail = (phrase) => {
-  return new Notification(`Sorry I don't know that one Kevin.`, { body: phrase });
+  return new Notification(`Sorry I don't know that one.`, { body: phrase });
 };
 
 const interpreter = (speech, userSnippets, dictionary) => {
-  // console.log('speech',speech);
-  // console.log(', userSnippets', userSnippets)
-  // console.log('dictionary', dictionary)
   // add to our default dictionary
   dictionary = snippetsToDict(userSnippets, dictionary, urlDictionary);
-  // console.log('>>>dict', dictionary)
   const speechWordsArray = speech.split(' ');
   let commandIdx = -1;
   const commandWords = speechWordsArray
@@ -27,9 +23,8 @@ const interpreter = (speech, userSnippets, dictionary) => {
       return found;
     }
   );
-  // while (commandWords.length) {
   if (commandIdx > -1) {
-    const currCommand = commandWords[0].toLowerCase(); // get first word
+    const currCommand = commandWords[0].toLowerCase();
 
     const afterCommand = speechWordsArray.slice(commandIdx + 1);
     onSuccess(`▵${currCommand.toUpperCase()}▵ ${afterCommand.join(' ')}`);

@@ -60,7 +60,7 @@ export const updateUser = (userId, data, type) => {
     .then(res => {
       dispatch(getUser(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
   }
 }
 
@@ -68,15 +68,13 @@ export const updateURLS = (userId, githubURL, stackoverflowURL, waffleURL) => {
   return dispatch => {
     axios.put(`${serverUrl}/api/users/${userId}`, { githubURL, stackoverflowURL, waffleURL })
     .then(res => {
-      console.log(res.data)
       dispatch(getUser(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
   }
 }
 
 export default function (state = {}, action) {
-  console.log(action);
   switch (action.type) {
     case GET_USER:
       return action.user;

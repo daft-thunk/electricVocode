@@ -69,5 +69,4 @@ export * from './decoder';
 export * from './commands';
 export * from './user';
 export * from './snippets';
-export * from './dictionary';
 export * from './allSnippets';
