@@ -17,7 +17,6 @@ class MenuBar extends Component {
 
   resetCurrDiv(ev) {
     ev.preventDefault();
-    console.log('HITTTINGGG')
     this.props.history.push('/Main')
     this.props.resetCurrSnippet();
   }
@@ -91,7 +90,6 @@ class MenuBar extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log('OWN PROPS',ownProps)
   return {
     user: state.user,
     history: ownProps.history

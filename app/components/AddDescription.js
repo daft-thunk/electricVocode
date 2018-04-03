@@ -47,7 +47,6 @@ export default class addDescription extends Component {
         return;
       }
       this.props.handleSubmit(values)
-      console.log('Received values of form: ', values);
       form.resetFields();
       this.setState({ visible: false });
     });

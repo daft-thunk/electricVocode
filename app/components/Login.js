@@ -18,7 +18,6 @@ class LoginForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { handleSubmit, name, displayName, guestSignin } = this.props;
-    console.log(this.props.history);
     return (
       <div className="login-container">
         <Form onSubmit={handleSubmit} name={name} className="login-form">
@@ -141,7 +140,6 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
-      console.log('submit');
       evt.preventDefault();
       let firstName = null;
       let lastName = null;
