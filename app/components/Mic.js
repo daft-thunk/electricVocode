@@ -59,7 +59,6 @@ class Mic extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     // this is essential for re-registering the command
     electron.remote.globalShortcut.unregisterAll();
     const componProps = nextProps;
