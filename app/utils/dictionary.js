@@ -2,8 +2,7 @@
 
 import { component, store, reducer, express, stateless, html, css, webpack } from './templates';
 import * as wordMethods from './wordMethods';
-import { history } from '../store/user';
-import electron, { ipcRenderer } from 'electron';
+import electron from 'electron';
 
 export const baseDictionary = {
   while: () => {
@@ -38,7 +37,7 @@ export const baseDictionary = {
 };
 
 export const urlDictionary = {
-  //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
+  //could make this a 'show' command followed by website wildcard eg "show *github*" or "show *stackoverflow*"
   github: () => {
     electron.shell.openExternal('http://github.com');
   },
@@ -100,7 +99,6 @@ export const snippetsToDict = (snippetsArray, dict, urlDict) => {
     if (urlDict[snippet.command]) {
       newDict[snippet.command] = () => {
        electron.shell.openExternal(`http://${snippet.code}`);
-        // ipcRenderer.send('popUp');
       };
     } else {
       newDict[snippet.command] = () => `${snippet.code}`;
