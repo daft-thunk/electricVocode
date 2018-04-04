@@ -1,13 +1,15 @@
 {
+  "parser": "babel-eslint",
+  "extends": "fullstack",
   "env": {
     "jest/globals": true
   },
-  "plugins": [
-    "jest"
-  ],
+  "plugins": ["jest"],
   "rules": {
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error"
+    "jest/no-identical-title": "error",
+    "semi": [1, "always"],
+    "new-cap": [1, { "capIsNewExceptions": ["Router"] }]
   }
 }
