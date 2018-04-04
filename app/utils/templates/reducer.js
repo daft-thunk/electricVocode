@@ -1,8 +1,9 @@
 import { upperUnderscoreWords, camelCaseWords } from '../wordMethods';
+import { validate } from '../dictionary';
 
 const reducer = input => {
-  const constant = input.length ? upperUnderscoreWords(input) : 'ACTION';
-  const actionCreator = input.length ? camelCaseWords(input) : 'doAction';
+  const constant = validate(input) ? upperUnderscoreWords(input) : 'ACTION';
+  const actionCreator = validate(input) ? camelCaseWords(input) : 'doAction';
   return `/**
  * ACTION TYPES
  */

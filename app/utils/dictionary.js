@@ -4,26 +4,24 @@ import { component, store, reducer, express, stateless, html, css, webpack } fro
 import * as wordMethods from './wordMethods';
 import electron from 'electron';
 
+export const validate = input => {
+  return Array.isArray(input) && input.length;
+};
+
 export const baseDictionary = {
   while: () => {
-    return `while (Josh === Salty){\nreturn tear\n}`;
+    return `while ('Josh' === 'Salty'){\nreturn 'tear'\n}`;
   },
   for: () => {
     return `for(let i = 0; i < array.length; i++){\n}`;
   },
   function: input => {
-    if (input.length) {
-      input = wordMethods.camelCaseWords(input);
-    } else {
-      input = 'myFunc';
-    }
+    input = validate(input) ? wordMethods.camelCaseWords(input) : 'myFunc';
     return `const ${input} = (args) => {}`;
   },
   string: input => {
-    if (!input.length) {
-      input = ['my', 'string'];
-    }
-    return `"${input.join(' ')}"`;
+    input = validate(input) ? input.join(' ') : 'my string';
+    return `"${input}"`;
   },
   component: input => component(input),
   stateless: input => stateless(input),
