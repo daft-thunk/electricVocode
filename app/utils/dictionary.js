@@ -2,29 +2,26 @@
 
 import { component, store, reducer, express, stateless, html, css, webpack } from './templates';
 import * as wordMethods from './wordMethods';
-import { history } from '../store/user';
-import electron, { ipcRenderer } from 'electron';
+import electron from 'electron';
+
+export const validate = input => {
+  return Array.isArray(input) && input.length;
+};
 
 export const baseDictionary = {
   while: () => {
-    return `while (Josh === Salty){\nreturn tear\n}`;
+    return `while ('Josh' === 'Salty'){\nreturn 'tear'\n}`;
   },
   for: () => {
     return `for(let i = 0; i < array.length; i++){\n}`;
   },
   function: input => {
-    if (input.length) {
-      input = wordMethods.camelCaseWords(input);
-    } else {
-      input = 'myFunc';
-    }
+    input = validate(input) ? wordMethods.camelCaseWords(input) : 'myFunc';
     return `const ${input} = (args) => {}`;
   },
   string: input => {
-    if (!input.length) {
-      input = ['my', 'string'];
-    }
-    return `"${input.join(' ')}"`;
+    input = validate(input) ? input.join(' ') : 'my string';
+    return `"${input}"`;
   },
   component: input => component(input),
   stateless: input => stateless(input),
@@ -38,7 +35,7 @@ export const baseDictionary = {
 };
 
 export const urlDictionary = {
-  //could make this a 'show' command followed by website wildcard eg show *github* show *stackoverflow*
+  //could make this a 'show' command followed by website wildcard eg "show *github*" or "show *stackoverflow*"
   github: () => {
     electron.shell.openExternal('http://github.com');
   },
@@ -100,7 +97,6 @@ export const snippetsToDict = (snippetsArray, dict, urlDict) => {
     if (urlDict[snippet.command]) {
       newDict[snippet.command] = () => {
        electron.shell.openExternal(`http://${snippet.code}`);
-        // ipcRenderer.send('popUp');
       };
     } else {
       newDict[snippet.command] = () => `${snippet.code}`;

@@ -1,5 +1,7 @@
+import { validate } from '../dictionary';
+
 const Store = (input) => {
-  input = input.length ? input.join(', ') : 'myReducer';
+  input = validate(input) ? input.join(', ') : 'myReducer';
   return `//npm install redux redux-logger redux-thunk redux-devtools-extension
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'

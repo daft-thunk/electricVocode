@@ -91,4 +91,6 @@ describe('Snippets Reducer', () => {
 
   })
 
+  describe('Thunk actions ')
+
 })

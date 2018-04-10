@@ -1,7 +1,8 @@
 import { pascalCaseWords } from '../wordMethods';
+import { validate } from '../dictionary';
 
 const statelessComponent = (input) => {
-  input = input.length ? pascalCaseWords(input) : 'StatelessComponent';
+  input = validate(input) ? pascalCaseWords(input) : 'StatelessComponent';
   return `//npm install react react-redux
 import React from 'react'
 import {connect} from 'react-redux'

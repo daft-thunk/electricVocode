@@ -1,7 +1,8 @@
 import { titlecaseWords } from '../wordMethods';
+import { validate } from '../dictionary';
 
 const html = input => {
-  input = titlecaseWords(input);
+  input = validate(input) ? titlecaseWords(input) : 'Title';
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
