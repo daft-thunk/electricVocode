@@ -1,15 +1,15 @@
 import axios from 'axios';
 import serverUrl from '../utils/serverUrl';
 
-const GET_SNIPPETS = 'GET_SNIPPETS';
-const REMOVE_SNIPPET = 'REMOVE_SNIPPET';
-const ADD_SNIPPET = 'ADD_SNIPPET';
-const EDIT_SNIPPET = 'EDIT_SNIPPET';
+export const GET_SNIPPETS = 'GET_SNIPPETS';
+export const REMOVE_SNIPPET = 'REMOVE_SNIPPET';
+export const ADD_SNIPPET = 'ADD_SNIPPET';
+export const EDIT_SNIPPET = 'EDIT_SNIPPET';
 
-const getSnippets = (snippets) => ({ type: GET_SNIPPETS, snippets });
-const removeSnippet = (snippetId) => ({type: REMOVE_SNIPPET, snippetId});
-const addSnippet = (snippet) => ({ type: ADD_SNIPPET, snippet });
-const editSnippet = (snippet) => ({ type: EDIT_SNIPPET, snippet });
+export const getSnippets = (snippets) => ({ type: GET_SNIPPETS, snippets });
+export const removeSnippet = (snippetId) => ({type: REMOVE_SNIPPET, snippetId});
+export const addSnippet = (snippet) => ({ type: ADD_SNIPPET, snippet });
+export const editSnippet = (snippet) => ({ type: EDIT_SNIPPET, snippet });
 
 export default function (state = [], action) {
   switch (action.type) {
