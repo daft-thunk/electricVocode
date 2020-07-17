@@ -197,7 +197,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "loader": "^2.1.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.19",
     "morgan": "^1.9.0",
     "mousetrap": "^1.6.1",
     "passport": "^0.4.0",
